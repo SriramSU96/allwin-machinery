@@ -5,6 +5,8 @@ import { urlForImage } from "@/lib/sanity";
 import { formatPrice, buildWhatsAppUrl, SITE_CONFIG } from "@/lib/utils";
 import { cn } from "@/lib/utils";
 
+
+
 interface ProductCardProps {
   product: Product;
   className?: string;
