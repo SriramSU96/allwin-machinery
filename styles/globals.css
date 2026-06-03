@@ -1,0 +1,142 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Inter:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-green: #1F4D3A;
+  --color-gold: #D4A017;
+  --color-dark: #121212;
+  --color-white: #F8F8F6;
+  --color-text: #2B2B2B;
+  --color-light-gray: #F0F0EE;
+  --font-montserrat: 'Montserrat', sans-serif;
+  --font-inter: 'Inter', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-white);
+  color: var(--color-text);
+  font-family: var(--font-inter);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── Typography ─────────────────────────────────────── */
+h1, h2, h3, h4, h5, h6,
+.font-heading {
+  font-family: var(--font-montserrat);
+}
+
+/* ─── Scrollbar ──────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--color-light-gray); }
+::-webkit-scrollbar-thumb { background: var(--color-green); border-radius: 3px; }
+
+/* ─── Animations ─────────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -1000px 0; }
+  100% { background-position: 1000px 0; }
+}
+
+@keyframes whatsapp-pulse {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.4); }
+  50%       { transform: scale(1.05); box-shadow: 0 0 0 12px rgba(37, 211, 102, 0); }
+}
+
+/* ─── Skeleton loading ───────────────────────────────── */
+.skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 1000px 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 8px;
+}
+
+/* ─── WhatsApp button ────────────────────────────────── */
+.whatsapp-float {
+  animation: whatsapp-pulse 1.5s infinite;
+}
+
+/* ─── Hero gradient overlay ──────────────────────────── */
+.hero-overlay {
+  background: linear-gradient(
+    90deg,
+    rgba(18, 18, 18, 0.92) 0%,
+    rgba(18, 18, 18, 0.75) 50%,
+    rgba(18, 18, 18, 0.20) 100%
+  );
+}
+
+/* ─── Marquee ────────────────────────────────────────── */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.marquee-track {
+  animation: marquee 20s linear infinite;
+}
+.marquee-track:hover { animation-play-state: paused; }
+
+/* ─── Card hover ─────────────────────────────────────── */
+.product-card {
+  transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
+}
+.product-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+}
+.product-card:hover .card-image img {
+  transform: scale(1.05);
+}
+.card-image { overflow: hidden; }
+.card-image img { transition: transform 300ms ease; }
+
+/* ─── Button transitions ─────────────────────────────── */
+.btn {
+  transition: background-color 200ms ease, color 200ms ease, transform 200ms ease, border-color 200ms ease;
+  font-family: var(--font-montserrat);
+  font-weight: 700;
+  border-radius: 12px;
+}
+.btn:hover { transform: translateY(-1px); }
+.btn:active { transform: translateY(0); }
+
+/* ─── Navbar scroll ──────────────────────────────────── */
+.navbar-scrolled {
+  background-color: var(--color-dark) !important;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+}
+
+/* ─── Section fade-up ────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── Focus ring ─────────────────────────────────────── */
+*:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 2px;
+}
