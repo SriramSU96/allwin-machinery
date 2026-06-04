@@ -1,6 +1,4 @@
 import Link from "next/link";
-import { Navbar } from "@/components/layout/Navbar";
-import { Footer } from "@/components/layout/Footer";
 import { SITE_CONFIG, buildWhatsAppUrl } from "@/lib/utils";
 import { Phone, MessageCircle } from "lucide-react";
 
@@ -17,8 +15,6 @@ export default function NotFound() {
   return (
     <>
       <div className="min-h-screen bg-brand-white flex flex-col">
-        <Navbar />
-
         <main className="flex-1">
           {/* Hero 404 */}
           <section className="relative bg-brand-white py-16 px-4 overflow-hidden">
@@ -128,7 +124,6 @@ export default function NotFound() {
           </section>
         </main>
 
-        <Footer />
       </div>
     </>
   );
