@@ -51,7 +51,7 @@ export function PageHero({
             className="absolute right-0 top-0 bottom-0 w-[70%]"
             style={{
               background:
-                "linear-gradient(90deg, #121212 0%, rgba(18,18,18,0.96) 16%, rgba(22,78,54,0.52) 36%, rgba(22,78,54,0.16) 60%, rgba(18,18,18,0.08) 100%)",
+                "linear-gradient(90deg, #121212 0%, rgba(18,18,18,0.96) 16%, rgba(212,160,23,0.1) 36%, rgba(212,160,23,0.04) 60%, rgba(18,18,18,0.08) 100%)",
             }}
             aria-hidden="true"
           />
