@@ -1,4 +1,5 @@
 import { SectionReveal } from "@/components/animations/SectionReveal";
+import { CountUpStat } from "@/components/ui/CountUpStat";
 import { Users, Package, Award, Wrench, Shield, Truck, Headphones, IndianRupee } from "lucide-react";
 
 const PILLARS = [
@@ -35,10 +36,10 @@ const PILLARS = [
 ];
 
 const STATS = [
-  { icon: Users, value: "5000+", label: "Happy Customers" },
-  { icon: Package, value: "1500+", label: "Products" },
-  { icon: Award, value: "20+", label: "Top Brands" },
-  { icon: Wrench, value: "24/7", label: "Support" },
+  { icon: Users, value: 5000, suffix: "+", label: "Happy Customers" },
+  { icon: Package, value: 1500, suffix: "+", label: "Products" },
+  { icon: Award, value: 20, suffix: "+", label: "Top Brands" },
+  { icon: Wrench, value: 24, suffix: "/7", label: "Support" },
 ];
 
 export function WhyChooseUs() {
@@ -75,9 +76,11 @@ export function WhyChooseUs() {
                   
                   {/* Typography details alignment with protective text wrap container */}
                   <div className="flex flex-col justify-center min-w-0 flex-1">
-                    <span className="text-white font-bold text-lg sm:text-xl tracking-tight leading-none mb-1">
-                      {stat.value}
-                    </span>
+                    <CountUpStat
+                      value={stat.value}
+                      suffix={stat.suffix}
+                      className="font-bold text-lg sm:text-xl tracking-tight leading-none mb-1"
+                    />
                     <p className="text-brand-gold text-[10px] sm:text-[11px] font-semibold tracking-wide uppercase leading-tight">
                       {stat.label}
                     </p>

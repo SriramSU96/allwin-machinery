@@ -37,7 +37,7 @@ export function Footer() {
     
     <footer className="bg-brand-dark text-white">
       {/* CTA Banner above footer */}
-     <section className="bg-brand-green py-16 px-4">
+     {/* <section className="bg-brand-green py-16 px-4">
       <div className="max-w-container mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
         <div>
           <h2 className="font-heading font-black text-2xl md:text-3xl text-white mb-2">
@@ -74,7 +74,7 @@ export function Footer() {
           </Link>
         </div>
       </div>
-    </section>
+    </section> */}
 
       {/* Main footer */}
       <div className="max-w-container mx-auto px-4 md:px-6 py-16">

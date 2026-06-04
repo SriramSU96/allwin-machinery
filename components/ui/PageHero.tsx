@@ -29,61 +29,101 @@ export function PageHero({
   return (
     <section
       className={cn(
-        "relative min-h-[260px] md:min-h-[320px] bg-brand-dark flex items-center overflow-hidden",
+        "relative min-h-[320px] md:min-h-[380px] bg-brand-dark overflow-hidden flex items-center",
         className
       )}
     >
-      {/* Background */}
+      {/* ── Right side background image ── */}
       {backgroundImage && (
-        <div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: `url('${backgroundImage}')` }}
-          aria-hidden="true"
-        />
+        <>
+          {/* Image on right 60% of screen */}
+          <div
+           className="absolute right-0 top-0 bottom-0 w-[56%]"
+  style={{
+    backgroundImage: `url('${backgroundImage}')`,
+    backgroundSize: "cover",
+    backgroundPosition: "center 60%",
+  }}
+            aria-hidden="true"
+          />
+
+          <div
+            className="absolute right-0 top-0 bottom-0 w-[70%]"
+            style={{
+              background:
+                "linear-gradient(90deg, #121212 0%, rgba(18,18,18,0.96) 16%, rgba(22,78,54,0.52) 36%, rgba(22,78,54,0.16) 60%, rgba(18,18,18,0.08) 100%)",
+            }}
+            aria-hidden="true"
+          />
+
+          {/* Left-to-right dark gradient — text area stays dark */}
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(90deg, #121212 0%, rgba(18,18,18,0.98) 32%, rgba(18,18,18,0.78) 46%, rgba(18,18,18,0.28) 70%, rgba(18,18,18,0.04) 100%)",
+            }}
+            aria-hidden="true"
+          />
+        </>
       )}
-      <div className="hero-overlay absolute inset-0" aria-hidden="true" />
 
-      {/* Content */}
-      <div className="relative z-10 max-w-container mx-auto px-4 md:px-6 py-16">
-        {/* Breadcrumbs */}
-        {breadcrumbs && (
-          <nav className="flex items-center gap-1.5 text-white/50 text-xs mb-5" aria-label="Breadcrumb">
-            {breadcrumbs.map((crumb, i) => (
-              <span key={i} className="flex items-center gap-1.5">
-                {i > 0 && <ChevronRight size={12} />}
-                {crumb.href ? (
-                  <Link href={crumb.href} className="hover:text-white transition-colors">
-                    {crumb.label}
-                  </Link>
-                ) : (
-                  <span className="text-white/80">{crumb.label}</span>
-                )}
-              </span>
-            ))}
-          </nav>
-        )}
+      {/* ── Content — left aligned ── */}
+      <div className="relative z-10 max-w-container mx-auto px-4 md:px-1 py-14 w-full">
+        <div className="max-w-[500px]">
 
-        {label && (
-          <p className="font-heading font-bold text-xs text-brand-gold uppercase tracking-[3px] mb-3">
-            {label}
-          </p>
-        )}
-
-        <h1 className="font-heading font-black text-[28px] md:text-[36px] lg:text-[48px] text-white leading-tight max-w-2xl">
-          {title}
-          {titleHighlight && (
-            <>
-              {" "}
-              <span className="text-brand-gold">{titleHighlight}</span>
-            </>
+          {/* Breadcrumbs */}
+          {breadcrumbs && (
+            <nav
+              className="flex items-center gap-1.5 text-white/50 text-xs mb-4"
+              aria-label="Breadcrumb"
+            >
+              {breadcrumbs.map((crumb, i) => (
+                <span key={i} className="flex items-center gap-1.5">
+                  {i > 0 && <ChevronRight size={11} />}
+                  {crumb.href ? (
+                    <Link
+                      href={crumb.href}
+                      className="hover:text-white transition-colors"
+                    >
+                      {crumb.label}
+                    </Link>
+                  ) : (
+                    <span className="text-white/70">{crumb.label}</span>
+                  )}
+                </span>
+              ))}
+            </nav>
           )}
-        </h1>
 
-        {description && (
-          <p className="text-white/70 mt-4 text-base max-w-xl leading-relaxed">
-            {description}
-          </p>
-        )}
+          {/* Label */}
+          {label && (
+            <p className="font-heading font-bold text-[11px] text-brand-gold uppercase tracking-[4px] mb-3">
+              {label}
+            </p>
+          )}
+
+          {/* Title */}
+          <h1
+            className="font-heading font-black text-white leading-tight mb-4"
+            style={{ fontSize: "clamp(28px, 4vw, 52px)" }}
+          >
+            {title}
+            {titleHighlight && (
+              <>
+                {" "}
+                <span className="text-brand-gold">{titleHighlight}</span>
+              </>
+            )}
+          </h1>
+
+          {/* Description */}
+          {description && (
+            <p className="text-white/65 text-sm md:text-base leading-relaxed max-w-md">
+              {description}
+            </p>
+          )}
+        </div>
       </div>
     </section>
   );
