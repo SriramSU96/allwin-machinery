@@ -23,7 +23,8 @@ export default async function ProductsPage() {
     <>
       <PageHero
         label="Our Products"
-        title="High Performance Agricultural Machinery"
+        title="High Performance Agricultural"
+        titleHighlight="Machinery"
         description="Explore our wide range of machinery for modern farming."
         backgroundImage="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=1600&q=80"
         breadcrumbs={[{ label: "Home", href: "/" }, { label: "Products" }]}

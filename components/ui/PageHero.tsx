@@ -70,7 +70,7 @@ export function PageHero({
 
       {/* ── Content — left aligned ── */}
       <div className="relative z-10 max-w-container mx-auto px-4 md:px-1 py-14 w-full">
-        <div className="max-w-[500px]">
+        <div className="max-w-[760px] md:max-w-[900px]">
 
           {/* Breadcrumbs */}
           {breadcrumbs && (
@@ -108,12 +108,9 @@ export function PageHero({
             className="font-heading font-black text-white leading-tight mb-4"
             style={{ fontSize: "clamp(28px, 4vw, 52px)" }}
           >
-            {title}
+            <span className="block">{title}</span>
             {titleHighlight && (
-              <>
-                {" "}
-                <span className="text-brand-gold">{titleHighlight}</span>
-              </>
+              <span className="block text-brand-gold">{titleHighlight}</span>
             )}
           </h1>
 
