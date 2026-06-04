@@ -73,6 +73,7 @@ export const NAV_ITEMS = [
   { label: "Brands", href: "/brands" },
   { label: "Services", href: "/services" },
   { label: "About Us", href: "/about" },
+  {label:"Dealer",href:"/dealer"},
   { label: "Blog", href: "/blog" },
   { label: "Contact Us", href: "/contact" },
 ];
