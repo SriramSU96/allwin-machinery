@@ -1,13 +1,9 @@
 import { Metadata } from "next";
-import Link from "next/link";
 import { PageHero } from "@/components/ui/PageHero";
 import { SectionReveal } from "@/components/animations/SectionReveal";
-import { CTABanner } from "@/components/sections/CTABanner";
+import { ServicesGrid } from "./ServicesGrid";
 import { SITE_CONFIG, buildWhatsAppUrl } from "@/lib/utils";
-import {
-  Wrench, Shield, Truck, Headphones, Package, Settings,
-  CheckCircle2, Phone, MessageCircle, Clock, ArrowRight
-} from "lucide-react";
+import { Phone, MessageCircle, CheckCircle2 } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Services | Allwin Machinery",
@@ -15,80 +11,35 @@ export const metadata: Metadata = {
     "Professional agricultural machinery services — installation, repair, maintenance, spare parts, technical support and delivery across India.",
 };
 
-const SERVICES = [
-  {
-    icon: Settings,
-    title: "Machine Installation",
-    description:
-      "Professional installation and setup support with complete usage guidance for all machinery.",
-    link: "#installation",
-  },
-  {
-    icon: Wrench,
-    title: "Repair & Maintenance",
-    description:
-      "Regular servicing, inspection and repairs to keep your machines running at best performance.",
-    link: "#repair",
-  },
-  {
-    icon: Package,
-    title: "Spare Parts Supply",
-    description:
-      "Genuine spare parts and accessories available for all machines and models.",
-    link: "#spare-parts",
-  },
-  {
-    icon: Headphones,
-    title: "Technical Support",
-    description:
-      "Expert consultation and remote troubleshooting for all technical queries and issues.",
-    link: "#technical",
-  },
-  {
-    icon: Shield,
-    title: "Warranty Support",
-    description:
-      "Warranty assistance and claim processing to ensure peace of mind for our customers.",
-    link: "#warranty",
-  },
-  {
-    icon: Truck,
-    title: "Delivery Service",
-    description:
-      "Pan India delivery with safe packaging and fast logistics for on-time service.",
-    link: "#delivery",
-  },
-];
-
 const WHY_CHOOSE = [
-  { icon: "👥", title: "Experienced Team", desc: "Skilled and trained technicians with years of industry experience." },
-  { icon: "✅", title: "Genuine Parts", desc: "We use 100% genuine parts for long-lasting performance." },
-  { icon: "⚡", title: "Fast Response", desc: "Quick response and on-time support when you need it most." },
-  { icon: "💰", title: "Affordable Pricing", desc: "Full service quality at competitive and transparent pricing." },
+  { icon: "👥", title: "Experienced Team",  desc: "Skilled technicians with 10+ years of industry experience." },
+  { icon: "✅", title: "Genuine Parts",     desc: "We use 100% genuine parts for long-lasting performance." },
+  { icon: "⚡", title: "Fast Response",     desc: "Quick response and on-time support when you need it most." },
+  { icon: "💰", title: "Affordable Pricing",desc: "Full service quality at competitive and transparent pricing." },
 ];
 
 const PROCESS = [
-  { step: "01", icon: Headphones, title: "Inquiry", desc: "Share your requirement with our support team." },
-  { step: "02", icon: MessageCircle, title: "Consultation", desc: "Our experts understand your issue or requirement." },
-  { step: "03", icon: Settings, title: "Product Support", desc: "We provide the right solution, service or spare part." },
-  { step: "04", icon: Wrench, title: "Service", desc: "Timely support, repair or installation by our team." },
-  { step: "05", icon: CheckCircle2, title: "Satisfaction", desc: "Ensuring smooth performance and long-term satisfaction." },
+  { icon: "📞", title: "Inquiry",           desc: "Share your requirement with our support team." },
+  { icon: "💬", title: "Consultation",      desc: "Our experts understand your issue or requirement." },
+  { icon: "⚙️", title: "Product Support",  desc: "We provide the right solution, service or spare part." },
+  { icon: "🔧", title: "Service",           desc: "Timely support, repair or installation by our team." },
+  { icon: "✅", title: "Satisfaction",      desc: "Ensuring smooth performance and long-term satisfaction." },
 ];
 
 const SERVICE_GALLERY = [
-  { label: "Modern Workshop", emoji: "🏭" },
-  { label: "Expert Technicians", emoji: "👨‍🔧" },
-  { label: "Spare Parts Warehouse", emoji: "📦" },
-  { label: "Advanced Tools & Equipment", emoji: "🔧" },
+  { label: "Modern Workshop",          emoji: "🏭" },
+  { label: "Expert Technicians",       emoji: "👨‍🔧" },
+  { label: "Spare Parts Warehouse",    emoji: "📦" },
+  { label: "Advanced Tools & Equipment",emoji: "🔧" },
 ];
 
 const FAQS = [
-  { q: "What is the warranty period on your machines?", a: "All machines come with 1 year manufacturer warranty on manufacturing defects." },
-  { q: "Do you provide installation support?", a: "Yes, we provide complete installation guidance. For complex machinery our team visits your location." },
-  { q: "How can I order spare parts?", a: "Spare parts can be ordered by calling us, WhatsApp, or visiting our showroom in Trichy." },
-  { q: "How long does the repair service take?", a: "Most repairs are completed within 2–5 working days depending on the issue and parts availability." },
-  { q: "Is home service available?", a: "Yes, home/farm service is available for select areas. Contact us to check availability in your location." },
-  { q: "Do you offer annual maintenance services?", a: "Yes, we offer Annual Maintenance Contracts (AMC) for regular customers. Contact us for details." },
+  { q: "What is the warranty period on your machines?",    a: "All machines come with 1 year manufacturer warranty on manufacturing defects." },
+  { q: "Do you provide installation support?",             a: "Yes, we provide complete installation guidance. For complex machinery our team visits your location." },
+  { q: "How can I order spare parts?",                     a: "Spare parts can be ordered by calling us, WhatsApp, or visiting our showroom in Trichy." },
+  { q: "How long does the repair service take?",           a: "Most repairs are completed within 2–5 working days depending on the issue and parts availability." },
+  { q: "Is home service available?",                       a: "Yes, home/farm service is available for select areas. Contact us to check availability in your location." },
+  { q: "Do you offer annual maintenance services?",        a: "Yes, we offer Annual Maintenance Contracts (AMC) for regular customers. Contact us for details." },
 ];
 
 export default function ServicesPage() {
@@ -99,12 +50,12 @@ export default function ServicesPage() {
         title="Reliable Agricultural"
         titleHighlight="Services & Support"
         description="Professional support for farming machinery — maintenance, spare parts, and technical assistance."
-        backgroundImage="https://res.cloudinary.com/djocuy3qz/image/upload/v1780550337/service_bcrlho.png"
+        backgroundImage="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=1600&q=80"
         breadcrumbs={[{ label: "Home", href: "/" }, { label: "Services" }]}
       />
 
-      {/* ── Services Grid ── */}
-      <section className="bg-brand-white py-16 md:py-20">
+      {/* ── Services Grid (Client — accordion) ── */}
+      <section className="bg-[#F5F5F5] py-16 md:py-20">
         <div className="max-w-container mx-auto px-4 md:px-6">
           <SectionReveal className="text-center mb-12">
             <p className="font-heading font-bold text-[11px] text-brand-green uppercase tracking-[3px] mb-2">
@@ -114,32 +65,12 @@ export default function ServicesPage() {
               Complete Support For Your Machinery
             </h2>
           </SectionReveal>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {SERVICES.map((service, i) => (
-              <SectionReveal key={service.title} delay={i * 0.08}>
-                <div className="bg-white rounded-xl border border-gray-200 p-6 hover:shadow-medium hover:border-brand-green transition-all group h-full">
-                  <div className="w-12 h-12 rounded-xl bg-brand-green/10 group-hover:bg-brand-green flex items-center justify-center mb-4 transition-colors">
-                    <service.icon size={22} className="text-brand-green group-hover:text-white transition-colors" />
-                  </div>
-                  <h3 className="font-heading font-bold text-base text-brand-text mb-2">
-                    {service.title}
-                  </h3>
-                  <p className="text-sm text-gray-500 leading-relaxed mb-4">
-                    {service.description}
-                  </p>
-                  <span className="text-brand-green font-heading font-bold text-xs flex items-center gap-1 group-hover:text-brand-gold transition-colors">
-                    Learn More <ArrowRight size={12} />
-                  </span>
-                </div>
-              </SectionReveal>
-            ))}
-          </div>
+          <ServicesGrid />
         </div>
       </section>
 
-      {/* ── Why Choose Our Services ── */}
-      <section className="bg-brand-light-gray py-14">
+      {/* ── Why Choose ── */}
+      <section className="bg-white py-14">
         <div className="max-w-container mx-auto px-4 md:px-6">
           <SectionReveal className="text-center mb-10">
             <p className="font-heading font-bold text-[11px] text-brand-green uppercase tracking-[3px] mb-2">
@@ -149,7 +80,7 @@ export default function ServicesPage() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
             {WHY_CHOOSE.map((item, i) => (
               <SectionReveal key={item.title} delay={i * 0.08}>
-                <div className="bg-white rounded-xl p-5 text-center hover:shadow-soft transition-shadow">
+                <div className="bg-[#F5F5F5] rounded-xl p-5 text-center hover:shadow-soft transition-shadow">
                   <span className="text-4xl block mb-3">{item.icon}</span>
                   <h3 className="font-heading font-bold text-sm text-brand-text mb-1">{item.title}</h3>
                   <p className="text-xs text-gray-500 leading-relaxed">{item.desc}</p>
@@ -160,8 +91,8 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* ── Service Process ── */}
-      <section className="bg-brand-white py-16">
+      {/* ── Process ── */}
+      <section className="bg-[#F5F5F5] py-16">
         <div className="max-w-container mx-auto px-4 md:px-6">
           <SectionReveal className="text-center mb-12">
             <p className="font-heading font-bold text-[11px] text-brand-green uppercase tracking-[3px] mb-2">
@@ -172,29 +103,22 @@ export default function ServicesPage() {
             </h2>
           </SectionReveal>
 
-          {/* Process steps */}
-          <div className="flex flex-col md:flex-row items-start gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-6">
             {PROCESS.map((step, i) => (
-              <SectionReveal key={step.step} delay={i * 0.1} className="flex-1">
-                <div className="flex flex-col items-center text-center">
-                  {/* Step circle */}
-                  <div className="relative mb-4">
-                    <div className="w-14 h-14 rounded-full bg-brand-green flex items-center justify-center">
-                      <step.icon size={22} className="text-white" />
+              <SectionReveal key={step.title} delay={i * 0.1}>
+                <div className="flex flex-col items-center text-center gap-3">
+                  <div className="relative">
+                    <div className="w-14 h-14 rounded-full bg-brand-green flex items-center justify-center text-2xl">
+                      {step.icon}
                     </div>
                     <span className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-brand-gold text-white text-[10px] font-heading font-black flex items-center justify-center">
                       {i + 1}
                     </span>
                   </div>
-                  <h4 className="font-heading font-bold text-sm text-brand-text mb-1">{step.title}</h4>
-                  <p className="text-xs text-gray-500 leading-relaxed">{step.desc}</p>
-
-                  {/* Connector arrow — hide on last item */}
-                  {i < PROCESS.length - 1 && (
-                    <div className="hidden md:block absolute right-0 top-6 text-gray-300">
-                      <ArrowRight size={20} />
-                    </div>
-                  )}
+                  <div>
+                    <p className="font-heading font-bold text-sm text-brand-text mb-1">{step.title}</p>
+                    <p className="text-xs text-gray-500 leading-relaxed">{step.desc}</p>
+                  </div>
                 </div>
               </SectionReveal>
             ))}
@@ -202,8 +126,8 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* ── Service Center Gallery ── */}
-      <section className="bg-brand-light-gray py-14">
+      {/* ── Service Gallery ── */}
+      <section className="bg-white py-14">
         <div className="max-w-container mx-auto px-4 md:px-6">
           <SectionReveal className="mb-8">
             <p className="font-heading font-bold text-[11px] text-brand-green uppercase tracking-[3px] mb-2">
@@ -254,7 +178,7 @@ export default function ServicesPage() {
       </section>
 
       {/* ── FAQ ── */}
-      <section className="bg-brand-white py-16 px-4">
+      <section className="bg-white py-16 px-4">
         <div className="max-w-container mx-auto">
           <SectionReveal className="mb-8">
             <p className="font-heading font-bold text-[11px] text-brand-green uppercase tracking-[3px] mb-2">
@@ -276,8 +200,6 @@ export default function ServicesPage() {
           </div>
         </div>
       </section>
-
-      <CTABanner />
     </>
   );
 }

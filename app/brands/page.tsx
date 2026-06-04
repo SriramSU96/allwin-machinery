@@ -1,11 +1,14 @@
 import { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { PageHero } from "@/components/ui/PageHero";
 import { SectionReveal } from "@/components/animations/SectionReveal";
 import { CTABanner } from "@/components/sections/CTABanner";
 import { CountUpStat } from "@/components/ui/CountUpStat";
 import { SITE_CONFIG, buildWhatsAppUrl } from "@/lib/utils";
-import { Shield, Award, Wrench, CheckCircle2, Phone, MessageCircle } from "lucide-react";
+import { Shield, Award, Wrench, CheckCircle2, Phone, MessageCircle, ArrowUpRight } from "lucide-react";
+
+const CLD = "https://res.cloudinary.com/djocuy3qz/image/upload/w_400,q_auto,f_auto";
 
 export const metadata: Metadata = {
   title: "Brands | Trusted Agricultural Machinery Brands | Allwin Machinery",
@@ -18,60 +21,54 @@ const FEATURED_BRANDS = [
     name: "HONDA",
     desc: "World-renowned engines and power equipment. Honda engines power the best agricultural machines.",
     products: "48+ Products",
-    emoji: "🏍️",
+    logo: `${CLD}/v1780557392/hondo_o1jhwc.png`,
     slug: "honda",
-    color: "border-red-200 bg-red-50",
   },
   {
     name: "NEPTUNE",
     desc: "High quality sprayers, power weeders and agricultural solutions trusted by farmers.",
     products: "36+ Products",
-    emoji: "🌊",
+    logo: `${CLD}/v1780557415/Neptune_logo_uh4yko.png`,
     slug: "neptune",
-    color: "border-blue-200 bg-blue-50",
   },
   {
     name: "KIRLOSKAR",
     desc: "Trusted pumps and motors for agriculture, irrigation and water management.",
     products: "42+ Products",
-    emoji: "⚙️",
+    logo: `${CLD}/v1780557621/kirloskar_pumps_sdhd7w.png`,
     slug: "kirloskar",
-    color: "border-orange-200 bg-orange-50",
   },
   {
     name: "KAMA",
     desc: "Durable diesel engines and power solutions for every farming need.",
     products: "38+ Products",
-    emoji: "🌾",
+    logo: `${CLD}/v1780557614/kama_zrjteb.png`,
     slug: "kama",
-    color: "border-yellow-200 bg-yellow-50",
   },
   {
     name: "HUSQVARNA",
     desc: "Premium brush cutters, chainsaws and outdoor power tools for professionals.",
     products: "22+ Products",
-    emoji: "✂️",
+    logo: `${CLD}/v1780557628/husqvarna_ono7jj.png`,
     slug: "husqvarna",
-    color: "border-green-200 bg-green-50",
   },
   {
     name: "BALWAAN",
     desc: "Reliable power weeders, tillers and implements for Indian farming conditions.",
     products: "30+ Products",
-    emoji: "💪",
+    logo: `${CLD}/v1780557614/kama_zrjteb.png`,
     slug: "balwaan",
-    color: "border-purple-200 bg-purple-50",
   },
 ];
 
 const CATEGORY_BRANDS = [
-  { name: "Power Equipment", slug: "power-equipment", count: "10 Brands", emoji: "⚡" },
-  { name: "Water Pumps", slug: "water-pumps", count: "8 Brands", emoji: "💧" },
-  { name: "Power Sprayers", slug: "power-sprayers", count: "7 Brands", emoji: "💨" },
-  { name: "Brush Cutters", slug: "brush-cutters", count: "6 Brands", emoji: "✂️" },
-  { name: "Power Weeders", slug: "power-weeders", count: "8 Brands", emoji: "🌿" },
-  { name: "Engines", slug: "engines", count: "6 Brands", emoji: "🔧" },
-  { name: "Spare Parts", slug: "spare-parts", count: "12 Brands", emoji: "🔩" },
+  { name: "Power Equipment", slug: "power-equipment", image: `${CLD}/v1780557453/walk-behind_tiller_i0y4xz.png`, count: "10 Brands" },
+  { name: "Water Pumps", slug: "water-pumps", image: `${CLD}/v1780557375/Compact_water_pump_engine_in_frame_eyxdfu.png`, count: "8 Brands" },
+  { name: "Power Sprayers", slug: "power-sprayers", image: `${CLD}/v1780557442/power_sprayer_machine_zlfuni.png`, count: "7 Brands" },
+  { name: "Brush Cutters", slug: "brush-cutters", image: `${CLD}/v1780557384/Gas-powered_brush_cutter_oxdshx.png`, count: "6 Brands" },
+  { name: "Power Weeders", slug: "power-weeders", image: `${CLD}/v1780557453/walk-behind_tiller_i0y4xz.png`, count: "8 Brands" },
+  { name: "Engines", slug: "engines", image: `${CLD}/v1780557429/Portable_generator_sjhgdl.png`, count: "6 Brands" },
+  { name: "Spare Parts", slug: "spare-parts", image: `${CLD}/v1780557405/Metal_ball_bearings_arrangement_kublo2.png`, count: "12 Brands" },
 ];
 
 const AUTHORIZED_BENEFITS = [
@@ -142,29 +139,40 @@ export default function BrandsPage() {
             </p>
           </SectionReveal>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 gap-5">
             {FEATURED_BRANDS.map((brand, i) => (
               <SectionReveal key={brand.name} delay={i * 0.08}>
-                <div className={`border rounded-xl p-5 flex flex-col gap-3 hover:shadow-medium transition-all group ${brand.color}`}>
-                  {/* Brand logo */}
-                  <div className="text-4xl text-center">{brand.emoji}</div>
-                  <div>
-                    <h3 className="font-heading font-black text-sm text-brand-text group-hover:text-brand-green transition-colors text-center">
-                      {brand.name}
-                    </h3>
-                    <p className="text-[10px] text-gray-500 mt-1 text-center leading-relaxed line-clamp-2">
-                      {brand.desc}
-                    </p>
+                <div className="flex h-full flex-col justify-between rounded-[22px] border border-slate-200/60 bg-white p-5 shadow-[0_14px_30px_rgba(15,23,42,0.06)] transition-all duration-300 hover:-translate-y-1 hover:border-brand-green/80 hover:shadow-[0_22px_50px_rgba(15,23,42,0.12)]">
+                  <div className="space-y-4 text-center">
+                    <div className="relative mx-auto h-14 w-full max-w-[150px]">
+                      <Image
+                        src={brand.logo}
+                        alt={brand.name}
+                        fill
+                        className="object-contain"
+                        sizes="150px"
+                      />
+                    </div>
+                    <div>
+                      <h3 className="font-heading text-sm font-semibold uppercase tracking-[0.24em] text-slate-900">
+                        {brand.name}
+                      </h3>
+                      <p className="mx-auto mt-2 max-w-[220px] text-[12px] leading-5 text-slate-600 line-clamp-3">
+                        {brand.desc}
+                      </p>
+                    </div>
                   </div>
-                  <p className="text-[10px] text-brand-green font-heading font-bold text-center">
-                    {brand.products}
-                  </p>
-                  <Link
-                    href={`/brands/${brand.slug}`}
-                    className="btn w-full bg-brand-green text-white py-2 text-[11px] hover:bg-brand-gold"
-                  >
-                    View Products →
-                  </Link>
+                  <div className="mt-5 flex flex-col items-center gap-3">
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.25em] text-brand-green whitespace-nowrap">
+                      {brand.products}
+                    </p>
+                    <Link
+                      href={`/brands/${brand.slug}`}
+                      className="inline-flex w-full items-center justify-center rounded-full border border-brand-green bg-brand-green text-white px-4 py-3 text-[12px] font-semibold shadow-sm transition hover:bg-white hover:text-brand-green"
+                    >
+                      View Products →
+                    </Link>
+                  </div>
                 </div>
               </SectionReveal>
             ))}
@@ -180,16 +188,34 @@ export default function BrandsPage() {
               Browse Brands By Category
             </p>
           </SectionReveal>
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3">
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4 lg:gap-5">
             {CATEGORY_BRANDS.map((cat, i) => (
               <SectionReveal key={cat.name} delay={i * 0.06}>
-                <div className="bg-white rounded-xl p-4 flex flex-col items-center text-center gap-2 border border-gray-200 hover:border-brand-green hover:shadow-soft transition-all cursor-pointer group">
-                  <span className="text-3xl">{cat.emoji}</span>
-                  <p className="font-heading font-bold text-xs text-brand-text group-hover:text-brand-green transition-colors leading-tight">
+                <Link
+                  href={`/brands/${cat.slug}`}
+                  className="group relative flex h-[180px] flex-col items-center rounded-[14px] border border-gray-200 bg-white px-4 pb-4 pt-5 text-center shadow-[0_8px_24px_rgba(15,23,42,0.06)] transition-all duration-300 hover:-translate-y-0.5 hover:border-brand-green/50 hover:shadow-[0_16px_34px_rgba(15,23,42,0.10)]"
+                >
+                  <span className="absolute right-3 top-3 flex h-7 w-7 translate-y-1 items-center justify-center rounded-full border border-brand-green/20 bg-white text-brand-green opacity-0 shadow-sm transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
+                    <ArrowUpRight size={15} strokeWidth={2.25} />
+                  </span>
+
+                  <div className="relative h-[96px] w-full bg-white">
+                    <Image
+                      src={cat.image}
+                      alt={cat.name}
+                      fill
+                      className="scale-[1.45] object-contain transition-transform duration-300 group-hover:scale-105"
+                      sizes="180px"
+                    />
+                  </div>
+                  <p className="mt-3 flex min-h-[34px] items-end justify-center font-heading text-[15px] font-black leading-[1.05] text-brand-text transition-colors group-hover:text-brand-green">
                     {cat.name}
                   </p>
-                  <p className="text-[10px] text-gray-400">{cat.count}</p>
-                </div>
+                  <p className="mt-2 text-xs font-medium text-gray-500">
+                    <span className="font-bold text-brand-green">{cat.count.split(" ")[0]}</span>{" "}
+                    {cat.count.replace(cat.count.split(" ")[0], "").trim()}
+                  </p>
+                </Link>
               </SectionReveal>
             ))}
           </div>
