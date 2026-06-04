@@ -4,6 +4,7 @@ import { FAQS_QUERY } from "@/lib/queries";
 import { FAQ } from "@/types";
 import { PageHero } from "@/components/ui/PageHero";
 import { FAQAccordion } from "./FAQAccordion";
+import { CountUpStat } from "@/components/ui/CountUpStat";
 import { SITE_CONFIG } from "@/lib/utils";
 import { MessageCircle, Phone, Download } from "lucide-react";
 import Link from "next/link";
@@ -144,13 +145,17 @@ export default async function FAQPage() {
         <div className="max-w-container mx-auto px-4 md:px-6 grid grid-cols-2 md:grid-cols-5 gap-6 text-center">
           {[
             { label: "Your Trust Is Our Priority", sub: "Best quality machinery", wide: true },
-            { label: "5000+", sub: "Happy Customers" },
-            { label: "20+", sub: "Brands" },
-            { label: "1500+", sub: "Products" },
-            { label: "10+", sub: "Years Experience" },
+            { value: 5000, suffix: "+", sub: "Happy Customers" },
+            { value: 20, suffix: "+", sub: "Brands" },
+            { value: 1500, suffix: "+", sub: "Products" },
+            { value: 10, suffix: "+", sub: "Years Experience" },
           ].map((item) => (
-            <div key={item.label}>
-              <p className="font-heading font-black text-white text-lg">{item.label}</p>
+            <div key={item.sub}>
+              {"value" in item ? (
+                <CountUpStat value={item.value} suffix={item.suffix} className="text-lg md:text-lg" />
+              ) : (
+                <p className="font-heading font-black text-white text-lg">{item.label}</p>
+              )}
               <p className="text-white/50 text-xs">{item.sub}</p>
             </div>
           ))}

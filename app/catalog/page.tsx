@@ -1,10 +1,12 @@
 import { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { PageHero } from "@/components/ui/PageHero";
 import { SectionReveal } from "@/components/animations/SectionReveal";
 import { CTABanner } from "@/components/sections/CTABanner";
+import { CountUpStat } from "@/components/ui/CountUpStat";
 import { SITE_CONFIG, buildWhatsAppUrl } from "@/lib/utils";
-import { Download, FileText, Search, Phone, MessageCircle, CheckCircle2 } from "lucide-react";
+import { ArrowUpRight, Download, FileText, Search, Phone, MessageCircle, CheckCircle2 } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Product Catalogs & Brochures | Allwin Machinery",
@@ -12,38 +14,124 @@ export const metadata: Metadata = {
     "Download free product catalogs and brochures for Allwin Machinery — power weeders, sprayers, pumps, brush cutters and more.",
 };
 
+// ── Cloudinary base URL with optimization
+const CLD = "https://res.cloudinary.com/djocuy3qz/image/upload/w_400,q_auto,f_auto";
+
 const FEATURED_CATALOGS = [
-  { title: "Power Weeders Catalog", category: "Power Weeders", year: "2024-25", pages: "32 Pages", size: "3.2 MB", emoji: "⚙️", color: "bg-green-50 border-green-200" },
-  { title: "Power Sprayers Catalog", category: "Power Sprayers", year: "2024-25", pages: "24 Pages", size: "2.1 MB", emoji: "💨", color: "bg-blue-50 border-blue-200" },
-  { title: "Water Pumps Catalog", category: "Water Pumps", year: "2024-25", pages: "28 Pages", size: "2.8 MB", emoji: "💧", color: "bg-cyan-50 border-cyan-200" },
-  { title: "Brush Cutters Catalog", category: "Brush Cutters", year: "2024-25", pages: "20 Pages", size: "1.9 MB", emoji: "🌿", color: "bg-emerald-50 border-emerald-200" },
-  { title: "Spare Parts Catalog", category: "Spare Parts", year: "2024-25", pages: "48 Pages", size: "4.1 MB", emoji: "🔩", color: "bg-orange-50 border-orange-200" },
-  { title: "Complete Product Catalog", category: "All Products", year: "2024-25", pages: "80 Pages", size: "8.4 MB", emoji: "📚", color: "bg-purple-50 border-purple-200" },
+  {
+    title: "POWER WEEDERS CATALOG",
+    year: "2024-25",
+    pages: "38 Pages",
+    size: "52.1 MB",
+    image: `${CLD}/v1780557453/walk-behind_tiller_i0y4xz.png`,
+    downloadUrl: "#",
+  },
+  {
+    title: "POWER SPRAYERS CATALOG",
+    year: "2024-25",
+    pages: "24 Pages",
+    size: "41.6 MB",
+    image: `${CLD}/v1780557442/power_sprayer_machine_zlfuni.png`,
+    downloadUrl: "#",
+  },
+  {
+    title: "WATER PUMPS CATALOG",
+    year: "2024-25",
+    pages: "22 Pages",
+    size: "33.8 MB",
+    image: `${CLD}/v1780557375/Compact_water_pump_engine_in_frame_eyxdfu.png`,
+    downloadUrl: "#",
+  },
+  {
+    title: "BRUSH CUTTERS CATALOG",
+    year: "2024-25",
+    pages: "20 Pages",
+    size: "18.3 MB",
+    image: `${CLD}/v1780557384/Gas-powered_brush_cutter_oxdshx.png`,
+    downloadUrl: "#",
+  },
+  {
+    title: "SPARE PARTS CATALOG",
+    year: "2024-25",
+    pages: "32 Pages",
+    size: "6.7 MB",
+    image: `${CLD}/v1780557405/Metal_ball_bearings_arrangement_kublo2.png`,
+    downloadUrl: "#",
+  },
+  {
+    title: "GENERATORS CATALOG",
+    year: "2024-25",
+    pages: "28 Pages",
+    size: "28.4 MB",
+    image: `${CLD}/v1780557429/Portable_generator_sjhgdl.png`,
+    downloadUrl: "#",
+  },
+  {
+    title: "COMPLETE PRODUCT CATALOG",
+    year: "2024-25",
+    pages: "60 Pages",
+    size: "83.9 MB",
+    image: `${CLD}/v1780557453/walk-behind_tiller_i0y4xz.png`,
+    downloadUrl: "#",
+  },
+  {
+    title: "COMPLETE BROCHURE CATALOG",
+    year: "2024-25",
+    pages: "16 Pages",
+    size: "25.6 MB",
+    image: `${CLD}/v1780557363/agricultural_catalogus_indeling_lnmzbi.png`,
+    downloadUrl: "#",
+  },
 ];
 
 const CATEGORY_BROWSE = [
-  { name: "Power Weeders", slug: "power-weeders", emoji: "⚙️", count: "02 Catalogs" },
-  { name: "Power Sprayers", slug: "power-sprayers", emoji: "💨", count: "06 Catalogs" },
-  { name: "Water Pumps", slug: "water-pumps", emoji: "💧", count: "50 Catalogs" },
-  { name: "Brush Cutters", slug: "brush-cutters", emoji: "🌿", count: "08 Catalogs" },
-  { name: "Generators", slug: "generators", emoji: "⚡", count: "05 Catalogs" },
-  { name: "Spare Parts", slug: "spare-parts", emoji: "🔩", count: "07 Catalogs" },
-  { name: "Complete Catalog", slug: "all", emoji: "📚", count: "01 Catalog" },
+  { name: "Power Weeders", slug: "power-weeders", image: `${CLD}/v1780557453/walk-behind_tiller_i0y4xz.png`, count: "12 Catalogs" },
+  { name: "Power Sprayers", slug: "power-sprayers", image: `${CLD}/v1780557442/power_sprayer_machine_zlfuni.png`, count: "8 Catalogs" },
+  { name: "Water Pumps", slug: "water-pumps", image: `${CLD}/v1780557375/Compact_water_pump_engine_in_frame_eyxdfu.png`, count: "10 Catalogs" },
+  { name: "Brush Cutters", slug: "brush-cutters", image: `${CLD}/v1780557384/Gas-powered_brush_cutter_oxdshx.png`, count: "6 Catalogs" },
+  { name: "Generators", slug: "generators", image: `${CLD}/v1780557429/Portable_generator_sjhgdl.png`, count: "6 Catalogs" },
+  { name: "Spare Parts", slug: "spare-parts", image: `${CLD}/v1780557405/Metal_ball_bearings_arrangement_kublo2.png`, count: "7 Catalogs" },
+  { name: "Complete Catalog", slug: "all", image: `${CLD}/v1780557453/walk-behind_tiller_i0y4xz.png`, count: "1 Catalog" },
 ];
 
 const BRAND_CATALOGS = [
-  { name: "HONDA", desc: "Honda Power Equipment Catalog", emoji: "🏍️" },
-  { name: "NEPTUNE", desc: "Neptune Sprayers Catalog", emoji: "🌊" },
-  { name: "KIRLOSKAR", desc: "Kirloskar Pumps Catalog", emoji: "⚙️" },
-  { name: "KAMA", desc: "Kama Power Weeders Catalog", emoji: "🌾" },
-  { name: "HUSQVARNA", desc: "Husqvarna Brush Cutters Catalog", emoji: "✂️" },
+  {
+    name: "Honda",
+    desc: "Honda Power Equipment Catalog",
+    logo: `${CLD}/v1780557392/hondo_o1jhwc.png`,
+    downloadUrl: "#",
+  },
+  {
+    name: "Neptune",
+    desc: "Neptune Sprayers Catalog",
+    logo: `${CLD}/v1780557415/Neptune_logo_uh4yko.png`,
+    downloadUrl: "#",
+  },
+  {
+    name: "Kirloskar",
+    desc: "Kirloskar Pumps Catalog",
+    logo: `${CLD}/v1780557621/kirloskar_pumps_sdhd7w.png`,
+    downloadUrl: "#",
+  },
+  {
+    name: "Kama",
+    desc: "Kama Power Weeders Catalog",
+    logo: `${CLD}/v1780557614/kama_zrjteb.png`,
+    downloadUrl: "#",
+  },
+  {
+    name: "Husqvarna",
+    desc: "Husqvarna Brush Cutters Catalog",
+    logo: `${CLD}/v1780557628/husqvarna_ono7jj.png`,
+    downloadUrl: "#",
+  },
 ];
 
 const CATALOG_STATS = [
-  { value: "1500+", label: "Catalog Downloads" },
-  { value: "50+", label: "Product PDFs" },
-  { value: "20+", label: "Top Brands" },
-  { value: "5000+", label: "Happy Customers" },
+  { value: 1500, suffix: "+", label: "Catalog Downloads" },
+  { value: 50, suffix: "+", label: "Product PDFs" },
+  { value: 20, suffix: "+", label: "Top Brands" },
+  { value: 5000, suffix: "+", label: "Happy Customers" },
 ];
 
 const FAQS = [
@@ -63,11 +151,10 @@ export default function CatalogPage() {
         title="Product Catalogs"
         titleHighlight="& Brochures"
         description="Explore detailed specifications, features, and machinery information. Free & easy downloads."
-        backgroundImage="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=1600&q=80"
+        backgroundImage={`https://res.cloudinary.com/djocuy3qz/image/upload/v1780550299/catalog_cmvanj.png`}
         breadcrumbs={[{ label: "Home", href: "/" }, { label: "Catalogs" }]}
       />
-
-      {/* ── Search bar ── */}
+ {/* ── Search bar ── */}
       <section className="bg-brand-white py-8 border-b border-gray-200">
         <div className="max-w-container mx-auto px-4 md:px-6">
           <div className="flex flex-col md:flex-row gap-3">
@@ -101,47 +188,67 @@ export default function CatalogPage() {
           </div>
         </div>
       </section>
-
       {/* ── Featured Catalogs ── */}
-      <section className="bg-brand-white py-14">
+      <section className="bg-white py-12 md:py-16">
         <div className="max-w-container mx-auto px-4 md:px-6">
-          <SectionReveal className="mb-8">
-            <p className="font-heading font-bold text-[11px] text-brand-green uppercase tracking-[3px] mb-2">
+          <SectionReveal className="mb-10">
+            <p className="font-heading font-black text-[11px] text-brand-green uppercase tracking-[4px]">
               Featured Catalogs
             </p>
           </SectionReveal>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
             {FEATURED_CATALOGS.map((cat, i) => (
-              <SectionReveal key={cat.title} delay={i * 0.06}>
-                <div className={`border rounded-xl p-4 flex flex-col gap-3 hover:shadow-medium transition-shadow ${cat.color}`}>
-                  {/* Logo area */}
-                  <div className="flex items-center gap-1.5 mb-1">
-                    <div className="w-5 h-5 bg-brand-green rounded flex items-center justify-center">
-                      <span className="text-white text-[8px] font-black">AW</span>
+              <SectionReveal key={cat.title} delay={i * 0.05}>
+                <div className="group flex h-full min-h-[345px] flex-col rounded-xl border border-gray-200 bg-white p-5 shadow-[0_4px_18px_rgba(0,0,0,0.08)] transition-all duration-300 hover:-translate-y-1 hover:border-brand-green/60 hover:shadow-[0_14px_34px_rgba(0,0,0,0.12)]">
+                  <div className="mb-4 flex items-center justify-between gap-3">
+                    <div className="flex items-center gap-2">
+                      <div className="relative flex h-6 w-6 items-center justify-center rounded-full border-2 border-brand-green text-brand-green">
+                        <span className="font-heading text-[10px] font-black leading-none">A</span>
+                        <span className="absolute -right-0.5 top-1 h-2 w-2 rounded-full bg-brand-green" />
+                      </div>
+                      <span className="font-heading text-xs font-black uppercase leading-none text-brand-text">
+                        ALLWIN
+                      </span>
                     </div>
-                    <span className="font-heading font-bold text-[9px] text-brand-green uppercase tracking-wide">ALLWIN</span>
+                    <span className="font-heading text-xs font-black leading-none text-brand-green">
+                      {cat.year}
+                    </span>
                   </div>
 
-                  {/* Catalog image placeholder */}
-                  <div className="aspect-[3/4] bg-white rounded-lg flex items-center justify-center text-4xl border border-white/50">
-                    {cat.emoji}
+                  <div className="min-h-[52px]">
+                    <h3 className="font-heading text-base font-black uppercase leading-[1.1] text-brand-text">
+                      {cat.title}
+                    </h3>
                   </div>
 
-                  {/* Info */}
-                  <div>
-                    <p className="font-heading font-bold text-[11px] text-brand-text leading-tight mb-1">{cat.title}</p>
-                    <p className="text-[10px] text-gray-500">{cat.year}</p>
-                    <div className="flex items-center gap-2 mt-1 text-[10px] text-gray-400">
-                      <span className="flex items-center gap-0.5"><FileText size={9} /> {cat.size}</span>
-                      <span>·</span>
-                      <span>{cat.pages}</span>
-                    </div>
+                  <div className="relative my-0 h-[175px] overflow-hidden rounded-lg bg-white">
+                    <Image
+                      src={cat.image}
+                      alt={cat.title}
+                      fill
+                      className="object-contain p-0 transition-transform duration-300 group-hover:scale-105"
+                      sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+                    />
                   </div>
 
-                  {/* Download button */}
-                  <button className="btn w-full bg-brand-green text-white py-2 text-[11px] hover:bg-brand-gold flex items-center justify-center gap-1.5 mt-auto">
-                    <Download size={12} /> Download PDF
+                  <div className="mt-auto flex flex-wrap items-center gap-x-3 gap-y-2 text-[11px] font-semibold text-gray-500">
+                    <span className="flex items-center gap-1">
+                      <FileText size={14} className="text-red-500" />
+                      PDF
+                    </span>
+                    <span className="flex items-center gap-1">
+                      <span className="flex h-3.5 w-3.5 items-center justify-center rounded-full border border-gray-400 text-[8px] leading-none">A</span>
+                      {cat.size}
+                    </span>
+                    <span className="flex items-center gap-1">
+                      <FileText size={14} className="text-gray-400" />
+                      {cat.pages}
+                    </span>
+                  </div>
+
+                  <button className="mt-4 flex w-full items-center justify-center gap-2 rounded-md border border-brand-green bg-white px-4 py-2.5 font-heading text-xs font-black text-brand-green transition-colors hover:bg-brand-green hover:text-white">
+                    <Download size={15} /> Download PDF
                   </button>
                 </div>
               </SectionReveal>
@@ -154,46 +261,77 @@ export default function CatalogPage() {
       <section className="bg-brand-light-gray py-14">
         <div className="max-w-container mx-auto px-4 md:px-6">
           <SectionReveal className="mb-8">
-            <p className="font-heading font-bold text-[11px] text-brand-green uppercase tracking-[3px] mb-2">
+            <p className="inline-flex bg-black/15 px-1.5 py-0.5 font-heading text-[11px] font-black uppercase tracking-[4px] text-brand-text">
               Browse By Category
             </p>
           </SectionReveal>
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3">
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4 lg:gap-5">
             {CATEGORY_BROWSE.map((cat, i) => (
               <SectionReveal key={cat.name} delay={i * 0.06}>
-                <div className="bg-white rounded-xl p-4 flex flex-col items-center text-center gap-2 hover:border-brand-green hover:shadow-soft border border-gray-200 transition-all cursor-pointer group">
-                  <span className="text-3xl">{cat.emoji}</span>
-                  <p className="font-heading font-bold text-xs text-brand-text group-hover:text-brand-green transition-colors leading-tight">
+                <Link
+                  href={`/catalog?category=${cat.slug}`}
+                  className="group relative flex h-[180px] flex-col items-center rounded-[14px] border border-gray-200 bg-white px-4 pb-4 pt-5 text-center shadow-[0_8px_24px_rgba(15,23,42,0.06)] transition-all duration-300 hover:-translate-y-0.5 hover:border-brand-green/50 hover:shadow-[0_16px_34px_rgba(15,23,42,0.10)]"
+                >
+                  <span className="absolute right-3 top-3 flex h-7 w-7 translate-y-1 items-center justify-center rounded-full border border-brand-green/20 bg-white text-brand-green opacity-0 shadow-sm transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
+                    <ArrowUpRight size={15} strokeWidth={2.25} />
+                  </span>
+
+                  <div className="relative h-[96px] w-full bg-white">
+                    <Image
+                      src={cat.image}
+                      alt={cat.name}
+                      fill
+                      className="scale-[1.45] object-contain transition-transform duration-300 "
+                      sizes="180px"
+                    />
+                  </div>
+                  <p className="mt-3 flex min-h-[34px] items-end justify-center font-heading text-[15px] font-black leading-[1.05] text-brand-text transition-colors group-hover:text-brand-green">
                     {cat.name}
                   </p>
-                  <p className="text-[10px] text-gray-400">{cat.count}</p>
-                </div>
+                  <p className="mt-2 text-xs font-medium text-gray-500">
+                    <span className="font-bold text-brand-green">{cat.count.split(" ")[0]}</span>{" "}
+                    {cat.count.replace(cat.count.split(" ")[0], "").trim()}
+                  </p>
+                </Link>
               </SectionReveal>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── Brand Catalogs ── */}
-      <section className="bg-brand-white py-14">
+      {/* ── Brand Catalogs — matches Image 3 exactly ── */}
+      <section className="bg-white py-14">
         <div className="max-w-container mx-auto px-4 md:px-6">
           <SectionReveal className="mb-8">
-            <p className="font-heading font-bold text-[11px] text-brand-green uppercase tracking-[3px] mb-2">
+            <p className="font-heading font-bold text-[11px] text-brand-green uppercase tracking-[3px]">
               Brand Catalogs
             </p>
           </SectionReveal>
+
           <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
             {BRAND_CATALOGS.map((brand, i) => (
               <SectionReveal key={brand.name} delay={i * 0.08}>
-                <div className="border border-gray-200 rounded-xl p-5 text-center hover:border-brand-green hover:shadow-soft transition-all group">
-                  <span className="text-4xl block mb-3">{brand.emoji}</span>
-                  <p className="font-heading font-black text-sm text-brand-text group-hover:text-brand-green transition-colors mb-1">
-                    {brand.name}
-                  </p>
-                  <p className="text-[11px] text-gray-500 mb-4">{brand.desc}</p>
-                  <button className="btn w-full bg-brand-light-gray text-brand-green py-2 text-[11px] hover:bg-brand-green hover:text-white flex items-center justify-center gap-1.5">
-                    <Download size={11} /> Download Brochure
-                  </button>
+                <div className="border border-gray-200 rounded-2xl p-5 flex flex-col items-center text-center hover:shadow-medium hover:border-brand-green transition-all group">
+
+                  {/* Brand logo — real image */}
+                  <div className="relative w-full h-16 mb-4">
+                    <Image
+                      src={brand.logo}
+                      alt={brand.name}
+                      fill
+                      className="object-contain"
+                      sizes="200px"
+                    />
+                  </div>
+
+                  <p className="text-xs text-gray-500 mb-4 leading-snug">{brand.desc}</p>
+
+                  <a
+                    href={brand.downloadUrl}
+                    className="btn w-full bg-white border border-brand-green text-brand-green py-2 text-[11px] hover:bg-brand-green hover:text-white flex items-center justify-center gap-1.5 transition-all"
+                  >
+                    <Download size={11} /> View Catalog
+                  </a>
                 </div>
               </SectionReveal>
             ))}
@@ -206,43 +344,15 @@ export default function CatalogPage() {
         <div className="max-w-container mx-auto px-4 md:px-6 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
           {CATALOG_STATS.map((stat, i) => (
             <SectionReveal key={stat.label} delay={i * 0.1}>
-              <p className="font-heading font-black text-white text-2xl md:text-3xl">{stat.value}</p>
+              <CountUpStat value={stat.value} suffix={stat.suffix} />
               <p className="text-white/50 text-xs font-heading font-semibold mt-1">{stat.label}</p>
             </SectionReveal>
           ))}
         </div>
       </div>
 
-      {/* ── Need Help CTA ── */}
-      <section className="bg-brand-green py-12 px-4">
-        <div className="max-w-container mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-          <div>
-            <h2 className="font-heading font-bold text-xl text-white mb-1">
-              Need Help Choosing the Right Product?
-            </h2>
-            <p className="text-white/70 text-sm">Our experts are here to help you find the best machinery for your needs.</p>
-          </div>
-          <div className="flex gap-3">
-            <a
-              href={`tel:${SITE_CONFIG.phone}`}
-              className="btn bg-white text-brand-green px-5 py-3 text-sm hover:bg-brand-gold hover:text-white flex items-center gap-2"
-            >
-              <Phone size={15} /> Contact Support
-            </a>
-            <a
-              href={buildWhatsAppUrl(SITE_CONFIG.whatsapp, "Hi! I need help choosing the right product catalog.")}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn bg-[#25D366] text-white px-5 py-3 text-sm flex items-center gap-2"
-            >
-              <MessageCircle size={15} /> WhatsApp Inquiry
-            </a>
-          </div>
-        </div>
-      </section>
-
       {/* ── FAQ ── */}
-      <section className="bg-brand-white py-16 px-4">
+      <section className="bg-white py-16 px-4">
         <div className="max-w-container mx-auto">
           <SectionReveal className="mb-8">
             <p className="font-heading font-bold text-[11px] text-brand-green uppercase tracking-[3px] mb-2">

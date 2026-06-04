@@ -3,6 +3,7 @@ import Link from "next/link";
 import { PageHero } from "@/components/ui/PageHero";
 import { SectionReveal } from "@/components/animations/SectionReveal";
 import { CTABanner } from "@/components/sections/CTABanner";
+import { CountUpStat } from "@/components/ui/CountUpStat";
 import { SITE_CONFIG, buildWhatsAppUrl } from "@/lib/utils";
 import { Shield, Award, Wrench, CheckCircle2, Phone, MessageCircle } from "lucide-react";
 
@@ -82,10 +83,10 @@ const AUTHORIZED_BENEFITS = [
 ];
 
 const BRAND_STATS = [
-  { value: "20+", label: "Trusted Brands" },
-  { value: "1500+", label: "Products Available" },
-  { value: "5000+", label: "Happy Customers" },
-  { value: "10+", label: "Years Experience" },
+  { value: 20, suffix: "+", label: "Trusted Brands" },
+  { value: 1500, suffix: "+", label: "Products Available" },
+  { value: 5000, suffix: "+", label: "Happy Customers" },
+  { value: 10, suffix: "+", label: "Years Experience" },
 ];
 
 const FEATURED_PRODUCTS_BY_BRAND = [
@@ -111,7 +112,7 @@ export default function BrandsPage() {
         title="Trusted Agricultural"
         titleHighlight="Machinery Brands"
         description="We partner with industry-leading brands to deliver reliable farming equipment."
-        backgroundImage="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=1600&q=80"
+        backgroundImage="https://res.cloudinary.com/djocuy3qz/image/upload/v1780550327/g_xuprt5.png"
         breadcrumbs={[{ label: "Home", href: "/" }, { label: "Brands" }]}
       />
 
@@ -228,7 +229,7 @@ export default function BrandsPage() {
               <div className="grid grid-cols-2 gap-4">
                 {BRAND_STATS.map((stat) => (
                   <div key={stat.label} className="bg-brand-green rounded-xl p-6 text-center">
-                    <p className="font-heading font-black text-white text-3xl">{stat.value}</p>
+                    <CountUpStat value={stat.value} suffix={stat.suffix} className="text-3xl" />
                     <p className="text-white/60 text-xs font-heading font-semibold mt-1">{stat.label}</p>
                   </div>
                 ))}

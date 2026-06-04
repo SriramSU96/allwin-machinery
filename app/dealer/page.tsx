@@ -3,6 +3,7 @@ import Link from "next/link";
 import { PageHero } from "@/components/ui/PageHero";
 import { SectionReveal } from "@/components/animations/SectionReveal";
 import { CTABanner } from "@/components/sections/CTABanner";
+import { CountUpStat } from "@/components/ui/CountUpStat";
 import { DealerForm } from "./DealerForm";
 import {
   TrendingUp, Tag, Megaphone, Package, GraduationCap, Truck,
@@ -49,10 +50,10 @@ const DEALER_BENEFITS = [
 ];
 
 const WHY_PARTNER = [
-  { value: "5000+", label: "Happy Customers", icon: Users },
-  { value: "20+",   label: "Trusted Brands",  icon: Award },
-  { value: "1500+", label: "Quality Products", icon: ShoppingBag },
-  { value: "50+",   label: "Dealer Network",   icon: Building2 },
+  { value: 5000, suffix: "+", label: "Happy Customers", icon: Users },
+  { value: 20, suffix: "+", label: "Trusted Brands", icon: Award },
+  { value: 1500, suffix: "+", label: "Quality Products", icon: ShoppingBag },
+  { value: 50, suffix: "+", label: "Dealer Network", icon: Building2 },
 ];
 
 const REQUIREMENTS = [
@@ -143,7 +144,7 @@ export default function DealerPage() {
                   {WHY_PARTNER.map((stat, i) => (
                     <div key={stat.label} className="bg-brand-green rounded-xl p-4 text-center">
                       <stat.icon size={18} className="text-brand-gold mx-auto mb-2" />
-                      <p className="font-heading font-black text-white text-xl">{stat.value}</p>
+                      <CountUpStat value={stat.value} suffix={stat.suffix} className="text-xl md:text-xl" />
                       <p className="text-white/60 text-[10px] font-heading font-semibold mt-0.5">{stat.label}</p>
                     </div>
                   ))}
