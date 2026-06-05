@@ -1,3 +1,5 @@
+import Image from "next/image";
+import Link from "next/link";
 import { Metadata } from "next";
 import { PageHero } from "@/components/ui/PageHero";
 import { SectionReveal } from "@/components/animations/SectionReveal";
@@ -10,6 +12,17 @@ export const metadata: Metadata = {
   description:
     "Learn about all — a leading supplier of agricultural machinery in Tamil Nadu, committed to quality and farmer success.",
 };
+
+const CLD = "https://res.cloudinary.com/djocuy3qz/image/upload/w_400,q_auto,f_auto";
+
+const ABOUT_BRANDS = [
+  { name: "HONDA", slug: "honda", logo: `${CLD}/v1780557392/hondo_o1jhwc.png` },
+  { name: "NEPTUNE", slug: "neptune", logo: `${CLD}/v1780557415/Neptune_logo_uh4yko.png` },
+  { name: "KIRLOSKAR", slug: "kirloskar", logo: `${CLD}/v1780557621/kirloskar_pumps_sdhd7w.png` },
+  { name: "KAMA", slug: "kama", logo: `${CLD}/v1780557614/kama_zrjteb.png` },
+  { name: "HUSQVARNA", slug: "husqvarna", logo: `${CLD}/v1780557628/husqvarna_ono7jj.png` },
+  { name: "BALWAAN", slug: "balwaan", logo: `${CLD}/v1780557614/kama_zrjteb.png` },
+];
 
 const STATS = [
   { value: 5000, suffix: "+", label: "Happy Customers" },
@@ -27,8 +40,6 @@ const WHY_CHOOSE = [
   { icon: Award, title: "After Sales Service", desc: "Reliable after sales support and spare parts." },
   { icon: IndianRupee, title: "Affordable Pricing", desc: "Best quality machinery at competitive prices." },
 ];
-
-const BRANDS = ["HONDA", "NEPTUNE", "★ KIRLOSKAR", "KAMA", "Husqvarna", "BALWAAN"];
 
 const PREMISES = [
   { label: "Our Showroom", emoji: "🏬" },
@@ -163,14 +174,35 @@ export default function AboutPage() {
               Brands We Deal In
             </p>
           </SectionReveal>
-          <div className="flex flex-wrap gap-6 items-center">
-            {BRANDS.map((brand) => (
-              <div key={brand} className="px-5 py-3 border border-gray-200 rounded-xl hover:border-brand-green transition-colors">
-                <span className="font-heading font-black text-brand-text/70 hover:text-brand-green transition-colors text-sm">
-                  {brand}
-                </span>
-              </div>
-            ))}
+          <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 flex-1">
+              {ABOUT_BRANDS.map((brand) => (
+                <SectionReveal key={brand.name}>
+                  <Link
+                    href={`/brands/${brand.slug}`}
+                    className="rounded-3xl border border-gray-200 bg-white p-4 flex items-center justify-center transition-all duration-300 hover:-translate-y-0.5 hover:border-brand-green/60 hover:shadow-soft"
+                  >
+                    <div className="relative h-14 w-full max-w-[130px]">
+                      <Image
+                        src={brand.logo}
+                        alt={brand.name}
+                        fill
+                        className="object-contain"
+                        sizes="130px"
+                      />
+                    </div>
+                  </Link>
+                </SectionReveal>
+              ))}
+            </div>
+            <div className="flex-shrink-0 self-start lg:self-center">
+              <Link
+                href="/brands"
+                className="inline-flex items-center justify-center rounded-2xl border border-brand-green bg-white px-6 py-3 text-sm font-black text-brand-green transition hover:bg-brand-green hover:text-white"
+              >
+                View All Brands
+              </Link>
+            </div>
           </div>
         </div>
       </section>
