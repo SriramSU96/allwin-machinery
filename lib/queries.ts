@@ -8,12 +8,13 @@ export const PRODUCTS_QUERY = `*[_type == "product"] | order(featured desc, _cre
   seo
 }`;
 
-export const FEATURED_PRODUCTS_QUERY = `*[_type == "product" && featured == true][0..7] | order(_createdAt desc) {
+export const FEATURED_PRODUCTS_QUERY = 
+  `*[_type == "product"][0..7] | order(_createdAt desc) {
   _id, name, slug, price, badge, inStock,
   "category": category->{ _id, name, slug },
   "brand": brand->{ _id, name },
   images[0], specs[0..2]
-}`;
+}`
 
 export const PRODUCT_BY_SLUG_QUERY = `*[_type == "product" && slug.current == $slug][0] {
   _id, name, slug, price, badge, inStock, featured,

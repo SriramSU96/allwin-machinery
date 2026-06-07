@@ -1,0 +1,10 @@
+{"_id":"cat-power-weeders","_type":"category","name":"Power Weeders","slug":{"_type":"slug","current":"power-weeders"},"icon":"⚙️","order":1}
+{"_id":"cat-brush-cutters","_type":"category","name":"Brush Cutters","slug":{"_type":"slug","current":"brush-cutters"},"icon":"✂️","order":2}
+{"_id":"cat-power-sprayers","_type":"category","name":"Power Sprayers","slug":{"_type":"slug","current":"power-sprayers"},"icon":"💨","order":3}
+{"_id":"cat-water-pumps","_type":"category","name":"Water Pumps","slug":{"_type":"slug","current":"water-pumps"},"icon":"💧","order":4}
+{"_id":"cat-chainsaws","_type":"category","name":"Chainsaws","slug":{"_type":"slug","current":"chainsaws"},"icon":"🪚","order":5}
+{"_id":"cat-earth-augers","_type":"category","name":"Earth Augers","slug":{"_type":"slug","current":"earth-augers"},"icon":"🔩","order":6}
+{"_id":"cat-generators","_type":"category","name":"Generators","slug":{"_type":"slug","current":"generators"},"icon":"⚡","order":7}
+{"_id":"cat-fogging-machines","_type":"category","name":"Fogging Machines","slug":{"_type":"slug","current":"fogging-machines"},"icon":"🌫️","order":8}
+{"_id":"cat-spare-parts","_type":"category","name":"Spare Parts","slug":{"_type":"slug","current":"spare-parts"},"icon":"🔧","order":9}
+{"_id":"cat-batteries","_type":"category","name":"Batteries","slug":{"_type":"slug","current":"batteries"},"icon":"🔋","order":10}

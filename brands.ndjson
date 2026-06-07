@@ -1,0 +1,10 @@
+{"_id":"brand-neptune","_type":"brand","name":"Neptune","slug":{"_type":"slug","current":"neptune"},"featured":true}
+{"_id":"brand-balwaan","_type":"brand","name":"Balwaan","slug":{"_type":"slug","current":"balwaan"},"featured":true}
+{"_id":"brand-agrifarma","_type":"brand","name":"Agrifarma","slug":{"_type":"slug","current":"agrifarma"},"featured":false}
+{"_id":"brand-bharat","_type":"brand","name":"Bharat Gold","slug":{"_type":"slug","current":"bharat-gold"},"featured":false}
+{"_id":"brand-honda","_type":"brand","name":"Honda","slug":{"_type":"slug","current":"honda"},"featured":true}
+{"_id":"brand-kirloskar","_type":"brand","name":"Kirloskar","slug":{"_type":"slug","current":"kirloskar"},"featured":true}
+{"_id":"brand-husqvarna","_type":"brand","name":"Husqvarna","slug":{"_type":"slug","current":"husqvarna"},"featured":true}
+{"_id":"brand-kama","_type":"brand","name":"Kama","slug":{"_type":"slug","current":"kama"},"featured":true}
+{"_id":"brand-farmboxer","_type":"brand","name":"Farm Boxer","slug":{"_type":"slug","current":"farm-boxer"},"featured":false}
+{"_id":"brand-allwin","_type":"brand","name":"Allwin","slug":{"_type":"slug","current":"allwin"},"featured":true}
