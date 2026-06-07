@@ -49,6 +49,13 @@ export const BRAND_BY_SLUG_QUERY = `*[_type == "brand" && slug.current == $slug]
   _id, name, slug, logo, description, website
 }`;
 
+export const PRODUCTS_BY_BRAND_QUERY = `*[_type == "product" && brand->slug.current == $slug] | order(_createdAt desc) {
+  _id, name, slug, price, badge, inStock,
+  "category": category->{ _id, name, slug },
+  "brand": brand->{ _id, name, slug },
+  images[0], specs[0..2]
+}`;
+
 export const TESTIMONIALS_QUERY = `*[_type == "testimonial"] | order(_createdAt desc)[0..7] {
   _id, name, role, location, message, rating, image
 }`;

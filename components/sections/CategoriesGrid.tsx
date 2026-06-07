@@ -1,9 +1,14 @@
 import Link from "next/link";
 import Image from "next/image";
-import { CATEGORIES_DATA } from "@/lib/utils";
+import { urlFor } from "@/lib/sanity";
 import { SectionReveal } from "@/components/animations/SectionReveal";
+import type { Category } from "@/types";
 
-export function CategoriesGrid() {
+interface CategoriesGridProps {
+  categories: Category[];
+}
+
+export function CategoriesGrid({ categories }: CategoriesGridProps) {
   return (
     <section className="bg-brand-white py-[60px] md:py-[80px] lg:py-[120px]">
       <div className="max-w-container mx-auto px-4 md:px-6">
@@ -27,15 +32,19 @@ export function CategoriesGrid() {
 
         {/* Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8 gap-3">
-          {CATEGORIES_DATA.map((cat, index) => (
-            <SectionReveal key={cat.slug} delay={index * 0.05}>
+          {categories.map((cat, index) => (
+            <SectionReveal key={cat._id} delay={index * 0.05}>
               <Link
-                href={`/categories/${cat.slug}`}
+                href={`/categories/${cat.slug.current}`}
                 className="group relative block bg-white rounded-xl border border-gray-200 hover:border-brand-green hover:shadow-medium transition-all duration-200 hover:-translate-y-1 text-center overflow-hidden aspect-square"
               >
                 {/* Background Image */}
                 <Image
-                  src={cat.image}
+                  src={
+                    cat.image
+                      ? urlFor(cat.image).width(640).height(640).format("webp").url()
+                      : "/placeholder-category.png"
+                  }
                   alt={cat.name}
                   fill
                   className="object-contain group-hover:scale-105 transition-transform duration-300 p-3 pb-9"
@@ -50,7 +59,9 @@ export function CategoriesGrid() {
                   <p className="font-heading font-bold text-xs sm:text-sm text-white leading-tight">
                     {cat.name}
                   </p>
-                  <p className="text-[10px] sm:text-xs text-gray-300 mt-0.5">{cat.count}</p>
+                  <p className="text-[10px] sm:text-xs text-gray-300 mt-0.5">
+                    {cat.productCount ? `${cat.productCount}+ Products` : "Browse products"}
+                  </p>
                 </div>
               </Link>
             </SectionReveal>

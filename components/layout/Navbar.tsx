@@ -6,8 +6,13 @@ import Image from "next/image";
 import { NAV_ITEMS, SITE_CONFIG, buildWhatsAppUrl } from "@/lib/utils";
 import { cn } from "@/lib/utils";
 import { Phone, ChevronDown, Menu, X, MessageCircle } from "lucide-react";
+import type { Category } from "@/types";
 
-export function Navbar() {
+interface NavbarProps {
+  categories: Category[];
+}
+
+export function Navbar({ categories }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
@@ -74,52 +79,64 @@ export function Navbar() {
 
           {/* Desktop nav */}
           <nav className="hidden lg:flex items-center gap-1" ref={dropdownRef}>
-            {NAV_ITEMS.map((item) => (
-              <div key={item.href} className="relative">
-                {item.children ? (
-                  <button
-                    onClick={() =>
-                      setActiveDropdown(
-                        activeDropdown === item.label ? null : item.label
-                      )
-                    }
-                    className="flex items-center gap-1 px-3 py-2 text-sm text-white/80 hover:text-brand-gold font-heading font-semibold transition-colors"
-                  >
-                    {item.label}
-                    <ChevronDown
-                      size={14}
-                      className={cn(
-                        "transition-transform",
-                        activeDropdown === item.label && "rotate-180"
-                      )}
-                    />
-                  </button>
-                ) : (
-                  <Link
-                    href={item.href}
-                    className="px-3 py-2 text-sm text-white/80 hover:text-brand-gold font-heading font-semibold transition-colors block"
-                  >
-                    {item.label}
-                  </Link>
-                )}
+            {NAV_ITEMS.map((item) => {
+              const isProducts = item.label === "Products";
+              const dropdownItems = isProducts
+                ? categories.map((cat) => ({
+                    label: cat.name,
+                    href: `/categories/${cat.slug.current}`,
+                  }))
+                : item.children || [];
 
-                {/* Dropdown */}
-                {item.children && activeDropdown === item.label && (
-                  <div className="absolute top-full left-0 mt-1 w-56 bg-white rounded-xl shadow-large border border-gray-100 py-2 z-50">
-                    {item.children.map((child) => (
-                      <Link
-                        key={child.href}
-                        href={child.href}
-                        onClick={() => setActiveDropdown(null)}
-                        className="block px-4 py-2.5 text-sm text-brand-text hover:bg-brand-light-gray hover:text-brand-green font-body transition-colors"
-                      >
-                        {child.label}
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))}
+              const hasDropdown = dropdownItems.length > 0;
+
+              return (
+                <div key={item.href} className="relative">
+                  {hasDropdown ? (
+                    <button
+                      onClick={() =>
+                        setActiveDropdown(
+                          activeDropdown === item.label ? null : item.label
+                        )
+                      }
+                      className="flex items-center gap-1 px-3 py-2 text-sm text-white/80 hover:text-brand-gold font-heading font-semibold transition-colors"
+                    >
+                      {item.label}
+                      <ChevronDown
+                        size={14}
+                        className={cn(
+                          "transition-transform",
+                          activeDropdown === item.label && "rotate-180"
+                        )}
+                      />
+                    </button>
+                  ) : (
+                    <Link
+                      href={item.href}
+                      className="px-3 py-2 text-sm text-white/80 hover:text-brand-gold font-heading font-semibold transition-colors block"
+                    >
+                      {item.label}
+                    </Link>
+                  )}
+
+                  {/* Dropdown */}
+                  {hasDropdown && activeDropdown === item.label && (
+                    <div className="absolute top-full left-0 mt-1 w-56 bg-white rounded-xl shadow-large border border-gray-100 py-2 z-50">
+                      {dropdownItems.map((child) => (
+                        <Link
+                          key={child.href}
+                          href={child.href}
+                          onClick={() => setActiveDropdown(null)}
+                          className="block px-4 py-2.5 text-sm text-brand-text hover:bg-brand-light-gray hover:text-brand-green font-body transition-colors"
+                        >
+                          {child.label}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
           </nav>
 
           {/* CTA area */}
@@ -159,31 +176,41 @@ export function Navbar() {
       {mobileOpen && (
         <div className="fixed inset-0 z-[90] bg-brand-dark lg:hidden overflow-y-auto pt-[72px]">
           <div className="px-4 py-6 space-y-1">
-            {NAV_ITEMS.map((item) => (
-              <div key={item.href}>
-                <Link
-                  href={item.href}
-                  onClick={() => setMobileOpen(false)}
-                  className="block py-3 text-white font-heading font-semibold border-b border-white/10"
-                >
-                  {item.label}
-                </Link>
-                {item.children && (
-                  <div className="pl-4 mt-1 space-y-1">
-                    {item.children.map((child) => (
-                      <Link
-                        key={child.href}
-                        href={child.href}
-                        onClick={() => setMobileOpen(false)}
-                        className="block py-2 text-sm text-white/60 hover:text-brand-gold"
-                      >
-                        {child.label}
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))}
+            {NAV_ITEMS.map((item) => {
+              const isProducts = item.label === "Products";
+              const dropdownItems = isProducts
+                ? categories.map((cat) => ({
+                    label: cat.name,
+                    href: `/categories/${cat.slug.current}`,
+                  }))
+                : item.children || [];
+
+              return (
+                <div key={item.href}>
+                  <Link
+                    href={item.href}
+                    onClick={() => setMobileOpen(false)}
+                    className="block py-3 text-white font-heading font-semibold border-b border-white/10"
+                  >
+                    {item.label}
+                  </Link>
+                  {dropdownItems.length > 0 && (
+                    <div className="pl-4 mt-1 space-y-1">
+                      {dropdownItems.map((child) => (
+                        <Link
+                          key={child.href}
+                          href={child.href}
+                          onClick={() => setMobileOpen(false)}
+                          className="block py-2 text-sm text-white/60 hover:text-brand-gold"
+                        >
+                          {child.label}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
 
             <div className="pt-6 flex flex-col gap-3">
               <a
