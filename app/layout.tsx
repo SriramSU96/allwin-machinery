@@ -5,6 +5,8 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { WhatsAppFloat } from "@/components/ui/WhatsAppFloat";
 import { SITE_CONFIG } from "@/lib/utils";
+import { sanityClient } from "@/lib/sanity";
+import { CATEGORIES_QUERY } from "@/lib/queries";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -44,18 +46,20 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const categories = await sanityClient.fetch(CATEGORIES_QUERY);
+
   return (
     <html
       lang="en"
       className={`${montserrat.variable} ${inter.variable}`}
     >
       <body className="bg-brand-white text-brand-text antialiased">
-        <Navbar />
+        <Navbar categories={categories} />
         <main>{children}</main>
         <Footer />
         <WhatsAppFloat />

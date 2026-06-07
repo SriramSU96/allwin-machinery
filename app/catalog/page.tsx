@@ -6,6 +6,9 @@ import { SectionReveal } from "@/components/animations/SectionReveal";
 import { CTABanner } from "@/components/sections/CTABanner";
 import { CountUpStat } from "@/components/ui/CountUpStat";
 import { SITE_CONFIG, buildWhatsAppUrl } from "@/lib/utils";
+import { sanityClient, urlForImage } from "@/lib/sanity";
+import { CATEGORIES_QUERY, BRANDS_QUERY } from "@/lib/queries";
+import type { Category, Brand } from "@/types";
 import { ArrowUpRight, Download, FileText, Search, Phone, MessageCircle, CheckCircle2 } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -84,48 +87,6 @@ const FEATURED_CATALOGS = [
   },
 ];
 
-const CATEGORY_BROWSE = [
-  { name: "Power Weeders", slug: "power-weeders", image: `${CLD}/v1780557453/walk-behind_tiller_i0y4xz.png`, count: "12 Catalogs" },
-  { name: "Power Sprayers", slug: "power-sprayers", image: `${CLD}/v1780557442/power_sprayer_machine_zlfuni.png`, count: "8 Catalogs" },
-  { name: "Water Pumps", slug: "water-pumps", image: `${CLD}/v1780557375/Compact_water_pump_engine_in_frame_eyxdfu.png`, count: "10 Catalogs" },
-  { name: "Brush Cutters", slug: "brush-cutters", image: `${CLD}/v1780557384/Gas-powered_brush_cutter_oxdshx.png`, count: "6 Catalogs" },
-  { name: "Generators", slug: "generators", image: `${CLD}/v1780557429/Portable_generator_sjhgdl.png`, count: "6 Catalogs" },
-  { name: "Spare Parts", slug: "spare-parts", image: `${CLD}/v1780557405/Metal_ball_bearings_arrangement_kublo2.png`, count: "7 Catalogs" },
-  { name: "Complete Catalog", slug: "all", image: `${CLD}/v1780557453/walk-behind_tiller_i0y4xz.png`, count: "1 Catalog" },
-];
-
-const BRAND_CATALOGS = [
-  {
-    name: "Honda",
-    desc: "Honda Power Equipment Catalog",
-    logo: `${CLD}/v1780557392/hondo_o1jhwc.png`,
-    downloadUrl: "#",
-  },
-  {
-    name: "Neptune",
-    desc: "Neptune Sprayers Catalog",
-    logo: `${CLD}/v1780557415/Neptune_logo_uh4yko.png`,
-    downloadUrl: "#",
-  },
-  {
-    name: "Kirloskar",
-    desc: "Kirloskar Pumps Catalog",
-    logo: `${CLD}/v1780557621/kirloskar_pumps_sdhd7w.png`,
-    downloadUrl: "#",
-  },
-  {
-    name: "Kama",
-    desc: "Kama Power Weeders Catalog",
-    logo: `${CLD}/v1780557614/kama_zrjteb.png`,
-    downloadUrl: "#",
-  },
-  {
-    name: "Husqvarna",
-    desc: "Husqvarna Brush Cutters Catalog",
-    logo: `${CLD}/v1780557628/husqvarna_ono7jj.png`,
-    downloadUrl: "#",
-  },
-];
 
 const CATALOG_STATS = [
   { value: 1500, suffix: "+", label: "Catalog Downloads" },
@@ -143,7 +104,12 @@ const FAQS = [
   { q: "Who can I contact for more information?", a: "Call us at +91 98765 43210 or WhatsApp us anytime. Our team will assist you." },
 ];
 
-export default function CatalogPage() {
+export default async function CatalogPage() {
+  const [categories, brands]: [Category[], Brand[]] = await Promise.all([
+    sanityClient.fetch(CATEGORIES_QUERY),
+    sanityClient.fetch(BRANDS_QUERY),
+  ]);
+
   return (
     <>
       <PageHero
@@ -167,20 +133,20 @@ export default function CatalogPage() {
               />
             </div>
             <select className="px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-brand-green bg-white text-gray-500 md:w-48">
-              <option>All Categories</option>
-              <option>Power Weeders</option>
-              <option>Power Sprayers</option>
-              <option>Water Pumps</option>
-              <option>Brush Cutters</option>
-              <option>Spare Parts</option>
+              <option value="">All Categories</option>
+              {categories.map((cat) => (
+                <option key={cat._id} value={cat.slug.current}>
+                  {cat.name}
+                </option>
+              ))}
             </select>
             <select className="px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-brand-green bg-white text-gray-500 md:w-40">
-              <option>All Brands</option>
-              <option>Honda</option>
-              <option>Neptune</option>
-              <option>Kirloskar</option>
-              <option>Kama</option>
-              <option>Husqvarna</option>
+              <option value="">All Brands</option>
+              {brands.map((brand) => (
+                <option key={brand._id} value={brand.slug.current}>
+                  {brand.name}
+                </option>
+              ))}
             </select>
             <button className="btn bg-brand-green text-white px-6 py-3 text-sm hover:bg-brand-gold flex items-center gap-2">
               <Search size={15} /> Search
@@ -266,35 +232,41 @@ export default function CatalogPage() {
             </p>
           </SectionReveal>
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4 lg:gap-5">
-            {CATEGORY_BROWSE.map((cat, i) => (
-              <SectionReveal key={cat.name} delay={i * 0.06}>
-                <Link
-                  href={`/catalog?category=${cat.slug}`}
-                  className="group relative flex h-[180px] flex-col items-center rounded-[14px] border border-gray-200 bg-white px-4 pb-4 pt-5 text-center shadow-[0_8px_24px_rgba(15,23,42,0.06)] transition-all duration-300 hover:-translate-y-0.5 hover:border-brand-green/50 hover:shadow-[0_16px_34px_rgba(15,23,42,0.10)]"
-                >
-                  <span className="absolute right-3 top-3 flex h-7 w-7 translate-y-1 items-center justify-center rounded-full border border-brand-green/20 bg-white text-brand-green opacity-0 shadow-sm transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
-                    <ArrowUpRight size={15} strokeWidth={2.25} />
-                  </span>
+            {categories.map((cat, i) => {
+              const imageUrl = cat.image
+                ? urlForImage(cat.image, 420, 280)
+                : `${CLD}/v1780557453/walk-behind_tiller_i0y4xz.png`;
 
-                  <div className="relative h-[96px] w-full bg-white">
-                    <Image
-                      src={cat.image}
-                      alt={cat.name}
-                      fill
-                      className="scale-[1.45] object-contain transition-transform duration-300 "
-                      sizes="180px"
-                    />
-                  </div>
-                  <p className="mt-3 flex min-h-[34px] items-end justify-center font-heading text-[15px] font-black leading-[1.05] text-brand-text transition-colors group-hover:text-brand-green">
-                    {cat.name}
-                  </p>
-                  <p className="mt-2 text-xs font-medium text-gray-500">
-                    <span className="font-bold text-brand-green">{cat.count.split(" ")[0]}</span>{" "}
-                    {cat.count.replace(cat.count.split(" ")[0], "").trim()}
-                  </p>
-                </Link>
-              </SectionReveal>
-            ))}
+              return (
+                <SectionReveal key={cat._id} delay={i * 0.06}>
+                  <Link
+                    href={`/categories/${cat.slug.current}`}
+                    className="group relative flex h-[180px] flex-col items-center rounded-[14px] border border-gray-200 bg-white px-4 pb-4 pt-5 text-center shadow-[0_8px_24px_rgba(15,23,42,0.06)] transition-all duration-300 hover:-translate-y-0.5 hover:border-brand-green/50 hover:shadow-[0_16px_34px_rgba(15,23,42,0.10)]"
+                  >
+                    <span className="absolute right-3 top-3 flex h-7 w-7 translate-y-1 items-center justify-center rounded-full border border-brand-green/20 bg-white text-brand-green opacity-0 shadow-sm transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
+                      <ArrowUpRight size={15} strokeWidth={2.25} />
+                    </span>
+
+                    <div className="relative h-[96px] w-full bg-white">
+                      <Image
+                        src={imageUrl}
+                        alt={cat.name}
+                        fill
+                        className="scale-[1.45] object-contain transition-transform duration-300"
+                        sizes="180px"
+                      />
+                    </div>
+                    <p className="mt-3 flex min-h-[34px] items-end justify-center font-heading text-[15px] font-black leading-[1.05] text-brand-text transition-colors group-hover:text-brand-green">
+                      {cat.name}
+                    </p>
+                    <p className="mt-2 text-xs font-medium text-gray-500">
+                      <span className="font-bold text-brand-green">{cat.productCount || 0}</span>{" "}
+                      Catalogs
+                    </p>
+                  </Link>
+                </SectionReveal>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -309,32 +281,38 @@ export default function CatalogPage() {
           </SectionReveal>
 
           <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-            {BRAND_CATALOGS.map((brand, i) => (
-              <SectionReveal key={brand.name} delay={i * 0.08}>
-                <div className="border border-gray-200 rounded-2xl p-5 flex flex-col items-center text-center hover:shadow-medium hover:border-brand-green transition-all group">
+            {brands.map((brand, i) => {
+              const logoUrl = brand.logo
+                ? urlForImage(brand.logo, 160, 80)
+                : "https://images.unsplash.com/photo-1581093196277-9f608bb3b511?w=400&h=300&q=80";
 
-                  {/* Brand logo — real image */}
-                  <div className="relative w-full h-16 mb-4">
-                    <Image
-                      src={brand.logo}
-                      alt={brand.name}
-                      fill
-                      className="object-contain"
-                      sizes="200px"
-                    />
+              return (
+                <SectionReveal key={brand._id} delay={i * 0.08}>
+                  <div className="border border-gray-200 rounded-2xl p-5 flex flex-col items-center text-center hover:shadow-medium hover:border-brand-green transition-all group">
+                    <div className="relative w-full h-16 mb-4">
+                      <Image
+                        src={logoUrl}
+                        alt={brand.name}
+                        fill
+                        className="object-contain"
+                        sizes="200px"
+                      />
+                    </div>
+
+                    <p className="text-xs text-gray-500 mb-4 leading-snug">
+                      {brand.description || `${brand.name} product catalog`}
+                    </p>
+
+                    <Link
+                      href={`/brands/${brand.slug.current}`}
+                      className="btn w-full bg-white border border-brand-green text-brand-green py-2 text-[11px] hover:bg-brand-green hover:text-white flex items-center justify-center gap-1.5 transition-all"
+                    >
+                      <Download size={11} /> View Catalog
+                    </Link>
                   </div>
-
-                  <p className="text-xs text-gray-500 mb-4 leading-snug">{brand.desc}</p>
-
-                  <a
-                    href={brand.downloadUrl}
-                    className="btn w-full bg-white border border-brand-green text-brand-green py-2 text-[11px] hover:bg-brand-green hover:text-white flex items-center justify-center gap-1.5 transition-all"
-                  >
-                    <Download size={11} /> View Catalog
-                  </a>
-                </div>
-              </SectionReveal>
-            ))}
+                </SectionReveal>
+              );
+            })}
           </div>
         </div>
       </section>
