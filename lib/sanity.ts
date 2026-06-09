@@ -15,10 +15,21 @@ export const sanityClient = createClient(sanityConfig);
 const builder = imageUrlBuilder(sanityClient);
 
 export function urlFor(source: SanityImage) {
+  // Handle external URLs (externalImage type)
+  if (source && typeof source === "object" && "url" in source && source.url) {
+    return { url: () => source.url };
+  }
+  
   return builder.image(source);
 }
 
 export function urlForImage(source: SanityImage, width = 800, height = 600) {
+  // Handle external URLs (externalImage type)
+  if (source && typeof source === "object" && "url" in source && source.url) {
+    return source.url as string;
+  }
+  
+  // Handle Sanity assets (imageAsset type)
   return builder
     .image(source)
     .width(width)

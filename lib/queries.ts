@@ -4,16 +4,16 @@ export const PRODUCTS_QUERY = `*[_type == "product"] | order(featured desc, _cre
   _id, name, slug, price, badge, inStock, featured,
   "category": category->{ _id, name, slug },
   "brand": brand->{ _id, name, slug },
-  images[0], specs[0..2], description,
+  images, specs, description,
   seo
 }`;
 
 export const FEATURED_PRODUCTS_QUERY = 
-  `*[_type == "product"][0..7] | order(_createdAt desc) {
+  `*[_type == "product"] | order(featured desc, _createdAt desc)[0..49] {
   _id, name, slug, price, badge, inStock,
   "category": category->{ _id, name, slug },
   "brand": brand->{ _id, name },
-  images[0], specs[0..2]
+  images, specs
 }`
 
 export const PRODUCT_BY_SLUG_QUERY = `*[_type == "product" && slug.current == $slug][0] {
@@ -28,7 +28,7 @@ export const PRODUCTS_BY_CATEGORY_QUERY = `*[_type == "product" && category->slu
   _id, name, slug, price, badge, inStock,
   "category": category->{ _id, name, slug },
   "brand": brand->{ _id, name },
-  images[0], specs[0..2]
+  images, specs
 }`;
 
 export const CATEGORIES_QUERY = `*[_type == "category"] | order(order asc) {
@@ -53,7 +53,7 @@ export const PRODUCTS_BY_BRAND_QUERY = `*[_type == "product" && brand->slug.curr
   _id, name, slug, price, badge, inStock,
   "category": category->{ _id, name, slug },
   "brand": brand->{ _id, name, slug },
-  images[0], specs[0..2]
+  images, specs
 }`;
 
 export const TESTIMONIALS_QUERY = `*[_type == "testimonial"] | order(_createdAt desc)[0..7] {
@@ -90,6 +90,6 @@ export const SITE_SETTINGS_QUERY = `*[_type == "siteSettings"][0] {
 
 export const RELATED_PRODUCTS_QUERY = `*[_type == "product" && category->_id == $categoryId && _id != $productId][0..3] {
   _id, name, slug, price,
-  images[0],
+  images,
   "category": category->{ name, slug }
 }`;
