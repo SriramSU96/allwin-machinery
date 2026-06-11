@@ -1,5 +1,7 @@
+// lib/sanity.ts
 import { createClient } from "next-sanity";
 import imageUrlBuilder from "@sanity/image-url";
+import { unstable_cache } from "next/cache";  // ✅ ADD THIS
 import type { SanityImage } from "@/types";
 
 export const sanityConfig = {
@@ -9,27 +11,34 @@ export const sanityConfig = {
   useCdn: process.env.NODE_ENV === "production",
 };
 
-
 export const sanityClient = createClient(sanityConfig);
+
+// ✅ ADD THIS — cached fetch wrapper
+export function cachedFetch<T>(
+  query: string,
+  tags: string[],
+  revalidate = 3600
+) {
+  return unstable_cache(
+    () => sanityClient.fetch<T>(query),
+    tags,
+    { revalidate }
+  )();
+}
 
 const builder = imageUrlBuilder(sanityClient);
 
 export function urlFor(source: SanityImage) {
-  // Handle external URLs (externalImage type)
   if (source && typeof source === "object" && "url" in source && source.url) {
     return { url: () => source.url };
   }
-  
   return builder.image(source);
 }
 
 export function urlForImage(source: SanityImage, width = 800, height = 600) {
-  // Handle external URLs (externalImage type)
   if (source && typeof source === "object" && "url" in source && source.url) {
     return source.url as string;
   }
-  
-  // Handle Sanity assets (imageAsset type)
   return builder
     .image(source)
     .width(width)

@@ -4,16 +4,17 @@ export const PRODUCTS_QUERY = `*[_type == "product"] | order(featured desc, _cre
   _id, name, slug, price, badge, inStock, featured,
   "category": category->{ _id, name, slug },
   "brand": brand->{ _id, name, slug },
-  images, specs, description,
+  "images": images[0..0],
+   specs, description,
   seo
 }`;
 
 export const FEATURED_PRODUCTS_QUERY = 
-  `*[_type == "product"] | order(featured desc, _createdAt desc)[0..49] {
+  `*[_type == "product"] | order(featured desc, _createdAt desc)[0..11] {
   _id, name, slug, price, badge, inStock,
   "category": category->{ _id, name, slug },
   "brand": brand->{ _id, name },
-  images, specs
+  "images": images[0..0], specs
 }`
 
 export const PRODUCT_BY_SLUG_QUERY = `*[_type == "product" && slug.current == $slug][0] {
@@ -60,7 +61,7 @@ export const TESTIMONIALS_QUERY = `*[_type == "testimonial"] | order(_createdAt 
   _id, name, role, location, message, rating, image
 }`;
 
-export const BLOG_POSTS_QUERY = `*[_type == "blogPost"] | order(publishedAt desc) {
+export const BLOG_POSTS_QUERY = `*[_type == "blogPost"] | order(publishedAt desc)[0..5] {
   _id, title, slug, excerpt, coverImage, category, publishedAt, readTime, featured,
   "author": author->{ name, image }
 }`;
@@ -93,3 +94,28 @@ export const RELATED_PRODUCTS_QUERY = `*[_type == "product" && category->_id == 
   images,
   "category": category->{ name, slug }
 }`;
+
+
+
+export const PRODUCTS_PAGINATED_QUERY = `*[_type == "product"
+  && ($categorySlug == "" || category->slug.current == $categorySlug)
+  && ($brandSlug == ""    || brand->slug.current    == $brandSlug)
+] | order(
+  select(
+    $sortBy == "price-asc"  => price,
+    $sortBy == "price-desc" => 0 - price,
+    $sortBy == "name-asc"   => name,
+    featured
+  ) desc
+) [$from..$to] {
+  _id, name, slug, price, badge, inStock, featured,
+  "category": category->{ _id, name, slug },
+  "brand":    brand->{ _id, name, slug },
+  "images":   images[0..0],
+  specs
+}`;
+
+export const PRODUCTS_COUNT_QUERY = `count(*[_type == "product"
+  && ($categorySlug == "" || category->slug.current == $categorySlug)
+  && ($brandSlug == ""    || brand->slug.current    == $brandSlug)
+])`;

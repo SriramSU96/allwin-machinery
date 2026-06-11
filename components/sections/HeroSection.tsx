@@ -39,15 +39,16 @@ export function HeroSection() {
     <section className="relative flex flex-col overflow-hidden bg-[#0a0f0a]" style={{ minHeight: "clamp(580px, 68vh, 900px)" }}>
       {/* ── Full-bleed Background Image ─────────────────── */}
       <div className="absolute inset-0">
-        <Image
-          src="https://res.cloudinary.com/djocuy3qz/image/upload/v1780400369/heropage_vvgpyi.png"
-          alt="Allwin agricultural machinery at sunrise"
-          fill
-          priority
-          quality={100}
-          className="object-cover object-[5%_center] lg:object-right"
-          sizes="100vw"
-        />
+       // ✅ AFTER
+<Image
+  src="https://res.cloudinary.com/djocuy3qz/image/upload/w_1600,q_auto,f_auto/v1780400369/heropage_vvgpyi.png"
+  alt="Allwin agricultural machinery at sunrise"
+  fill
+  priority
+  quality={80}
+  className="object-cover object-[5%_center] lg:object-right"
+  sizes="100vw"
+/>
       </div>
 
       {/* ── Multi-layer Gradient Overlay ─────────────────── */}
