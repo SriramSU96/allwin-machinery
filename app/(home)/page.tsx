@@ -18,7 +18,7 @@ import {
 } from "@/lib/queries";
 
 export const metadata: Metadata = {
-  title: "all | ",
+  title: "Allwin Machinery | Powerful Machines for Modern Farming",
   description:
     "Leading supplier of high performance agricultural machinery in Trichy, Tamil Nadu. Power weeders, sprayers, motor pumps & more.",
 };
