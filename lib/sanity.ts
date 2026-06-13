@@ -1,19 +1,21 @@
 // lib/sanity.ts
 import { createClient } from "next-sanity";
 import imageUrlBuilder from "@sanity/image-url";
-import { unstable_cache } from "next/cache";  // ✅ ADD THIS
+import { unstable_cache } from "next/cache";
 import type { SanityImage } from "@/types";
 
 export const sanityConfig = {
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!,
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || "production",
   apiVersion: process.env.NEXT_PUBLIC_SANITY_API_VERSION || "2024-01-01",
-  useCdn: process.env.NODE_ENV === "production",
+  useCdn: true, // ✅ FIXED — was: process.env.NODE_ENV === "production"
+  // CDN is fast + cached globally; safe to use in dev and production.
+  // Only switch to false temporarily if you need to see unpublished drafts instantly.
 };
 
 export const sanityClient = createClient(sanityConfig);
 
-// ✅ ADD THIS — cached fetch wrapper
+// Cached fetch wrapper (optional extra layer on top of CDN)
 export function cachedFetch<T>(
   query: string,
   tags: string[],
