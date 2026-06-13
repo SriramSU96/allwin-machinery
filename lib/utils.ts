@@ -41,15 +41,15 @@ export function truncate(text: string, length: number): string {
 }
 
 export const SITE_CONFIG = {
-  name: "all",
+name: "Allwin Machinery",
   tagline: "Powerful Machines for Modern Farming",
   description:
-    "all is a leading supplier of high performance agricultural machinery, tools and equipment for modern farmers.",
+    "Allwin Machinery is a leading supplier of high performance agricultural machinery, tools and equipment for modern farmers.",
   url: process.env.NEXT_PUBLIC_SITE_URL || "https://allwinmachinery.com",
-  phone: process.env.NEXT_PUBLIC_PHONE_NUMBER || "+91 98765 43210",
-  whatsapp: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "919876543210",
+  phone: process.env.NEXT_PUBLIC_PHONE_NUMBER || "+91 96003 64685",
+  whatsapp: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "9600364685",
   email: "info@allwinmachinery.com",
-  address: "123, Industrial Area, Trichy, Tamil Nadu - 620001",
+  address: "tvs toll gate , Trichy, Tamil Nadu - 620001",
   workingHours: "Mon – Sat: 9:00 AM – 6:00 PM",
 };
 

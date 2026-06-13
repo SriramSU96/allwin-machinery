@@ -14,6 +14,7 @@ const FOOTER_LINKS = {
     { label: "Blog", href: "/blog" },
     {label:"FAQ",href:"/faq"},
     { label: "Contact Us", href: "/contact" },
+    { label: "Write a Review", href: "/review" },
   ],
   products: [
     { label: "Power Weeders", href: "/categories/power-weeders" },
