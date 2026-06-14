@@ -56,7 +56,7 @@ export default async function BrandsPage() {
         title="Trusted Agricultural"
         titleHighlight="Machinery Brands"
         description="We partner with industry-leading brands to deliver reliable farming equipment."
-        backgroundImage="https://res.cloudinary.com/djocuy3qz/image/upload/v1780550327/g_xuprt5.png"
+        backgroundImage="https://res.cloudinary.com/djocuy3qz/image/upload/v1781411014/ChatGPT_Image_Jun_14_2026_09_52_57_AM_gfejgc.png"
         breadcrumbs={[{ label: "Home", href: "/" }, { label: "Brands" }]}
       />
 

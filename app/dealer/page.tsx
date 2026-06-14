@@ -90,7 +90,7 @@ export default function DealerPage() {
         title="Become an"
         titleHighlight="Authorized Dealer"
         description="Partner with us to distribute trusted agricultural machinery and grow your business."
-        backgroundImage="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=1600&q=80"
+        backgroundImage="https://res.cloudinary.com/djocuy3qz/image/upload/v1780550327/g_xuprt5.png"
         breadcrumbs={[{ label: "Home", href: "/" }, { label: "Dealer Inquiry" }]}
       />
 

@@ -71,7 +71,7 @@ export default function ContactPage() {
         title="Let's Connect With"
         titleHighlight="Our Machinery Experts"
         description="Have questions or need help choosing the right machine? We are here to help you with the best solutions."
-        backgroundImage="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=1600&q=80"
+        backgroundImage="https://res.cloudinary.com/djocuy3qz/image/upload/v1781409554/ChatGPT_Image_Jun_14_2026_09_23_08_AM_uk4ztj.png"
         breadcrumbs={[{ label: "Home", href: "/" }, { label: "Contact Us" }]}
       />
 

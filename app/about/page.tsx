@@ -56,7 +56,7 @@ export default function AboutPage() {
         title="Trusted Agricultural"
         titleHighlight="Machinery Partner"
         description="all is a leading supplier of high performance agricultural machinery, tools and equipment for modern farmers."
-        backgroundImage="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=1600&q=80"
+        backgroundImage="https://res.cloudinary.com/djocuy3qz/image/upload/v1781410609/ChatGPT_Image_Jun_14_2026_09_46_13_AM_pvi2et.png"
         breadcrumbs={[{ label: "Home", href: "/" }, { label: "About Us" }]}
       />
 

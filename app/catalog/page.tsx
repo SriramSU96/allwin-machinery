@@ -117,7 +117,7 @@ export default async function CatalogPage() {
         title="Product Catalogs"
         titleHighlight="& Brochures"
         description="Explore detailed specifications, features, and machinery information. Free & easy downloads."
-        backgroundImage={`https://res.cloudinary.com/djocuy3qz/image/upload/v1780550299/catalog_cmvanj.png`}
+        backgroundImage={`https://res.cloudinary.com/djocuy3qz/image/upload/v1781409520/ChatGPT_Image_Jun_14_2026_09_23_14_AM_an4fak.png`}
         breadcrumbs={[{ label: "Home", href: "/" }, { label: "Catalogs" }]}
       />
  {/* ── Search bar ── */}

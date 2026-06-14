@@ -50,7 +50,7 @@ export default function ServicesPage() {
         title="Reliable Agricultural"
         titleHighlight="Services & Support"
         description="Professional support for farming machinery — maintenance, spare parts, and technical assistance."
-        backgroundImage="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=1600&q=80"
+        backgroundImage="https://res.cloudinary.com/djocuy3qz/image/upload/v1781409443/ChatGPT_Image_Jun_14_2026_09_23_32_AM_ib2uph.png"
         breadcrumbs={[{ label: "Home", href: "/" }, { label: "Services" }]}
       />
 

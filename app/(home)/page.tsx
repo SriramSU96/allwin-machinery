@@ -15,6 +15,7 @@ import {
   BLOG_POSTS_QUERY,
   BRANDS_QUERY,
   CATEGORIES_QUERY,
+  HERO_QUERY,
 } from "@/lib/queries";
 
 export const metadata: Metadata = {
@@ -26,7 +27,7 @@ export const metadata: Metadata = {
 export const revalidate = 3600; // ISR: revalidate every hour
 
 export default async function HomePage() {
-  const [featuredProducts, testimonials, featuredPost, recentPosts, brands, categories] =
+  const [featuredProducts, testimonials, featuredPost, recentPosts, brands, categories, siteSettings] =
     await Promise.all([
       sanityClient.fetch(FEATURED_PRODUCTS_QUERY),
       sanityClient.fetch(TESTIMONIALS_QUERY),
@@ -34,18 +35,18 @@ export default async function HomePage() {
       sanityClient.fetch(`${BLOG_POSTS_QUERY}[0..2]`),
       sanityClient.fetch(BRANDS_QUERY),
       sanityClient.fetch(CATEGORIES_QUERY),
+      sanityClient.fetch(HERO_QUERY),
     ]);
 
   return (
     <>
-      <HeroSection />
+      <HeroSection hero={siteSettings?.hero} />
       <TrustedBrandsStrip brands={brands} />
       <CategoriesGrid categories={categories} />
       <FeaturedProducts products={featuredProducts} />
       <WhyChooseUs />
       <Testimonials testimonials={testimonials} />
       <BlogPreview featuredPost={featuredPost} recentPosts={recentPosts} />
-      
     </>
   );
 }
