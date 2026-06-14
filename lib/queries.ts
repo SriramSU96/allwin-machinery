@@ -86,8 +86,11 @@ export const DEALERS_QUERY = `*[_type == "dealer"] | order(state asc) {
 }`;
 
 export const SITE_SETTINGS_QUERY = `*[_type == "siteSettings"][0] {
-  siteName, logo, phone, whatsapp, email, address, workingHours, socialLinks
+  siteName, logo, phone, whatsapp, email, address, workingHours, socialLinks, hero
 }`;
+
+export const HERO_QUERY = `*[_type == "siteSettings"][0]{ hero }`;
+
 
 export const RELATED_PRODUCTS_QUERY = `*[_type == "product" && category->_id == $categoryId && _id != $productId][0..3] {
   _id, name, slug, price,
