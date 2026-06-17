@@ -152,7 +152,7 @@ export default async function FAQPage() {
           ].map((item) => (
             <div key={item.sub}>
               {"value" in item ? (
-                <CountUpStat value={item.value} suffix={item.suffix} className="text-lg md:text-lg" />
+                <CountUpStat value={item.value as number} suffix={item.suffix} className="text-lg md:text-lg" />
               ) : (
                 <p className="font-heading font-black text-white text-lg">{item.label}</p>
               )}
