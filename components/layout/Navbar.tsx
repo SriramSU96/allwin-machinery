@@ -81,12 +81,12 @@ export function Navbar({ categories }: NavbarProps) {
           <nav className="hidden lg:flex items-center gap-1" ref={dropdownRef}>
             {NAV_ITEMS.map((item) => {
               const isProducts = item.label === "Products";
-              const dropdownItems = isProducts
+              const dropdownItems: { label: string; href: string }[] = isProducts
                 ? categories.map((cat) => ({
                     label: cat.name,
                     href: `/categories/${cat.slug.current}`,
                   }))
-                : item.children || [];
+                : (item as any).children || [];
 
               const hasDropdown = dropdownItems.length > 0;
 
@@ -178,12 +178,12 @@ export function Navbar({ categories }: NavbarProps) {
           <div className="px-4 py-6 space-y-1">
             {NAV_ITEMS.map((item) => {
               const isProducts = item.label === "Products";
-              const dropdownItems = isProducts
+              const dropdownItems: { label: string; href: string }[] = isProducts
                 ? categories.map((cat) => ({
                     label: cat.name,
                     href: `/categories/${cat.slug.current}`,
                   }))
-                : item.children || [];
+                : (item as any).children || [];
 
               return (
                 <div key={item.href}>
