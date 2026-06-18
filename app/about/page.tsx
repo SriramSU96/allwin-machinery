@@ -8,9 +8,9 @@ import { CTABanner } from "@/components/sections/CTABanner";
 import { Shield, Eye, Heart, Truck, Headphones, Award, Package, IndianRupee } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "About Us | all",
+  title: "About Us | Allwin Machinery",
   description:
-    "Learn about all — a leading supplier of agricultural machinery in Tamil Nadu, committed to quality and farmer success.",
+    "Learn about Allwin Machinery — a leading supplier of agricultural machinery in Tamil Nadu, committed to quality and farmer success.",
 };
 
 const CLD = "https://res.cloudinary.com/djocuy3qz/image/upload/w_400,q_auto,f_auto";
@@ -21,7 +21,7 @@ const ABOUT_BRANDS = [
   { name: "KIRLOSKAR", slug: "kirloskar", logo: `${CLD}/v1780557621/kirloskar_pumps_sdhd7w.png` },
   { name: "KAMA", slug: "kama", logo: `${CLD}/v1780557614/kama_zrjteb.png` },
   { name: "HUSQVARNA", slug: "husqvarna", logo: `${CLD}/v1780557628/husqvarna_ono7jj.png` },
-  { name: "BALWAAN", slug: "balwaan", logo: `${CLD}/v1780557614/kama_zrjteb.png` },
+  { name: "BALWAAN", slug: "balwaan", logo: `${CLD}/v1780557614/balwaan_logo.png` },
 ];
 
 const STATS = [

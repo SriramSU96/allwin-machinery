@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { SITE_CONFIG, buildWhatsAppUrl } from "@/lib/utils";
 import { Phone, MessageCircle } from "lucide-react";
+import { NotFoundSearch } from "./NotFoundSearch";
 
 const POPULAR_LINKS = [
   { icon: "⚙️", label: "Power Weeders", desc: "High performance power weeders", href: "/categories/power-weeders" },
@@ -47,25 +48,7 @@ export default function NotFound() {
                 </Link>
               </div>
 
-              {/* Search bar */}
-              <div className="max-w-xl mx-auto mb-4">
-                <div className="relative">
-                  <input
-                    type="search"
-                    placeholder="Search for products, blogs, catalogs..."
-                    className="w-full px-5 py-3.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-brand-green pr-24"
-                  />
-                  <Link
-                    href="/products"
-                    className="absolute right-2 top-1/2 -translate-y-1/2 btn bg-brand-green text-white px-4 py-2 text-xs"
-                  >
-                    Search
-                  </Link>
-                </div>
-                <p className="text-xs text-gray-400 mt-2">
-                  Popular: Power Weeders · Water Pumps · Brush Cutters · Sprayers · Generators
-                </p>
-              </div>
+              <NotFoundSearch />
             </div>
           </section>
 

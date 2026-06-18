@@ -40,7 +40,7 @@ export async function POST(req: NextRequest) {
       { status: 200 }
     );
 
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Review submission error:", error);
     return NextResponse.json(
       { error: "Failed to submit review" },
