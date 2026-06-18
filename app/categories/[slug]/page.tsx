@@ -33,6 +33,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export const revalidate = 3600;
+export async function generateStaticParams() {
+  const items = await sanityClient.fetch<{ slug: string }[]>(
+    `*[_type == "category"]{ "slug": slug.current }`
+  );
+  return items.map((i) => ({ slug: i.slug }));
+}
+
 
 export default async function CategoryPage({ params }: Props) {
   const category: Category = await sanityClient.fetch(CATEGORY_BY_SLUG_QUERY, {

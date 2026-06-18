@@ -34,6 +34,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export const revalidate = 3600;
+export async function generateStaticParams() {
+  const items = await sanityClient.fetch<{ slug: string }[]>(
+    `*[_type == "brand"]{ "slug": slug.current }`
+  );
+  return items.map((i) => ({ slug: i.slug }));
+}
+
 
 export default async function BrandPage({ params }: Props) {
   const brand: Brand = await sanityClient.fetch(BRAND_BY_SLUG_QUERY, {

@@ -6,9 +6,9 @@ import { SITE_CONFIG } from "@/lib/utils";
 import { Phone, MessageCircle, Mail, MapPin, Clock, Headphones } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Contact Us | all",
+  title: "Contact Us | Allwin Machinery",
   description:
-    "Get in touch with all. Call, WhatsApp, or email us for quotes, support, and inquiries.",
+    "Get in touch with Allwin Machinery. Call, WhatsApp, or email us for quotes, support, and inquiries.",
 };
 
 const CONTACT_CARDS = [

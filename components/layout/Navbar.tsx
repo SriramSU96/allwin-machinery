@@ -6,7 +6,7 @@ import Image from "next/image";
 import { NAV_ITEMS, SITE_CONFIG, buildWhatsAppUrl } from "@/lib/utils";
 import { cn } from "@/lib/utils";
 import { Phone, ChevronDown, Menu, X, MessageCircle } from "lucide-react";
-import type { Category } from "@/types";
+import type { Category, NavItem } from "@/types";
 
 interface NavbarProps {
   categories: Category[];
@@ -86,7 +86,7 @@ export function Navbar({ categories }: NavbarProps) {
                     label: cat.name,
                     href: `/categories/${cat.slug.current}`,
                   }))
-                : (item as any).children || [];
+                : (item as NavItem).children || [];
 
               const hasDropdown = dropdownItems.length > 0;
 
@@ -183,7 +183,7 @@ export function Navbar({ categories }: NavbarProps) {
                     label: cat.name,
                     href: `/categories/${cat.slug.current}`,
                   }))
-                : (item as any).children || [];
+                : (item as NavItem).children || [];
 
               return (
                 <div key={item.href}>

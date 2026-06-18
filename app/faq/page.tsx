@@ -10,7 +10,7 @@ import { MessageCircle, Phone, Download } from "lucide-react";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "FAQ | Frequently Asked Questions | all",
+  title: "FAQ | Frequently Asked Questions | Allwin Machinery",
   description:
     "Find answers about our products, warranty, delivery, spare parts, technical support and payments.",
 };

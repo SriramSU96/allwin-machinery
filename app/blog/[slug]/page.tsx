@@ -22,6 +22,13 @@ const RELATED_QUERY = `*[_type == "blogPost" && slug.current != $slug] | order(p
 }`;
 
 export const revalidate = 3600;
+export async function generateStaticParams() {
+  const items = await sanityClient.fetch<{ slug: string }[]>(
+    `*[_type == "blogPost"]{ "slug": slug.current }`
+  );
+  return items.map((i) => ({ slug: i.slug }));
+}
+
 
 interface Props {
   params: { slug: string };
