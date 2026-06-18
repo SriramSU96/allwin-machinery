@@ -66,6 +66,11 @@ export const BLOG_POSTS_QUERY = `*[_type == "blogPost"] | order(publishedAt desc
   "author": author->{ name, image }
 }`;
 
+export const RECENT_POSTS_QUERY = `*[_type == "blogPost"] | order(publishedAt desc)[0..2] {
+  _id, title, slug, excerpt, coverImage, category, publishedAt, readTime, featured,
+  "author": author->{ name, image }
+}`;
+
 export const FEATURED_POST_QUERY = `*[_type == "blogPost" && featured == true][0] {
   _id, title, slug, excerpt, coverImage, category, publishedAt, readTime,
   "author": author->{ name, image }

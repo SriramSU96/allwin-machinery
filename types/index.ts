@@ -89,9 +89,12 @@ export interface Dealer {
 }
 
 export interface SanityImage {
-  asset: { _ref: string; _type: string };
+  _type?: string;
+  asset?: { _ref: string; _type: string };
   alt?: string;
   hotspot?: { x: number; y: number };
+  // externalImage type — Sanity images stored as plain Cloudinary/external URLs
+  url?: string;
 }
 
 export interface SEO {

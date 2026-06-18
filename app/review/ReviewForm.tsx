@@ -70,7 +70,7 @@ export function ReviewForm() {
       if (!res.ok) throw new Error(result.error || "Submission failed");
 
       setSubmitted(true);
-    } catch (err: any) {
+    } catch (err: unknown) {
       setError("Something went wrong. Please try WhatsApp instead.");
     } finally {
       setSubmitting(false);

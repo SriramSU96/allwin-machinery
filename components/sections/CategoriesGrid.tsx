@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { urlFor } from "@/lib/sanity";
+import { urlForImage } from "@/lib/sanity";
 import { SectionReveal } from "@/components/animations/SectionReveal";
 import type { Category } from "@/types";
 
@@ -42,7 +42,7 @@ export function CategoriesGrid({ categories }: CategoriesGridProps) {
                 <Image
                   src={
                     cat.image
-                      ? urlFor(cat.image).width(640).height(640).format("webp").url()
+                      ? urlForImage(cat.image, 640, 640)
                       : "/placeholder-category.png"
                   }
                   alt={cat.name}
