@@ -35,10 +35,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export const revalidate = 3600;
 export async function generateStaticParams() {
-  const items = await sanityClient.fetch<{ slug: string }[]>(
-    `*[_type == "brand"]{ "slug": slug.current }`
-  );
-  return items.map((i) => ({ slug: i.slug }));
+  try {
+    const items = await sanityClient.fetch<{ slug: string }[]>(
+      `*[_type == "brand"]{ "slug": slug.current }`
+    );
+    return items.map((i) => ({ slug: i.slug }));
+  } catch (error) {
+    console.error("generateStaticParams (brands) failed, falling back to on-demand rendering:", error);
+    return [];
+  }
 }
 
 
@@ -101,7 +106,7 @@ export default async function BrandPage({ params }: Props) {
                 {brand.description || "Explore our selection of premium products from this brand."}
               </p>
               {brand.website && (
-                <a
+                <a 
                   href={brand.website}
                   target="_blank"
                   rel="noopener noreferrer"

@@ -34,10 +34,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export const revalidate = 3600;
 export async function generateStaticParams() {
-  const items = await sanityClient.fetch<{ slug: string }[]>(
-    `*[_type == "category"]{ "slug": slug.current }`
-  );
-  return items.map((i) => ({ slug: i.slug }));
+  try {
+    const items = await sanityClient.fetch<{ slug: string }[]>(
+      `*[_type == "category"]{ "slug": slug.current }`
+    );
+    return items.map((i) => ({ slug: i.slug }));
+  } catch (error) {
+    console.error("generateStaticParams (categories) failed, falling back to on-demand rendering:", error);
+    return [];
+  }
 }
 
 

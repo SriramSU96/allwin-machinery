@@ -23,10 +23,15 @@ const RELATED_QUERY = `*[_type == "blogPost" && slug.current != $slug] | order(p
 
 export const revalidate = 3600;
 export async function generateStaticParams() {
-  const items = await sanityClient.fetch<{ slug: string }[]>(
-    `*[_type == "blogPost"]{ "slug": slug.current }`
-  );
-  return items.map((i) => ({ slug: i.slug }));
+  try {
+    const items = await sanityClient.fetch<{ slug: string }[]>(
+      `*[_type == "blogPost"]{ "slug": slug.current }`
+    );
+    return items.map((i) => ({ slug: i.slug }));
+  } catch (error) {
+    console.error("generateStaticParams (blog) failed, falling back to on-demand rendering:", error);
+    return [];
+  }
 }
 
 
@@ -242,7 +247,7 @@ export default async function BlogDetailPage({ params }: Props) {
                   <a href={`tel:${SITE_CONFIG.phone}`} className="btn bg-white text-brand-green px-4 py-2.5 text-sm flex items-center gap-1.5">
                     <Phone size={14} /> Call
                   </a>
-                  <a
+                  <a 
                     href={buildWhatsAppUrl(SITE_CONFIG.whatsapp, `Hi! I read your article "${post.title}" and have a question.`)}
                     target="_blank" rel="noopener noreferrer"
                     className="btn bg-[#25D366] text-white px-4 py-2.5 text-sm flex items-center gap-1.5"
@@ -258,21 +263,21 @@ export default async function BlogDetailPage({ params }: Props) {
               <div className="sticky top-24">
                 <p className="text-xs font-heading font-bold text-gray-400 uppercase tracking-wider mb-3">Share</p>
                 <div className="flex flex-col gap-2">
-                  <a
+                  <a 
                     href={`https://wa.me/?text=${encodeURIComponent(post.title + " " + shareUrl)}`}
                     target="_blank" rel="noopener noreferrer"
                     className="w-9 h-9 rounded-lg bg-[#25D366] text-white flex items-center justify-center hover:opacity-85"
                   >
                     <MessageCircle size={16} />
                   </a>
-                  <a
+                  <a 
                     href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`}
                     target="_blank" rel="noopener noreferrer"
                     className="w-9 h-9 rounded-lg bg-[#1877F2] text-white flex items-center justify-center hover:opacity-85"
                   >
                     <Facebook size={16} />
                   </a>
-                  <a
+                  <a 
                     href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`}
                     target="_blank" rel="noopener noreferrer"
                     className="w-9 h-9 rounded-lg bg-[#0A66C2] text-white flex items-center justify-center hover:opacity-85"

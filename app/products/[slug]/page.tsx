@@ -46,10 +46,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export const revalidate = 3600;
 
 export async function generateStaticParams() {
-  const products = await sanityClient.fetch<{ slug: string }[]>(
-    `*[_type == "product"]{ "slug": slug.current }`
-  );
-  return products.map((p) => ({ slug: p.slug }));
+  try {
+    const products = await sanityClient.fetch<{ slug: string }[]>(
+      `*[_type == "product"]{ "slug": slug.current }`
+    );
+    return products.map((p) => ({ slug: p.slug }));
+  } catch (error) {
+    console.error("generateStaticParams (products) failed, falling back to on-demand rendering:", error);
+    return [];
+  }
 }
 
 export default async function ProductDetailPage({ params }: Props) {
@@ -66,6 +71,27 @@ export default async function ProductDetailPage({ params }: Props) {
 
   const whatsappMsg = `Hi! I'm interested in the *${product.name}*. Please share details and pricing.`;
 
+  const productSchema = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: product.name,
+    description: product.description,
+    image: product.images?.[0] ? urlForImage(product.images[0], 800, 800) : undefined,
+    brand: product.brand?.name
+      ? { "@type": "Brand", name: product.brand.name }
+      : undefined,
+    ...(product.price && {
+      offers: {
+        "@type": "Offer",
+        priceCurrency: "INR",
+        price: product.price,
+        availability: product.inStock
+          ? "https://schema.org/InStock"
+          : "https://schema.org/OutOfStock",
+      },
+    }),
+  };
+
   const TRUST_BADGES = [
     { icon: Shield, label: "100% Genuine Products", sub: "Trusted quality with warranty" },
     { icon: Truck, label: "Fast & Safe Delivery", sub: "Pan India delivery" },
@@ -75,6 +101,11 @@ export default async function ProductDetailPage({ params }: Props) {
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
+      />
       {/* Breadcrumb */}
       <nav className="bg-brand-light-gray border-b border-gray-200 px-4 py-3">
         <div className="max-w-container mx-auto flex items-center gap-1.5 text-xs text-gray-500">
@@ -164,7 +195,7 @@ export default async function ProductDetailPage({ params }: Props) {
                 >
                   📋 Get a Quote
                 </Link>
-                <a
+                <a 
                   href={buildWhatsAppUrl(product.whatsappNumber || SITE_CONFIG.whatsapp, whatsappMsg)}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -175,7 +206,7 @@ export default async function ProductDetailPage({ params }: Props) {
                 </a>
               </div>
               {product.brochureUrl && (
-                <a
+                <a 
                   href={product.brochureUrl}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -224,14 +255,14 @@ export default async function ProductDetailPage({ params }: Props) {
 
       {/* Mobile sticky CTA */}
       <div className="fixed bottom-0 left-0 right-0 md:hidden bg-white border-t border-gray-200 p-4 flex gap-3 z-40">
-        <a
+        <a 
           href={`tel:${SITE_CONFIG.phone}`}
           className="btn flex-1 border-2 border-brand-green text-brand-green py-3 text-sm text-center flex items-center justify-center gap-1.5"
         >
           <Phone size={16} />
           Call Now
         </a>
-        <a
+        <a 
           href={buildWhatsAppUrl(product.whatsappNumber || SITE_CONFIG.whatsapp, whatsappMsg)}
           target="_blank"
           rel="noopener noreferrer"
