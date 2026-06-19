@@ -51,7 +51,32 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const categories = await sanityClient.fetch(CATEGORIES_QUERY);
+  const categories = await sanityClient
+    .fetch(CATEGORIES_QUERY)
+    .catch((error) => {
+      console.error("Failed to fetch categories for navbar:", error);
+      return [];
+    });
+
+  const localBusinessSchema = {
+    "@context": "https://schema.org",
+    "@type": "Store",
+    name: SITE_CONFIG.name,
+    description: SITE_CONFIG.description,
+    url: SITE_CONFIG.url,
+    telephone: SITE_CONFIG.phone,
+    email: SITE_CONFIG.email,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: SITE_CONFIG.address,
+      addressLocality: "Trichy",
+      addressRegion: "Tamil Nadu",
+      postalCode: "620001",
+      addressCountry: "IN",
+    },
+    openingHours: "Mo-Sa 09:00-18:00",
+    priceRange: "₹₹",
+  };
 
   return (
     <html
@@ -59,6 +84,13 @@ export default async function RootLayout({
       className={`${montserrat.variable} ${inter.variable}`}
     >
       <body className="bg-brand-white text-brand-text antialiased">
+        <script
+          type="application/ld+json"
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(localBusinessSchema),
+          }}
+        />
         <Navbar categories={categories} />
         <main>{children}</main>
         <Footer />
