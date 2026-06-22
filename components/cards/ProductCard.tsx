@@ -4,8 +4,7 @@ import { Product } from "@/types";
 import { urlForImage } from "@/lib/sanity";
 import { formatPrice, buildWhatsAppUrl, SITE_CONFIG } from "@/lib/utils";
 import { cn } from "@/lib/utils";
-
-
+import { WishlistButton } from "@/components/cards/WishlistButton";
 
 interface ProductCardProps {
   product: Product;
@@ -53,14 +52,7 @@ export function ProductCard({ product, className }: ProductCardProps) {
           </span>
         )}
         {/* Wishlist */}
-        <button
-          className="absolute top-3 right-3 w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-soft opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-50"
-          aria-label="Add to wishlist"
-        >
-          <svg viewBox="0 0 24 24" className="w-4 h-4 text-gray-400 hover:text-red-500" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
-          </svg>
-        </button>
+        <WishlistButton productId={product._id} />
       </div>
 
       {/* Content */}
@@ -97,7 +89,7 @@ export function ProductCard({ product, className }: ProductCardProps) {
           >
             View Details →
           </Link>
-          <a
+          <a 
             href={buildWhatsAppUrl(
               product.whatsappNumber || SITE_CONFIG.whatsapp,
               whatsappMsg
