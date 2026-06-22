@@ -2,8 +2,7 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { sanityClient } from "@/lib/sanity";
-import { urlForImage } from "@/lib/sanity";
+import { sanityClient, sanityFetch, urlForImage } from "@/lib/sanity";
 import {
   PRODUCT_BY_SLUG_QUERY,
   RELATED_PRODUCTS_QUERY,
@@ -33,9 +32,7 @@ interface Props {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const product: Product = await sanityClient.fetch(PRODUCT_BY_SLUG_QUERY, {
-    slug: params.slug,
-  });
+  const product: Product = await sanityFetch(PRODUCT_BY_SLUG_QUERY, { slug: params.slug }, ["products"]);
   if (!product) return { title: "Product Not Found" };
   return {
     title: product.seo?.title || product.name,
@@ -58,16 +55,15 @@ export async function generateStaticParams() {
 }
 
 export default async function ProductDetailPage({ params }: Props) {
-  const product: Product = await sanityClient.fetch(PRODUCT_BY_SLUG_QUERY, {
-    slug: params.slug,
-  });
+  const product: Product = await sanityFetch(PRODUCT_BY_SLUG_QUERY, { slug: params.slug }, ["products"]);
 
   if (!product) notFound();
 
-  const relatedProducts = await sanityClient.fetch(RELATED_PRODUCTS_QUERY, {
-    categoryId: product.category?._id,
-    productId: product._id,
-  });
+  const relatedProducts = await sanityFetch<Product[]>(
+    RELATED_PRODUCTS_QUERY,
+    { categoryId: product.category?._id, productId: product._id },
+    ["products"]
+  );
 
   const whatsappMsg = `Hi! I'm interested in the *${product.name}*. Please share details and pricing.`;
 
@@ -262,7 +258,8 @@ export default async function ProductDetailPage({ params }: Props) {
           <Phone size={16} />
           Call Now
         </a>
-        <a 
+        <a
+
           href={buildWhatsAppUrl(product.whatsappNumber || SITE_CONFIG.whatsapp, whatsappMsg)}
           target="_blank"
           rel="noopener noreferrer"

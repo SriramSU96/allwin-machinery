@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { sanityClient, urlForImage } from "@/lib/sanity";
+import { sanityClient, sanityFetch, urlForImage } from "@/lib/sanity";
 import { CATEGORY_BY_SLUG_QUERY, PRODUCTS_BY_CATEGORY_QUERY } from "@/lib/queries";
 import { Category, Product } from "@/types";
 import { PageHero } from "@/components/ui/PageHero";
@@ -14,9 +14,7 @@ interface Props {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const category: Category = await sanityClient.fetch(CATEGORY_BY_SLUG_QUERY, {
-    slug: params.slug,
-  });
+  const category: Category = await sanityFetch(CATEGORY_BY_SLUG_QUERY, { slug: params.slug }, ["categories"]);
 
   if (!category) {
     return {
@@ -47,17 +45,13 @@ export async function generateStaticParams() {
 
 
 export default async function CategoryPage({ params }: Props) {
-  const category: Category = await sanityClient.fetch(CATEGORY_BY_SLUG_QUERY, {
-    slug: params.slug,
-  });
+  const category: Category = await sanityFetch(CATEGORY_BY_SLUG_QUERY, { slug: params.slug }, ["categories"]);
 
   if (!category) {
     notFound();
   }
 
-  const products: Product[] = await sanityClient.fetch(PRODUCTS_BY_CATEGORY_QUERY, {
-    slug: params.slug,
-  });
+  const products: Product[] = await sanityFetch(PRODUCTS_BY_CATEGORY_QUERY, { slug: params.slug }, ["products"]);
 
   const heroImage =
     category.image?.asset && urlForImage(category.image, 1200, 800);

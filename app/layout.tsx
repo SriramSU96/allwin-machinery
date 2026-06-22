@@ -4,9 +4,11 @@ import "@/styles/globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { WhatsAppFloat } from "@/components/ui/WhatsAppFloat";
+import { WishlistProvider } from "@/components/providers/WishlistProvider";
 import { SITE_CONFIG } from "@/lib/utils";
-import { sanityClient } from "@/lib/sanity";
+import { sanityFetch } from "@/lib/sanity";
 import { CATEGORIES_QUERY } from "@/lib/queries";
+import type { Category } from "@/types";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -51,12 +53,10 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const categories = await sanityClient
-    .fetch(CATEGORIES_QUERY)
-    .catch((error) => {
-      console.error("Failed to fetch categories for navbar:", error);
-      return [];
-    });
+  const categories = await sanityFetch<Category[]>(CATEGORIES_QUERY, {}, ["categories"]).catch((error) => {
+    console.error("Failed to fetch categories for navbar:", error);
+    return [] as Category[];
+  });
 
   const localBusinessSchema = {
     "@context": "https://schema.org",
@@ -91,10 +91,12 @@ export default async function RootLayout({
             __html: JSON.stringify(localBusinessSchema),
           }}
         />
-        <Navbar categories={categories} />
-        <main>{children}</main>
-        <Footer />
-        <WhatsAppFloat />
+        <WishlistProvider>
+          <Navbar categories={categories} />
+          <main>{children}</main>
+          <Footer />
+          <WhatsAppFloat />
+        </WishlistProvider>
       </body>
     </html>
   );

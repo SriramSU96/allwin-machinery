@@ -1,8 +1,9 @@
 import { Metadata } from "next";
-import { sanityClient } from "@/lib/sanity";
+import { sanityFetch } from "@/lib/sanity";
 import { PRODUCTS_QUERY, CATEGORIES_QUERY, BRANDS_QUERY } from "@/lib/queries";
 import { ProductsClient } from "./ProductsClient";
 import { PageHero } from "@/components/ui/PageHero";
+import type { Product, Category, Brand } from "@/types";
 
 export const metadata: Metadata = {
   title: "Our Products | Agricultural Machinery",
@@ -14,9 +15,9 @@ export const revalidate = 3600;
 
 export default async function ProductsPage() {
   const [products, categories, brands] = await Promise.all([
-    sanityClient.fetch(PRODUCTS_QUERY),
-    sanityClient.fetch(CATEGORIES_QUERY),
-    sanityClient.fetch(BRANDS_QUERY),
+    sanityFetch<Product[]>(PRODUCTS_QUERY, {}, ["products"]),
+    sanityFetch<Category[]>(CATEGORIES_QUERY, {}, ["categories"]),
+    sanityFetch<Brand[]>(BRANDS_QUERY, {}, ["brands"]),
   ]);
 
   return (
