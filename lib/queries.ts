@@ -9,6 +9,15 @@ export const PRODUCTS_QUERY = `*[_type == "product"] | order(featured desc, _cre
   seo
 }`;
 
+export const PRODUCTS_BY_IDS_QUERY = `*[_type == "product" && _id in $ids] {
+  _id, name, slug, price, badge, inStock, featured,
+  "category": category->{ _id, name, slug },
+  "brand": brand->{ _id, name, slug },
+  "images": images[0..0],
+   specs, description,
+  seo
+}`;
+
 export const FEATURED_PRODUCTS_QUERY = 
   `*[_type == "product"] | order(featured desc, _createdAt desc)[0..11] {
   _id, name, slug, price, badge, inStock,
