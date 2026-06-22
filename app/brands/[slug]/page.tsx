@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { sanityClient, urlForImage } from "@/lib/sanity";
+import { sanityClient, sanityFetch, urlForImage } from "@/lib/sanity";
 import { BRAND_BY_SLUG_QUERY, PRODUCTS_BY_BRAND_QUERY } from "@/lib/queries";
 import { Brand, Product } from "@/types";
 import { PageHero } from "@/components/ui/PageHero";
@@ -15,9 +15,7 @@ interface Props {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const brand: Brand = await sanityClient.fetch(BRAND_BY_SLUG_QUERY, {
-    slug: params.slug,
-  });
+  const brand: Brand = await sanityFetch(BRAND_BY_SLUG_QUERY, { slug: params.slug }, ["brands"]);
 
   if (!brand) {
     return {
@@ -48,17 +46,13 @@ export async function generateStaticParams() {
 
 
 export default async function BrandPage({ params }: Props) {
-  const brand: Brand = await sanityClient.fetch(BRAND_BY_SLUG_QUERY, {
-    slug: params.slug,
-  });
+  const brand: Brand = await sanityFetch(BRAND_BY_SLUG_QUERY, { slug: params.slug }, ["brands"]);
 
   if (!brand) {
     notFound();
   }
 
-  const products: Product[] = await sanityClient.fetch(PRODUCTS_BY_BRAND_QUERY, {
-    slug: params.slug,
-  });
+  const products: Product[] = await sanityFetch(PRODUCTS_BY_BRAND_QUERY, { slug: params.slug }, ["products"]);
 
   const logoUrl = brand.logo ? urlForImage(brand.logo, 400, 200) : undefined;
 
@@ -106,7 +100,7 @@ export default async function BrandPage({ params }: Props) {
                 {brand.description || "Explore our selection of premium products from this brand."}
               </p>
               {brand.website && (
-                <a 
+                <a
                   href={brand.website}
                   target="_blank"
                   rel="noopener noreferrer"

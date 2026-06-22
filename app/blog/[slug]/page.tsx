@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { PortableText, PortableTextComponents } from "@portabletext/react";
-import { sanityClient, urlForImage } from "@/lib/sanity";
+import { sanityClient, sanityFetch, urlForImage } from "@/lib/sanity";
 import { BlogPost } from "@/types";
 import { formatDate, buildWhatsAppUrl, SITE_CONFIG } from "@/lib/utils";
 import { SectionReveal } from "@/components/animations/SectionReveal";
@@ -40,7 +40,7 @@ interface Props {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const post: BlogPost = await sanityClient.fetch(POST_QUERY, { slug: params.slug });
+  const post: BlogPost = await sanityFetch(POST_QUERY, { slug: params.slug }, ["blogPosts"]);
   if (!post) return { title: "Article Not Found" };
   return {
     title: post.seo?.title || `${post.title} | Allwin Machinery Blog`,
@@ -130,10 +130,10 @@ function FallbackContent({ post }: { post: BlogPost }) {
 }
 
 export default async function BlogDetailPage({ params }: Props) {
-  const post: BlogPost = await sanityClient.fetch(POST_QUERY, { slug: params.slug });
+  const post: BlogPost = await sanityFetch(POST_QUERY, { slug: params.slug }, ["blogPosts"]);
   if (!post) notFound();
 
-  const related: BlogPost[] = await sanityClient.fetch(RELATED_QUERY, { slug: params.slug });
+  const related: BlogPost[] = await sanityFetch(RELATED_QUERY, { slug: params.slug }, ["blogPosts"]);
 
   const shareUrl = `${SITE_CONFIG.url}/blog/${post.slug.current}`;
 

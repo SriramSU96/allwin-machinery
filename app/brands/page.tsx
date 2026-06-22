@@ -20,6 +20,8 @@ export const metadata: Metadata = {
     "Allwin Machinery is an authorized dealer for Honda, Neptune, Kirloskar, Kama, Husqvarna and more trusted agricultural machinery brands.",
 };
 
+export const revalidate = 3600; // ISR: revalidate every hour
+
 const AUTHORIZED_BENEFITS = [
   "100% Genuine Products",
   "Official Warranty from Manufacturer",
@@ -241,7 +243,7 @@ export default async function BrandsPage() {
             <Link href="/products" className="btn bg-white text-brand-green px-5 py-3 text-sm hover:bg-brand-gold hover:text-white">
               Explore All Products →
             </Link>
-            <a
+            <a 
               href={buildWhatsAppUrl(SITE_CONFIG.whatsapp, "Hi! I want to know more about your brand partnerships.")}
               target="_blank"
               rel="noopener noreferrer"

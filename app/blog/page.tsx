@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { sanityClient } from "@/lib/sanity";
+import { sanityFetch } from "@/lib/sanity";
 import { BLOG_POSTS_QUERY, FEATURED_POST_QUERY } from "@/lib/queries";
 import { BlogPost } from "@/types";
 import { PageHero } from "@/components/ui/PageHero";
@@ -24,8 +24,8 @@ const BLOG_CATEGORIES = [
 
 export default async function BlogPage() {
   const [posts, featuredPost] = await Promise.all([
-    sanityClient.fetch(BLOG_POSTS_QUERY),
-    sanityClient.fetch(FEATURED_POST_QUERY),
+    sanityFetch<BlogPost[]>(BLOG_POSTS_QUERY, {}, ["blogPosts"]),
+    sanityFetch<BlogPost | null>(FEATURED_POST_QUERY, {}, ["blogPosts"]),
   ]);
 
   return (

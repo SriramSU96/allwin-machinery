@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import { HeroSection } from "@/components/sections/HeroSection";
+import type { HeroContent } from "@/components/sections/HeroSection";
 import { TrustedBrandsStrip } from "@/components/sections/TrustedBrandsStrip";
 import { CategoriesGrid } from "@/components/sections/CategoriesGrid";
 import { FeaturedProducts } from "@/components/sections/FeaturedProducts";
@@ -7,7 +8,8 @@ import { WhyChooseUs } from "@/components/sections/WhyChooseUs";
 import { Testimonials } from "@/components/sections/Testimonials";
 import { BlogPreview } from "@/components/sections/BlogPreview";
 import { CTABanner } from "@/components/sections/CTABanner";
-import { sanityClient } from "@/lib/sanity";
+import { sanityFetch } from "@/lib/sanity";
+import type { Product, Testimonial, BlogPost, Brand, Category } from "@/types";
 import {
   FEATURED_PRODUCTS_QUERY,
   TESTIMONIALS_QUERY,
@@ -24,18 +26,20 @@ export const metadata: Metadata = {
     "Leading supplier of high performance agricultural machinery in Trichy, Tamil Nadu. Power weeders, sprayers, motor pumps & more.",
 };
 
-export const revalidate = 3600; // ISR: revalidate every hour
+// Safety-net cache lifetime in case a webhook is ever missed — actual
+// freshness comes from /api/revalidate firing on every Sanity publish.
+export const revalidate = 3600;
 
 export default async function HomePage() {
   const [featuredProducts, testimonials, featuredPost, recentPosts, brands, categories, siteSettings] =
     await Promise.all([
-      sanityClient.fetch(FEATURED_PRODUCTS_QUERY),
-      sanityClient.fetch(TESTIMONIALS_QUERY),
-      sanityClient.fetch(FEATURED_POST_QUERY),
-      sanityClient.fetch(RECENT_POSTS_QUERY),
-      sanityClient.fetch(BRANDS_QUERY),
-      sanityClient.fetch(CATEGORIES_QUERY),
-      sanityClient.fetch(HERO_QUERY),
+      sanityFetch<Product[]>(FEATURED_PRODUCTS_QUERY, {}, ["products"]),
+      sanityFetch<Testimonial[]>(TESTIMONIALS_QUERY, {}, ["testimonials"]),
+      sanityFetch<BlogPost | null>(FEATURED_POST_QUERY, {}, ["blogPosts"]),
+      sanityFetch<BlogPost[]>(RECENT_POSTS_QUERY, {}, ["blogPosts"]),
+      sanityFetch<Brand[]>(BRANDS_QUERY, {}, ["brands"]),
+      sanityFetch<Category[]>(CATEGORIES_QUERY, {}, ["categories"]),
+      sanityFetch<{ hero?: HeroContent }>(HERO_QUERY, {}, ["siteSettings"]),
     ]);
 
   return (
