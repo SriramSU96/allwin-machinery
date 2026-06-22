@@ -5,8 +5,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { NAV_ITEMS, SITE_CONFIG, buildWhatsAppUrl } from "@/lib/utils";
 import { cn } from "@/lib/utils";
-import { Phone, ChevronDown, Menu, X, MessageCircle } from "lucide-react";
+import { Phone, ChevronDown, Menu, X, MessageCircle, Heart } from "lucide-react";
 import type { Category, NavItem } from "@/types";
+import { useWishlist } from "@/components/providers/WishlistProvider";
 
 interface NavbarProps {
   categories: Category[];
@@ -17,6 +18,7 @@ export function Navbar({ categories }: NavbarProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const { count: wishlistCount } = useWishlist();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 80);
@@ -141,7 +143,19 @@ export function Navbar({ categories }: NavbarProps) {
 
           {/* CTA area */}
           <div className="hidden md:flex items-center gap-3 flex-shrink-0">
-            <a
+            <Link
+              href="/wishlist"
+              className="relative flex items-center justify-center w-9 h-9 text-white/80 hover:text-brand-gold transition-colors"
+              aria-label="Wishlist"
+            >
+              <Heart size={20} fill={wishlistCount > 0 ? "currentColor" : "none"} />
+              {wishlistCount > 0 && (
+                <span className="absolute -top-1 -right-1 w-4 h-4 bg-brand-gold text-white text-[10px] font-bold rounded-full flex items-center justify-center">
+                  {wishlistCount > 9 ? "9+" : wishlistCount}
+                </span>
+              )}
+            </Link>
+            <a 
               href={`tel:${SITE_CONFIG.phone}`}
               className="flex items-center gap-1.5 text-white/80 hover:text-brand-gold transition-colors"
             >
@@ -213,13 +227,21 @@ export function Navbar({ categories }: NavbarProps) {
             })}
 
             <div className="pt-6 flex flex-col gap-3">
+              <Link
+                href="/wishlist"
+                onClick={() => setMobileOpen(false)}
+                className="btn bg-white/10 text-white py-3 text-center flex items-center justify-center gap-2"
+              >
+                <Heart size={18} fill={wishlistCount > 0 ? "currentColor" : "none"} />
+                Wishlist {wishlistCount > 0 && `(${wishlistCount})`}
+              </Link>
               <a
                 href={`tel:${SITE_CONFIG.phone}`}
                 className="btn bg-white/10 text-white py-3 text-center"
               >
                 📞 {SITE_CONFIG.phone}
               </a>
-              <a
+              <a 
                 href={buildWhatsAppUrl(SITE_CONFIG.whatsapp, "Hi, I need help with a product.")}
                 target="_blank"
                 rel="noopener noreferrer"
