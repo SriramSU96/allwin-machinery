@@ -67,11 +67,11 @@ export function ContactForm() {
   if (submitted) {
     return (
       <div className="text-center py-10">
-        <CheckCircle2 size={48} className="text-brand-green mx-auto mb-4" />
-        <h3 className="font-heading font-bold text-lg text-brand-text mb-2">
+        <CheckCircle2 size={48} className="text-brand-gold mx-auto mb-4" />
+        <h3 className="font-heading font-bold text-lg text-white mb-2">
           Inquiry Received!
         </h3>
-        <p className="text-gray-500 text-sm mb-6">
+        <p className="text-white/60 text-sm mb-6">
           Thank you for contacting us. Our team will reach out within 24 hours.
         </p>
         <a
@@ -81,7 +81,7 @@ export function ContactForm() {
           )}
           target="_blank"
           rel="noopener noreferrer"
-          className="btn bg-[#25D366] text-white px-6 py-3 text-sm inline-flex items-center gap-2"
+          className="btn bg-[#25D366] text-white px-6 py-3 text-sm inline-flex items-center gap-2 hover:bg-[#20ba5a] transition-all"
         >
           <MessageCircle size={16} />
           Also chat on WhatsApp
@@ -97,10 +97,10 @@ export function ContactForm() {
           <input
             {...register("name")}
             placeholder="Your Name *"
-            className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-brand-green transition-colors"
+            className="w-full px-4 py-3 rounded-xl border border-white/10 bg-white/5 text-white placeholder-white/40 text-sm focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold transition-colors"
           />
           {errors.name && (
-            <p className="text-red-500 text-xs mt-1">{errors.name.message}</p>
+            <p className="text-red-400 text-xs mt-1">{errors.name.message}</p>
           )}
         </div>
         <div>
@@ -108,10 +108,10 @@ export function ContactForm() {
             {...register("phone")}
             type="tel"
             placeholder="Phone Number *"
-            className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-brand-green transition-colors"
+            className="w-full px-4 py-3 rounded-xl border border-white/10 bg-white/5 text-white placeholder-white/40 text-sm focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold transition-colors"
           />
           {errors.phone && (
-            <p className="text-red-500 text-xs mt-1">{errors.phone.message}</p>
+            <p className="text-red-400 text-xs mt-1">{errors.phone.message}</p>
           )}
         </div>
       </div>
@@ -121,21 +121,21 @@ export function ContactForm() {
           {...register("email")}
           type="email"
           placeholder="Email Address *"
-          className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-brand-green transition-colors"
+          className="w-full px-4 py-3 rounded-xl border border-white/10 bg-white/5 text-white placeholder-white/40 text-sm focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold transition-colors"
         />
         {errors.email && (
-          <p className="text-red-500 text-xs mt-1">{errors.email.message}</p>
+          <p className="text-red-400 text-xs mt-1">{errors.email.message}</p>
         )}
       </div>
 
       <div>
         <select
           {...register("productInterest")}
-          className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-brand-green transition-colors bg-white text-gray-500"
+          className="w-full px-4 py-3 rounded-xl border border-white/10 bg-white/5 text-white/80 text-sm focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold transition-colors"
         >
-          <option value="">Product Interest (Optional)</option>
+          <option value="" className="bg-brand-dark text-white/60">Product Interest (Optional)</option>
           {PRODUCT_OPTIONS.map((opt) => (
-            <option key={opt} value={opt}>
+            <option key={opt} value={opt} className="bg-brand-dark text-white">
               {opt}
             </option>
           ))}
@@ -147,22 +147,22 @@ export function ContactForm() {
           {...register("message")}
           placeholder="Your Message *"
           rows={4}
-          className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-brand-green transition-colors resize-none"
+          className="w-full px-4 py-3 rounded-xl border border-white/10 bg-white/5 text-white placeholder-white/40 text-sm focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold transition-colors resize-none"
         />
         {errors.message && (
-          <p className="text-red-500 text-xs mt-1">{errors.message.message}</p>
+          <p className="text-red-400 text-xs mt-1">{errors.message.message}</p>
         )}
       </div>
 
       {error && (
-        <p className="text-red-500 text-sm bg-red-50 px-4 py-3 rounded-xl">{error}</p>
+        <p className="text-red-400 text-sm bg-red-950/50 border border-red-500/20 px-4 py-3 rounded-xl">{error}</p>
       )}
 
       <div className="flex gap-3">
         <button
           type="submit"
           disabled={submitting}
-          className="btn flex-1 bg-brand-green text-white py-3.5 text-sm hover:bg-brand-gold disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+          className="btn flex-1 bg-brand-green text-white py-3.5 text-sm hover:bg-brand-gold disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2 transition-all"
         >
           {submitting ? (
             <>
@@ -180,7 +180,7 @@ export function ContactForm() {
           )}
           target="_blank"
           rel="noopener noreferrer"
-          className="btn bg-[#25D366] text-white px-5 py-3.5 text-sm flex items-center gap-2"
+          className="btn bg-[#25D366] text-white px-5 py-3.5 text-sm flex items-center gap-2 hover:bg-[#20ba5a] transition-all"
         >
           <MessageCircle size={16} />
           WhatsApp

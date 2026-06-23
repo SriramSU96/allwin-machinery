@@ -154,11 +154,11 @@ export default function DealerPage() {
 
             {/* Right: Form */}
             <SectionReveal delay={0.1}>
-              <div className="bg-white rounded-2xl border border-gray-200 shadow-soft p-6 md:p-8">
-                <h2 className="font-heading font-bold text-xl text-brand-text mb-1">
+              <div className="bg-brand-dark rounded-2xl border border-white/10 shadow-large p-6 md:p-8">
+                <h2 className="font-heading font-bold text-xl text-white mb-1">
                   Dealer Inquiry Form
                 </h2>
-                <p className="text-xs text-gray-500 mb-6">
+                <p className="text-xs text-white/60 mb-6">
                   Fill out the form and our team will contact you shortly.
                 </p>
                 <DealerForm />

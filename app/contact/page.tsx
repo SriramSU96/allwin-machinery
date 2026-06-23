@@ -131,8 +131,8 @@ export default function ContactPage() {
 
             {/* Right: Form */}
             <div>
-              <div className="bg-white rounded-2xl border border-gray-200 p-6 md:p-8 shadow-soft">
-                <h2 className="font-heading font-bold text-xl text-brand-text mb-6">
+              <div className="bg-brand-dark rounded-2xl border border-white/10 p-6 md:p-8 shadow-large">
+                <h2 className="font-heading font-bold text-xl text-white mb-6">
                   Send Us an Inquiry
                 </h2>
                 <ContactForm />
