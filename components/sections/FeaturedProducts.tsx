@@ -28,7 +28,7 @@ export function FeaturedProducts({ products }: FeaturedProductsProps) {
   if (!products?.length) return null;
 
   return (
-    <section className="bg-brand-light-gray py-[60px] md:py-[80px] lg:py-[120px]">
+    <section className="bg-brand-light-gray pt-[60px] pb-[30px] md:pt-[80px] md:pb-[40px] lg:pt-[120px] lg:pb-[60px]">
       <div className="max-w-container mx-auto px-4 md:px-6">
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
@@ -66,7 +66,7 @@ export function FeaturedProducts({ products }: FeaturedProductsProps) {
         </div>
 
         {/* Carousel */}
-        <div ref={emblaRef} className="overflow-hidden">
+        <div ref={emblaRef} className="overflow-hidden py-3 -my-3">
           <div className="flex gap-4">
             {products.map((product) => (
               <div
