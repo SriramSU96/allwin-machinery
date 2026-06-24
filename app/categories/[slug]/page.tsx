@@ -3,10 +3,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { sanityClient, sanityFetch, urlForImage } from "@/lib/sanity";
-import { CATEGORY_BY_SLUG_QUERY, PRODUCTS_BY_CATEGORY_QUERY } from "@/lib/queries";
-import { Category, Product } from "@/types";
+import { CATEGORY_BY_SLUG_QUERY, PRODUCTS_BY_CATEGORY_QUERY, BRANDS_QUERY } from "@/lib/queries";
+import { Category, Product, Brand } from "@/types";
 import { PageHero } from "@/components/ui/PageHero";
-import { ProductCard } from "@/components/cards/ProductCard";
+import { FilterableProductGrid } from "@/components/products/FilterableProductGrid";
 import { SITE_CONFIG } from "@/lib/utils";
 
 interface Props {
@@ -52,6 +52,7 @@ export default async function CategoryPage({ params }: Props) {
   }
 
   const products: Product[] = await sanityFetch(PRODUCTS_BY_CATEGORY_QUERY, { slug: params.slug }, ["products"]);
+  const brands: Brand[] = await sanityFetch(BRANDS_QUERY, {}, ["brands"]);
 
   const heroImage =
     category.image?.asset && urlForImage(category.image, 1200, 800);
@@ -145,11 +146,11 @@ export default async function CategoryPage({ params }: Props) {
             No products are currently listed under this category.
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
-            {products.map((product) => (
-              <ProductCard key={product._id} product={product} />
-            ))}
-          </div>
+          <FilterableProductGrid
+            products={products}
+            brands={brands}
+            emptyMessage="No products match your search in this category."
+          />
         )}
       </section>
     </>

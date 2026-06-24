@@ -6,7 +6,7 @@ import { sanityClient, sanityFetch, urlForImage } from "@/lib/sanity";
 import { BRAND_BY_SLUG_QUERY, PRODUCTS_BY_BRAND_QUERY } from "@/lib/queries";
 import { Brand, Product } from "@/types";
 import { PageHero } from "@/components/ui/PageHero";
-import { ProductCard } from "@/components/cards/ProductCard";
+import { FilterableProductGrid } from "@/components/products/FilterableProductGrid";
 import { SITE_CONFIG } from "@/lib/utils";
 import { ExternalLink } from "lucide-react";
 
@@ -153,18 +153,16 @@ export default async function BrandPage({ params }: Props) {
             </p>
           </div>
         </div>
-
-        {products.length === 0 ? (
-          <div className="rounded-3xl border border-gray-200 bg-white p-10 text-center text-gray-500">
-            No products are currently listed for this brand.
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
-            {products.map((product) => (
-              <ProductCard key={product._id} product={product} />
-            ))}
-          </div>
-        )}
+{products.length === 0 ? (
+  <div className="rounded-3xl border border-gray-200 bg-white p-10 text-center text-gray-500">
+    No products are currently listed for this brand.
+  </div>
+) : (
+  <FilterableProductGrid
+    products={products}
+    emptyMessage="No products match your search from this brand."
+  />
+)}
       </section>
     </>
   );
