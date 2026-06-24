@@ -115,8 +115,7 @@ export default function ContactPage() {
               <div className="mt-6 rounded-xl overflow-hidden border border-gray-200 h-56 bg-brand-light-gray flex items-center justify-center">
                 <div className="text-center text-gray-400">
                   <MapPin size={32} className="mx-auto mb-2 text-brand-green" />
-                  <p className="text-sm font-medium">all</p>
-                  <p className="text-xs">{SITE_CONFIG.address}</p>
+<p className="text-sm font-medium">{SITE_CONFIG.name}</p>                  <p className="text-xs">{SITE_CONFIG.address}</p>
                   <a
                     href="https://maps.google.com"
                     target="_blank"

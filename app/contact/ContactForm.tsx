@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { SITE_CONFIG, buildWhatsAppUrl } from "@/lib/utils";
 import { Loader2, CheckCircle2, MessageCircle } from "lucide-react";
+import { FileUploadField } from "@/components/forms/FileUploadField";
 
 const schema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -33,6 +34,8 @@ export function ContactForm() {
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
+  const [attachmentUrl, setAttachmentUrl] = useState<string | null>(null);
+  const [attachmentName, setAttachmentName] = useState<string | null>(null);
 
   const {
     register,
@@ -52,7 +55,11 @@ export function ContactForm() {
       const res = await fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        body: JSON.stringify({
+          ...data,
+          attachmentUrl: attachmentUrl || "None",
+          attachmentName: attachmentName || "None",
+        }),
       });
 
       if (!res.ok) throw new Error("Submission failed");
@@ -74,14 +81,14 @@ export function ContactForm() {
         <p className="text-white/60 text-sm mb-6">
           Thank you for contacting us. Our team will reach out within 24 hours.
         </p>
-        <a
+        <a 
           href={buildWhatsAppUrl(
             SITE_CONFIG.whatsapp,
             "Hi! I just submitted an inquiry on your website."
           )}
           target="_blank"
           rel="noopener noreferrer"
-          className="btn bg-[#25D366] text-white px-6 py-3 text-sm inline-flex items-center gap-2 hover:bg-[#20ba5a] transition-all"
+          className="btn bg-[#25D366] text-white px-6 py-3 text-sm inline-flex items-center gap-2"
         >
           <MessageCircle size={16} />
           Also chat on WhatsApp
@@ -90,6 +97,9 @@ export function ContactForm() {
     );
   }
 
+  const inputClasses =
+    "w-full px-4 py-3 rounded-xl border border-white/15 bg-white/5 text-white placeholder:text-white/40 text-sm focus:outline-none focus:border-brand-gold transition-colors";
+
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
       <div className="grid grid-cols-2 gap-4">
@@ -97,7 +107,7 @@ export function ContactForm() {
           <input
             {...register("name")}
             placeholder="Your Name *"
-            className="w-full px-4 py-3 rounded-xl border border-white/10 bg-white/5 text-white placeholder-white/40 text-sm focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold transition-colors"
+            className={inputClasses}
           />
           {errors.name && (
             <p className="text-red-400 text-xs mt-1">{errors.name.message}</p>
@@ -108,7 +118,7 @@ export function ContactForm() {
             {...register("phone")}
             type="tel"
             placeholder="Phone Number *"
-            className="w-full px-4 py-3 rounded-xl border border-white/10 bg-white/5 text-white placeholder-white/40 text-sm focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold transition-colors"
+            className={inputClasses}
           />
           {errors.phone && (
             <p className="text-red-400 text-xs mt-1">{errors.phone.message}</p>
@@ -121,7 +131,7 @@ export function ContactForm() {
           {...register("email")}
           type="email"
           placeholder="Email Address *"
-          className="w-full px-4 py-3 rounded-xl border border-white/10 bg-white/5 text-white placeholder-white/40 text-sm focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold transition-colors"
+          className={inputClasses}
         />
         {errors.email && (
           <p className="text-red-400 text-xs mt-1">{errors.email.message}</p>
@@ -131,11 +141,11 @@ export function ContactForm() {
       <div>
         <select
           {...register("productInterest")}
-          className="w-full px-4 py-3 rounded-xl border border-white/10 bg-white/5 text-white/80 text-sm focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold transition-colors"
+          className={`${inputClasses} appearance-none`}
         >
-          <option value="" className="bg-brand-dark text-white/60">Product Interest (Optional)</option>
+          <option value="" className="text-brand-text">Product Interest (Optional)</option>
           {PRODUCT_OPTIONS.map((opt) => (
-            <option key={opt} value={opt} className="bg-brand-dark text-white">
+            <option key={opt} value={opt} className="text-brand-text">
               {opt}
             </option>
           ))}
@@ -147,22 +157,31 @@ export function ContactForm() {
           {...register("message")}
           placeholder="Your Message *"
           rows={4}
-          className="w-full px-4 py-3 rounded-xl border border-white/10 bg-white/5 text-white placeholder-white/40 text-sm focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold transition-colors resize-none"
+          className={`${inputClasses} resize-none`}
         />
         {errors.message && (
           <p className="text-red-400 text-xs mt-1">{errors.message.message}</p>
         )}
       </div>
 
+      <FileUploadField
+        label="Attach a file (optional)"
+        dark
+        onUploaded={(url, filename) => {
+          setAttachmentUrl(url);
+          setAttachmentName(filename);
+        }}
+      />
+
       {error && (
-        <p className="text-red-400 text-sm bg-red-950/50 border border-red-500/20 px-4 py-3 rounded-xl">{error}</p>
+        <p className="text-red-300 text-sm bg-red-500/10 border border-red-500/20 px-4 py-3 rounded-xl">{error}</p>
       )}
 
       <div className="flex gap-3">
         <button
           type="submit"
           disabled={submitting}
-          className="btn flex-1 bg-brand-green text-white py-3.5 text-sm hover:bg-brand-gold disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2 transition-all"
+          className="btn flex-1 bg-brand-green text-white py-3.5 text-sm hover:bg-brand-gold disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2"
         >
           {submitting ? (
             <>
@@ -173,14 +192,14 @@ export function ContactForm() {
             "📤 Send Inquiry"
           )}
         </button>
-        <a
+        <a 
           href={buildWhatsAppUrl(
             SITE_CONFIG.whatsapp,
             `Hi! I want to inquire about ${getValues("productInterest") || "your machinery"}.`
           )}
           target="_blank"
           rel="noopener noreferrer"
-          className="btn bg-[#25D366] text-white px-5 py-3.5 text-sm flex items-center gap-2 hover:bg-[#20ba5a] transition-all"
+          className="btn bg-[#25D366] text-white px-5 py-3.5 text-sm flex items-center gap-2"
         >
           <MessageCircle size={16} />
           WhatsApp

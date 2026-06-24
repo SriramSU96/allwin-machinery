@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { buildWhatsAppUrl, SITE_CONFIG } from "@/lib/utils";
 import { Loader2, CheckCircle2, MessageCircle } from "lucide-react";
+import { FileUploadField } from "@/components/forms/FileUploadField";
 
 const schema = z.object({
   fullName:     z.string().min(2, "Enter your full name"),
@@ -30,6 +31,8 @@ export function DealerForm() {
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
+  const [attachmentUrl, setAttachmentUrl] = useState<string | null>(null);
+  const [attachmentName, setAttachmentName] = useState<string | null>(null);
 
   const { register, handleSubmit, getValues, formState: { errors } } = useForm<FormData>({
     resolver: zodResolver(schema),
@@ -45,7 +48,12 @@ export function DealerForm() {
       const res = await fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...data, formType: "Dealer Inquiry" }),
+        body: JSON.stringify({
+          ...data,
+          formType: "Dealer Inquiry",
+          attachmentUrl: attachmentUrl || "None",
+          attachmentName: attachmentName || "None",
+        }),
       });
       if (!res.ok) throw new Error("Failed");
       setSubmitted(true);
@@ -70,7 +78,7 @@ export function DealerForm() {
           href={buildWhatsAppUrl(SITE_CONFIG.whatsapp, "Hi! I just submitted a dealer application on your website.")}
           target="_blank"
           rel="noopener noreferrer"
-          className="btn bg-[#25D366] text-white px-6 py-3 text-sm inline-flex items-center gap-2 hover:bg-[#20ba5a] transition-colors"
+          className="btn bg-[#25D366] text-white px-6 py-3 text-sm inline-flex items-center gap-2"
         >
           <MessageCircle size={16} /> Also chat on WhatsApp
         </a>
@@ -78,19 +86,20 @@ export function DealerForm() {
     );
   }
 
+  const inputClasses =
+    "w-full px-4 py-2.5 rounded-xl border border-white/15 bg-white/5 text-white placeholder:text-white/40 text-sm focus:outline-none focus:border-brand-gold";
+
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-3.5" id="dealer-form">
 
       {/* Row 1 */}
       <div className="grid grid-cols-2 gap-3">
         <div>
-          <input {...register("fullName")} placeholder="Full Name *"
-            className="w-full px-4 py-2.5 rounded-xl border border-white/10 bg-white/5 text-white placeholder-white/40 text-sm focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold transition-colors" />
+          <input {...register("fullName")} placeholder="Full Name *" className={inputClasses} />
           {errors.fullName && <p className="text-red-400 text-xs mt-1">{errors.fullName.message}</p>}
         </div>
         <div>
-          <input {...register("businessName")} placeholder="Business Name *"
-            className="w-full px-4 py-2.5 rounded-xl border border-white/10 bg-white/5 text-white placeholder-white/40 text-sm focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold transition-colors" />
+          <input {...register("businessName")} placeholder="Business Name *" className={inputClasses} />
           {errors.businessName && <p className="text-red-400 text-xs mt-1">{errors.businessName.message}</p>}
         </div>
       </div>
@@ -98,13 +107,11 @@ export function DealerForm() {
       {/* Row 2 */}
       <div className="grid grid-cols-2 gap-3">
         <div>
-          <input {...register("mobile")} type="tel" placeholder="Mobile Number *"
-            className="w-full px-4 py-2.5 rounded-xl border border-white/10 bg-white/5 text-white placeholder-white/40 text-sm focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold transition-colors" />
+          <input {...register("mobile")} type="tel" placeholder="Mobile Number *" className={inputClasses} />
           {errors.mobile && <p className="text-red-400 text-xs mt-1">{errors.mobile.message}</p>}
         </div>
         <div>
-          <input {...register("email")} type="email" placeholder="Email Address *"
-            className="w-full px-4 py-2.5 rounded-xl border border-white/10 bg-white/5 text-white placeholder-white/40 text-sm focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold transition-colors" />
+          <input {...register("email")} type="email" placeholder="Email Address *" className={inputClasses} />
           {errors.email && <p className="text-red-400 text-xs mt-1">{errors.email.message}</p>}
         </div>
       </div>
@@ -112,18 +119,16 @@ export function DealerForm() {
       {/* Row 3 */}
       <div className="grid grid-cols-2 gap-3">
         <div>
-          <input {...register("city")} placeholder="City / State *"
-            className="w-full px-4 py-2.5 rounded-xl border border-white/10 bg-white/5 text-white placeholder-white/40 text-sm focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold transition-colors" />
+          <input {...register("city")} placeholder="City / State *" className={inputClasses} />
           {errors.city && <p className="text-red-400 text-xs mt-1">{errors.city.message}</p>}
         </div>
         <div>
-          <select {...register("yearsInBusiness")}
-            className="w-full px-4 py-2.5 rounded-xl border border-white/10 bg-white/5 text-white/80 text-sm focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold transition-colors">
-            <option value="" className="bg-brand-dark text-white/60">Years in Business *</option>
-            <option value="new" className="bg-brand-dark text-white">New Business</option>
-            <option value="1-2" className="bg-brand-dark text-white">1-2 Years</option>
-            <option value="3-5" className="bg-brand-dark text-white">3-5 Years</option>
-            <option value="5+" className="bg-brand-dark text-white">5+ Years</option>
+          <select {...register("yearsInBusiness")} className={`${inputClasses} appearance-none`}>
+            <option value="" className="text-brand-text">Years in Business *</option>
+            <option value="new" className="text-brand-text">New Business</option>
+            <option value="1-2" className="text-brand-text">1-2 Years</option>
+            <option value="3-5" className="text-brand-text">3-5 Years</option>
+            <option value="5+" className="text-brand-text">5+ Years</option>
           </select>
           {errors.yearsInBusiness && <p className="text-red-400 text-xs mt-1">{errors.yearsInBusiness.message}</p>}
         </div>
@@ -131,11 +136,10 @@ export function DealerForm() {
 
       {/* Products */}
       <div>
-        <select {...register("interestedProducts")}
-          className="w-full px-4 py-2.5 rounded-xl border border-white/10 bg-white/5 text-white/80 text-sm focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold transition-colors">
-          <option value="" className="bg-brand-dark text-white/60">Interested in Products *</option>
+        <select {...register("interestedProducts")} className={`${inputClasses} appearance-none`}>
+          <option value="" className="text-brand-text">Interested in Products *</option>
           {PRODUCT_OPTIONS.map((opt) => (
-            <option key={opt} value={opt} className="bg-brand-dark text-white">{opt}</option>
+            <option key={opt} value={opt} className="text-brand-text">{opt}</option>
           ))}
         </select>
         {errors.interestedProducts && <p className="text-red-400 text-xs mt-1">{errors.interestedProducts.message}</p>}
@@ -143,7 +147,7 @@ export function DealerForm() {
 
       {/* Business type */}
       <div>
-        <p className="text-xs font-heading font-semibold text-white/50 mb-2">Type of Business *</p>
+        <p className="text-xs font-heading font-semibold text-white/60 mb-2">Type of Business *</p>
         <div className="flex flex-wrap gap-3">
           {[
             { value: "individual", label: "Individual" },
@@ -151,7 +155,7 @@ export function DealerForm() {
             { value: "partnership", label: "Partnership" },
             { value: "company", label: "Company" },
           ].map((type) => (
-            <label key={type.value} className="flex items-center gap-2 cursor-pointer text-sm text-white/80 hover:text-white transition-colors">
+            <label key={type.value} className="flex items-center gap-2 cursor-pointer text-sm text-white/80">
               <input type="radio" value={type.value} {...register("businessType")} className="accent-brand-gold" />
               {type.label}
             </label>
@@ -162,22 +166,32 @@ export function DealerForm() {
       {/* Message */}
       <textarea {...register("message")} placeholder="Message / Additional Information (Optional)"
         rows={3}
-        className="w-full px-4 py-2.5 rounded-xl border border-white/10 bg-white/5 text-white placeholder-white/40 text-sm focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold resize-none transition-colors" />
+        className={`${inputClasses} resize-none`} />
+
+      {/* File upload */}
+      <FileUploadField
+        label="Attach business proof / ID (optional)"
+        dark
+        onUploaded={(url, filename) => {
+          setAttachmentUrl(url);
+          setAttachmentName(filename);
+        }}
+      />
 
       {error && (
-        <p className="text-red-400 text-sm bg-red-950/50 border border-red-500/20 px-4 py-3 rounded-xl">{error}</p>
+        <p className="text-red-300 text-sm bg-red-500/10 border border-red-500/20 px-4 py-3 rounded-xl">{error}</p>
       )}
 
       {/* Buttons */}
       <div className="flex gap-3">
         <button type="submit" disabled={submitting}
-          className="btn flex-1 bg-brand-green text-white py-3 text-sm hover:bg-brand-gold disabled:opacity-60 flex items-center justify-center gap-2 transition-all">
+          className="btn flex-1 bg-brand-green text-white py-3 text-sm hover:bg-brand-gold disabled:opacity-60 flex items-center justify-center gap-2">
           {submitting ? <><Loader2 size={15} className="animate-spin" /> Sending...</> : "📤 Submit Inquiry"}
         </button>
-        <a
+        <a 
           href={buildWhatsAppUrl(SITE_CONFIG.whatsapp, `Hi! I want to become an Allwin Machinery dealer in ${getValues("city") || "my area"}.`)}
           target="_blank" rel="noopener noreferrer"
-          className="btn bg-[#25D366] text-white px-4 py-3 text-sm flex items-center gap-1.5 hover:bg-[#20ba5a] transition-all">
+          className="btn bg-[#25D366] text-white px-4 py-3 text-sm flex items-center gap-1.5">
           <MessageCircle size={15} /> WhatsApp
         </a>
       </div>
