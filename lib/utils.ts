@@ -20,6 +20,24 @@ export function formatDate(dateString: string): string {
     day: "numeric",
   });
 }
+/**
+ * Ensures a Cloudinary URL has width/quality/format transformations
+ * applied, so background images load fast instead of pulling the raw,
+ * uncompressed original. Safe to call on already-optimized URLs or
+ * non-Cloudinary URLs — it returns them unchanged.
+ */
+export function optimizeCloudinaryUrl(url: string, width = 1600): string {
+  if (!url.includes("res.cloudinary.com") || !url.includes("/upload/")) {
+    return url;
+  }
+  // Already has transformation params (e.g. w_, q_, f_) — leave as-is
+  if (/\/upload\/[^/]*[wqf]_/.test(url)) {
+    return url;
+  }
+  return url.replace("/upload/", `/upload/w_${width},q_auto,f_auto/`);
+}
+
+
 
 export function buildWhatsAppUrl(phone: string, message: string): string {
   const encodedMessage = encodeURIComponent(message);

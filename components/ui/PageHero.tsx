@@ -1,6 +1,7 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ChevronRight } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn, optimizeCloudinaryUrl } from "@/lib/utils";
 
 interface Breadcrumb {
   label: string;
@@ -36,16 +37,21 @@ export function PageHero({
       {/* ── Right side background image ── */}
       {backgroundImage && (
         <>
-          {/* Image on right 60% of screen */}
-          <div
-           className="absolute right-0 top-0 bottom-0 w-[56%]"
-  style={{
-    backgroundImage: `url('${backgroundImage}')`,
-    backgroundSize: "cover",
-    backgroundPosition: "center 60%",
-  }}
-            aria-hidden="true"
-          />
+          {/* Image on right 56% of screen — Next/Image gives us
+              automatic responsive sizing, modern format (WebP/AVIF),
+              and `priority` preloads it immediately instead of waiting
+              for the browser to discover a CSS background-image. */}
+          <div className="absolute right-0 top-0 bottom-0 w-[56%]">
+            <Image
+              src={optimizeCloudinaryUrl(backgroundImage)}
+              alt=""
+              fill
+              priority
+              className="object-cover"
+              style={{ objectPosition: "center 60%" }}
+              sizes="56vw"
+            />
+          </div>
 
           <div
             className="absolute right-0 top-0 bottom-0 w-[70%]"

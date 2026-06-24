@@ -6,13 +6,18 @@ interface TrustedBrandsStripProps {
   brands: Brand[];
 }
 
-const FALLBACK_BRANDS = [
+// Only used if Sanity has zero brands configured yet — keeps the section
+// from looking empty during initial setup. Once real brands exist in
+// Sanity, this is never shown.
+const FALLBACK_BRAND_NAMES = [
   "Honda", "Neptune", "Kirloskar", "Kama", "Husqvarna", "Balwaan",
-  "Stihl", "Makita", "Briggs & Stratton", "Honda",
+  "Stihl", "Makita", "Briggs & Stratton",
 ];
 
 export function TrustedBrandsStrip({ brands }: TrustedBrandsStripProps) {
-  const displayBrands = brands?.length > 0 ? brands : [];
+  const hasRealBrands = brands?.length > 0;
+  // Duplicate the list so the marquee scrolls seamlessly in a loop
+  const displayBrands = hasRealBrands ? [...brands, ...brands] : null;
 
   return (
     <section className="bg-brand-white border-y border-gray-200 py-8 overflow-hidden">
@@ -29,17 +34,39 @@ export function TrustedBrandsStrip({ brands }: TrustedBrandsStripProps) {
 
         <div className="flex">
           <div className="marquee-track flex items-center gap-12 whitespace-nowrap">
-            {/* Duplicate for seamless loop */}
-            {[...FALLBACK_BRANDS, ...FALLBACK_BRANDS].map((name, i) => (
-              <div
-                key={i}
-                className="flex items-center justify-center h-10 px-4 grayscale hover:grayscale-0 opacity-60 hover:opacity-100 transition-all cursor-pointer"
-              >
-                <span className="font-heading font-black text-brand-text text-lg uppercase tracking-wide">
-                  {name}
-                </span>
-              </div>
-            ))}
+            {displayBrands
+              ? displayBrands.map((brand, i) => (
+                  <div
+                    key={`${brand._id}-${i}`}
+                    className="flex items-center justify-center h-10 px-4 grayscale hover:grayscale-0 opacity-60 hover:opacity-100 transition-all cursor-pointer"
+                  >
+                    {brand.logo ? (
+                      <div className="relative h-10 w-28">
+                        <Image
+                          src={urlForImage(brand.logo, 160, 80)}
+                          alt={brand.name}
+                          fill
+                          className="object-contain"
+                          sizes="160px"
+                        />
+                      </div>
+                    ) : (
+                      <span className="font-heading font-black text-brand-text text-lg uppercase tracking-wide">
+                        {brand.name}
+                      </span>
+                    )}
+                  </div>
+                ))
+              : [...FALLBACK_BRAND_NAMES, ...FALLBACK_BRAND_NAMES].map((name, i) => (
+                  <div
+                    key={i}
+                    className="flex items-center justify-center h-10 px-4 grayscale hover:grayscale-0 opacity-60 hover:opacity-100 transition-all cursor-pointer"
+                  >
+                    <span className="font-heading font-black text-brand-text text-lg uppercase tracking-wide">
+                      {name}
+                    </span>
+                  </div>
+                ))}
           </div>
         </div>
       </div>
