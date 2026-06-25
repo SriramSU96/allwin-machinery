@@ -2,9 +2,10 @@
 
 import { useMemo, useState } from "react";
 import Image from "next/image";
-import { Search, Download, FileText, MessageCircle } from "lucide-react";
+import { Download, FileText, MessageCircle } from "lucide-react";
 import { SectionReveal } from "@/components/animations/SectionReveal";
 import { SITE_CONFIG, buildWhatsAppUrl } from "@/lib/utils";
+import { SearchWithDropdown } from "@/components/ui/SearchWithDropdown";
 
 interface Catalog {
   title: string;
@@ -22,6 +23,14 @@ interface CatalogSearchProps {
 export function CatalogSearch({ catalogs }: CatalogSearchProps) {
   const [query, setQuery] = useState("");
 
+  const searchSuggestions = useMemo(() => {
+    if (!query.trim()) return [];
+    const q = query.toLowerCase();
+    return catalogs
+      .filter((cat) => cat.title.toLowerCase().includes(q))
+      .map((cat) => ({ label: cat.title, sublabel: cat.year }));
+  }, [catalogs, query]);
+
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
     if (!q) return catalogs;
@@ -33,16 +42,12 @@ export function CatalogSearch({ catalogs }: CatalogSearchProps) {
       {/* ── Search bar ── */}
       <section className="bg-brand-white py-8 border-b border-gray-200">
         <div className="max-w-container mx-auto px-4 md:px-6">
-          <div className="relative">
-            <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
-            <input
-              type="search"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search catalog name (e.g. power weeders, sprayers, pumps)..."
-              className="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-brand-green"
-            />
-          </div>
+          <SearchWithDropdown
+            value={query}
+            onChange={setQuery}
+            suggestions={searchSuggestions}
+            placeholder="Search catalog name (e.g. power weeders, sprayers, pumps)..."
+          />
         </div>
       </section>
 

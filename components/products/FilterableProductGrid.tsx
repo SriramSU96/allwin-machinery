@@ -3,8 +3,10 @@
 import { useState, useMemo } from "react";
 import { Product, Brand } from "@/types";
 import { ProductCard } from "@/components/cards/ProductCard";
-import { Search, X, LayoutGrid, LayoutList } from "lucide-react";
+import { X, LayoutGrid, LayoutList } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { SearchWithDropdown } from "@/components/ui/SearchWithDropdown";
+import { SearchableSelect } from "@/components/ui/SearchableSelect";
 
 type SortOption = "latest" | "price-asc" | "price-desc" | "name-asc";
 
@@ -25,6 +27,24 @@ export function FilterableProductGrid({
   const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
   const [sortBy, setSortBy] = useState<SortOption>("latest");
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
+
+  const searchSuggestions = useMemo(() => {
+    if (!search.trim()) return [];
+    const seen = new Set<string>();
+    const results: { label: string; sublabel?: string }[] = [];
+    const q = search.toLowerCase();
+    for (const p of products) {
+      if (
+        (p.name.toLowerCase().includes(q) ||
+          p.brand?.name?.toLowerCase().includes(q)) &&
+        !seen.has(p.name)
+      ) {
+        seen.add(p.name);
+        results.push({ label: p.name, sublabel: p.brand?.name });
+      }
+    }
+    return results.slice(0, 8);
+  }, [search, products]);
 
   const filtered = useMemo(() => {
     let result = [...products];
@@ -58,12 +78,6 @@ export function FilterableProductGrid({
     return result;
   }, [products, search, selectedBrands, sortBy]);
 
-  const toggleBrand = (slug: string) => {
-    setSelectedBrands((prev) =>
-      prev.includes(slug) ? prev.filter((b) => b !== slug) : [...prev, slug]
-    );
-  };
-
   const clearFilters = () => {
     setSearch("");
     setSelectedBrands([]);
@@ -77,35 +91,34 @@ export function FilterableProductGrid({
     products.some((p) => p.brand?.slug?.current === b.slug.current)
   );
 
+  const brandOptions = [
+    { value: "", label: "All Brands" },
+    ...(availableBrands?.map((b) => ({ value: b.slug.current, label: b.name })) ?? []),
+  ];
+
   return (
     <div>
       {/* Filter bar */}
       <div className="flex flex-col md:flex-row gap-3 md:items-center md:justify-between mb-6">
-        <div className="relative flex-1 max-w-sm">
-          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-          <input
-            type="search"
-            placeholder="Search by name or spec..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-9 pr-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-brand-green"
-          />
-        </div>
+        {/* Search with live suggestions */}
+        <SearchWithDropdown
+          value={search}
+          onChange={setSearch}
+          suggestions={searchSuggestions}
+          placeholder="Search by name or spec..."
+          className="flex-1 max-w-sm"
+        />
 
         <div className="flex items-center gap-3 flex-wrap">
           {availableBrands && availableBrands.length > 0 && (
-            <select
+            <SearchableSelect
+              options={brandOptions}
               value={selectedBrands[0] || ""}
-              onChange={(e) => setSelectedBrands(e.target.value ? [e.target.value] : [])}
-              className="px-3 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-brand-green bg-white text-gray-600"
-            >
-              <option value="">All Brands</option>
-              {availableBrands.map((brand) => (
-                <option key={brand._id} value={brand.slug.current}>
-                  {brand.name}
-                </option>
-              ))}
-            </select>
+              onChange={(v) => setSelectedBrands(v ? [v] : [])}
+              placeholder="All Brands"
+              searchPlaceholder="Search brands..."
+              className="w-44"
+            />
           )}
 
           <select

@@ -3,8 +3,9 @@
 import { useState, useMemo } from "react";
 import { Product, Category, Brand } from "@/types";
 import { ProductCard } from "@/components/cards/ProductCard";
-import { Search, SlidersHorizontal, X, LayoutGrid, LayoutList } from "lucide-react";
+import { SlidersHorizontal, X, LayoutGrid, LayoutList } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { SearchWithDropdown } from "@/components/ui/SearchWithDropdown";
 
 interface ProductsClientProps {
   initialProducts: Product[];
@@ -21,6 +22,20 @@ export function ProductsClient({ initialProducts, categories, brands }: Products
   const [sortBy, setSortBy] = useState<SortOption>("latest");
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  const searchSuggestions = useMemo(() => {
+    if (!search.trim()) return [];
+    const seen = new Set<string>();
+    const results: { label: string; sublabel?: string }[] = [];
+    const q = search.toLowerCase();
+    for (const p of initialProducts) {
+      if (p.name.toLowerCase().includes(q) && !seen.has(p.name)) {
+        seen.add(p.name);
+        results.push({ label: p.name, sublabel: p.brand?.name });
+      }
+    }
+    return results.slice(0, 8);
+  }, [search, initialProducts]);
 
   const filteredProducts = useMemo(() => {
     let result = [...initialProducts];
@@ -81,7 +96,7 @@ export function ProductsClient({ initialProducts, categories, brands }: Products
     <section className="py-10 px-4 md:px-6 max-w-container mx-auto">
       {/* Top bar */}
       <div className="flex flex-col md:flex-row gap-4 items-start md:items-center justify-between mb-6">
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 flex-wrap">
           <button
             onClick={() => setSidebarOpen(!sidebarOpen)}
             className="flex items-center gap-2 px-4 py-2 rounded-xl border border-gray-200 text-sm hover:border-brand-green transition-colors md:hidden"
@@ -93,6 +108,7 @@ export function ProductsClient({ initialProducts, categories, brands }: Products
             Showing <span className="font-semibold text-brand-text">{filteredProducts.length}</span> of{" "}
             {initialProducts.length} products
           </p>
+
           {hasFilters && (
             <button
               onClick={clearFilters}
@@ -104,23 +120,20 @@ export function ProductsClient({ initialProducts, categories, brands }: Products
         </div>
 
         <div className="flex items-center gap-3">
-          {/* Search */}
-          <div className="relative">
-            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-            <input
-              type="search"
-              placeholder="Search machinery..."
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              className="pl-9 pr-4 py-2 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-brand-green w-56"
-            />
-          </div>
+          {/* Search with live suggestions */}
+          <SearchWithDropdown
+            value={search}
+            onChange={setSearch}
+            suggestions={searchSuggestions}
+            placeholder="Search machinery..."
+            className="w-64"
+          />
 
           {/* Sort */}
           <select
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value as SortOption)}
-            className="px-3 py-2 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-brand-green bg-white"
+            className="px-3 py-2 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-brand-green bg-white text-gray-600"
           >
             <option value="latest">Sort: Latest</option>
             <option value="name-asc">Sort: Name A–Z</option>
