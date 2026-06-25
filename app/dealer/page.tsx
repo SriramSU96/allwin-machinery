@@ -7,7 +7,7 @@ import { CountUpStat } from "@/components/ui/CountUpStat";
 import { DealerForm } from "./DealerForm";
 import {
   TrendingUp, Tag, Megaphone, Package, GraduationCap, Truck,
-  CheckCircle2, Users, Award, ShoppingBag, Building2
+  CheckCircle2, Users, Award, ShoppingBag, Building2, MapPin, ArrowRight
 } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -116,7 +116,7 @@ export default function DealerPage() {
                 </p>
 
                 <h2 className="font-heading font-black text-[22px] md:text-[25px] leading-[1.1] text-brand-text">
-                  Why Partner With{" "}
+                  Why Partner{" "}
                   <span className="text-brand-green">With Allwin Machinery?</span>
                 </h2>
 
@@ -140,9 +140,6 @@ export default function DealerPage() {
 
               {/* Why Partner stats */}
               <SectionReveal>
-                <p className="font-heading font-bold text-[11px] text-brand-green uppercase tracking-[3px] mb-4">
-                  Why Partner With Allwin Machinery?
-                </p>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                   {WHY_PARTNER.map((stat, i) => (
                     <div key={stat.label} className="bg-brand-green rounded-xl p-4 text-center">
@@ -204,13 +201,16 @@ export default function DealerPage() {
             </p>
           </SectionReveal>
 
-          <div className="flex flex-col md:flex-row items-start gap-4">
+          <div className="relative flex flex-col md:flex-row items-start gap-8 md:gap-4">
+            {/* Connecting line (desktop only) */}
+            <div className="hidden md:block absolute top-7 left-[10%] right-[10%] h-[2px] bg-gradient-to-r from-brand-green/15 via-brand-green/40 to-brand-green/15" />
+
             {PROCESS_STEPS.map((step, i) => (
-              <SectionReveal key={step.title} delay={i * 0.1} className="flex-1">
+              <SectionReveal key={step.title} delay={i * 0.1} className="relative flex-1">
                 <div className="flex flex-col items-center text-center gap-3">
-                  <div className="w-14 h-14 rounded-full bg-brand-green text-white flex items-center justify-center text-2xl relative">
+                  <div className="w-14 h-14 rounded-full bg-brand-green text-white flex items-center justify-center text-2xl relative ring-4 ring-white">
                     {step.icon}
-                    <span className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-brand-gold text-white text-[9px] font-black flex items-center justify-center">
+                    <span className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-brand-gold text-white text-[9px] font-black flex items-center justify-center ring-2 ring-white">
                       {i + 1}
                     </span>
                   </div>
@@ -225,7 +225,7 @@ export default function DealerPage() {
         </div>
       </section>
 
-      {/* ── India map placeholder ── */}
+      {/* ── Dealer network / coverage ── */}
       <section className="bg-brand-light-gray py-14">
         <div className="max-w-container mx-auto px-4 md:px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
