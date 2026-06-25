@@ -53,21 +53,12 @@ export function PageHero({
             />
           </div>
 
+          {/* Smooth gradient to seamlessly blend the solid left side with the right image */}
           <div
-            className="absolute right-0 top-0 bottom-0 w-[70%]"
+            className="absolute inset-0 pointer-events-none"
             style={{
               background:
-                "linear-gradient(90deg, #121212 0%, rgba(18,18,18,0.96) 16%, rgba(212,160,23,0.1) 36%, rgba(212,160,23,0.04) 60%, rgba(18,18,18,0.08) 100%)",
-            }}
-            aria-hidden="true"
-          />
-
-          {/* Left-to-right dark gradient — text area stays dark */}
-          <div
-            className="absolute inset-0"
-            style={{
-              background:
-                "linear-gradient(90deg, #121212 0%, rgba(18,18,18,0.98) 32%, rgba(18,18,18,0.78) 46%, rgba(18,18,18,0.28) 70%, rgba(18,18,18,0.04) 100%)",
+                "linear-gradient(90deg, #121212 0%, #121212 54%, rgba(18,18,18,0.85) 60%, rgba(18,18,18,0.2) 70%, transparent 80%)",
             }}
             aria-hidden="true"
           />

@@ -75,7 +75,7 @@ export function HeroSection({ hero }: HeroSectionProps) {
   }, []);
 
   return (
-    <section className="relative flex flex-col overflow-hidden bg-[#0a0f0a]" style={{ minHeight: "clamp(580px, 68vh, 900px)" }}>
+    <section className="relative flex flex-col overflow-hidden bg-[#0a0f0a]" style={{ minHeight: "clamp(400px, 45vh, 600px)" }}>
       {/* ── Full-bleed Background Image ─────────────────── */}
       <div className="absolute inset-0">
         <Image
@@ -96,7 +96,7 @@ export function HeroSection({ hero }: HeroSectionProps) {
         className="absolute inset-0"
         style={{
           background:
-            "linear-gradient(105deg, rgba(8,14,8,0.97) 0%, rgba(10,16,10,0.90) 35%, rgba(10,16,10,0.65) 62%, rgba(10,16,10,0.15) 85%)",
+            "linear-gradient(105deg, rgba(8,14,8,0.88) 0%, rgba(10,16,10,0.75) 35%, rgba(10,16,10,0.40) 62%, rgba(10,16,10,0.0) 80%)",
         }}
         aria-hidden="true"
       />
@@ -105,7 +105,7 @@ export function HeroSection({ hero }: HeroSectionProps) {
         className="absolute inset-0"
         style={{
           background:
-            "linear-gradient(to top, rgba(8,14,8,0.85) 0%, rgba(8,14,8,0.0) 35%)",
+            "linear-gradient(to top, rgba(8,14,8,0.60) 0%, rgba(8,14,8,0.0) 35%)",
         }}
         aria-hidden="true"
       />
@@ -114,7 +114,7 @@ export function HeroSection({ hero }: HeroSectionProps) {
         className="absolute inset-0"
         style={{
           background:
-            "linear-gradient(to bottom, rgba(8,14,8,0.45) 0%, rgba(8,14,8,0.0) 20%)",
+            "linear-gradient(to bottom, rgba(8,14,8,0.25) 0%, rgba(8,14,8,0.0) 20%)",
         }}
         aria-hidden="true"
       />
@@ -166,7 +166,7 @@ export function HeroSection({ hero }: HeroSectionProps) {
               ref={headingRef}
               className="font-heading font-black text-white mb-4 break-words"
               style={{
-                fontSize: "clamp(1.85rem, 7vw, 3.4rem)",
+                fontSize: "clamp(1.75rem, 5vw, 2.7rem)",
                 lineHeight: 1.1,
                 letterSpacing: "-0.02em",
                 textShadow: "0 4px 32px rgba(0,0,0,0.55)",
@@ -201,7 +201,7 @@ export function HeroSection({ hero }: HeroSectionProps) {
                 className="leading-relaxed"
                 style={{
                   color: "rgba(255,255,255,0.60)",
-                  fontSize: "clamp(13px, 3.6vw, 16.5px)",
+                  fontSize: "clamp(12px, 3vw, 15px)",
                   maxWidth: "440px",
                 }}
               >
@@ -220,7 +220,7 @@ export function HeroSection({ hero }: HeroSectionProps) {
                 style={{
                   background: "linear-gradient(135deg, #1F4D3A 0%, #2d7054 100%)",
                   border: "1px solid rgba(255,255,255,0.10)",
-                  padding: "13px 28px",
+                  padding: "11px 24px",
                   borderRadius: "8px",
                   fontWeight: 600,
                   letterSpacing: "0.01em",
@@ -247,7 +247,7 @@ export function HeroSection({ hero }: HeroSectionProps) {
                   background: "rgba(255,255,255,0.07)",
                   border: "1px solid rgba(255,255,255,0.20)",
                   backdropFilter: "blur(10px)",
-                  padding: "13px 28px",
+                  padding: "11px 24px",
                   borderRadius: "8px",
                   fontWeight: 500,
                 }}
@@ -281,7 +281,7 @@ export function HeroSection({ hero }: HeroSectionProps) {
                 <CountUpStat
                   value={stat.value}
                   suffix={stat.suffix}
-                  className="!text-white !text-xl sm:!text-2xl md:!text-3xl"
+                  className="!text-white !text-xl sm:!text-2xl"
                 />
                 <p
                   className="font-heading font-semibold text-[10px] sm:text-[11px] uppercase tracking-[2px] mt-0.5"
