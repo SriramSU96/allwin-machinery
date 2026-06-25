@@ -114,9 +114,12 @@ export default function DealerPage() {
                 <p className="font-heading font-bold text-[11px] text-brand-green uppercase tracking-[3px] mb-2">
                   Dealer Benefits
                 </p>
-                <h2 className="font-heading font-bold text-[22px] md:text-[28px] text-brand-text">
-                  Why Partner With Allwin Machinery?
+
+                <h2 className="font-heading font-black text-[22px] md:text-[25px] leading-[1.1] text-brand-text">
+                  Why Partner With{" "}
+                  <span className="text-brand-green">With Allwin Machinery?</span>
                 </h2>
+
               </SectionReveal>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">

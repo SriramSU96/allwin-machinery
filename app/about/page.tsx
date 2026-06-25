@@ -77,9 +77,12 @@ export default function AboutPage() {
               <p className="font-heading font-bold text-xs text-brand-green uppercase tracking-[3px] mb-3">
                 Our Company
               </p>
-              <h2 className="font-heading font-bold text-[26px] md:text-[32px] text-brand-text mb-4">
-                Powering Growth. Enriching Lives.
+
+              <h2 className="font-heading font-black text-[26px] md:text-[32px] leading-[1.1] text-brand-text">
+                Powering Growth{" "}
+                <span className="text-brand-green">Enriching Lives.</span>
               </h2>
+
               <p className="text-gray-600 text-sm leading-relaxed mb-6">
                 Since our inception, all has been dedicated to providing farmers
                 with innovative, durable and efficient agricultural machinery. From power weeders
@@ -167,42 +170,61 @@ export default function AboutPage() {
       </section>
 
       {/* Brands */}
-      <section className="bg-brand-white py-14">
+      <section className="bg-gradient-to-b from-brand-white to-brand-light-gray/40 py-16 md:py-20">
         <div className="max-w-container mx-auto px-4 md:px-6">
-          <SectionReveal className="mb-8">
-            <p className="font-heading font-bold text-xs text-brand-green uppercase tracking-[3px] mb-2">
-              Brands We Deal In
-            </p>
-          </SectionReveal>
-          <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 flex-1">
-              {ABOUT_BRANDS.map((brand) => (
-                <SectionReveal key={brand.name}>
-                  <Link
-                    href={`/brands/${brand.slug}`}
-                    className="rounded-3xl border border-gray-200 bg-white p-4 flex items-center justify-center transition-all duration-300 hover:-translate-y-0.5 hover:border-brand-green/60 hover:shadow-soft"
-                  >
-                    <div className="relative h-14 w-full max-w-[130px]">
-                      <Image
-                        src={brand.logo}
-                        alt={brand.name}
-                        fill
-                        className="object-contain"
-                        sizes="130px"
-                      />
-                    </div>
-                  </Link>
-                </SectionReveal>
-              ))}
-            </div>
-            <div className="flex-shrink-0 self-start lg:self-center">
+          <SectionReveal className="mb-10">
+            <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+              <div>
+                <p className="font-heading font-bold text-[11px] text-brand-green uppercase tracking-[4px] mb-3">
+                  Brands We Deal In
+                </p>
+
+                <h2 className="font-heading font-black text-[26px] md:text-[32px] leading-[1.1] text-brand-text">
+                  Powered By{" "}
+                  <span className="text-brand-green">World-Class Brands</span>
+                </h2>
+              </div>
               <Link
                 href="/brands"
-                className="inline-flex items-center justify-center rounded-2xl border border-brand-green bg-white px-6 py-3 text-sm font-black text-brand-green transition hover:bg-brand-green hover:text-white"
+                className="hidden md:inline-flex items-center justify-center rounded-full border-2 border-brand-green bg-white px-6 py-3 text-[13px] font-heading font-bold text-brand-green transition-all duration-300 hover:bg-brand-green hover:text-white hover:shadow-[0_8px_24px_rgba(13,107,58,0.25)] flex-shrink-0"
               >
                 View All Brands
               </Link>
             </div>
+          </SectionReveal>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 lg:gap-5">
+            {ABOUT_BRANDS.map((brand, i) => (
+              <SectionReveal key={brand.name} delay={i * 0.06}>
+                <Link
+                  href={`/brands/${brand.slug}`}
+                  className="group relative flex h-[110px] flex-col items-center justify-center overflow-hidden rounded-2xl border border-slate-200/70 bg-white shadow-[0_4px_16px_rgba(15,23,42,0.05)] transition-all duration-300 hover:-translate-y-1 hover:border-brand-green/50 hover:shadow-[0_16px_36px_rgba(15,23,42,0.10)]"
+                >
+                  {/* Top accent bar */}
+                  <div className="absolute top-0 left-0 h-[3px] w-full bg-gradient-to-r from-brand-green/40 via-brand-green to-brand-green/40 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+
+                  <div className="relative h-12 w-full max-w-[120px] px-4">
+                    <Image
+                      src={brand.logo}
+                      alt={brand.name}
+                      fill
+                      className="object-contain transition-transform duration-300 grayscale-[0.15] group-hover:grayscale-0 group-hover:scale-105"
+                      sizes="120px"
+                    />
+                  </div>
+                </Link>
+              </SectionReveal>
+            ))}
+          </div>
+
+          {/* Mobile CTA */}
+          <div className="mt-8 flex justify-center md:hidden">
+            <Link
+              href="/brands"
+              className="inline-flex items-center justify-center rounded-full border-2 border-brand-green bg-white px-6 py-3 text-sm font-heading font-bold text-brand-green transition hover:bg-brand-green hover:text-white"
+            >
+              View All Brands
+            </Link>
           </div>
         </div>
       </section>

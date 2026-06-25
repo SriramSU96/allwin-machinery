@@ -80,54 +80,82 @@ export default async function BrandsPage() {
       </div>
 
       {/* ── Featured Brands ── */}
-      <section className="bg-brand-white py-16">
+      <section className="bg-brand-white py-20">
         <div className="max-w-container mx-auto px-4 md:px-6">
-          <SectionReveal className="text-center mb-10">
-            <p className="font-heading font-bold text-[11px] text-brand-green uppercase tracking-[3px] mb-2">
-              Featured Brands
-            </p>
+
+          {/* Section header */}
+          <SectionReveal className="mb-12">
+            <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+              <div>
+                <p className="font-heading font-bold text-[11px] text-brand-green uppercase tracking-[4px] mb-3">
+                  Our Brand Portfolio
+                </p>
+                <h2 className="font-heading font-black text-[28px] md:text-[36px] leading-[1.1] text-brand-text">
+                  {brands.length}+ Trusted{" "}
+                  <span className="text-brand-green">Partner Brands</span>
+                </h2>
+                <p className="mt-3 text-sm text-gray-500 max-w-md leading-relaxed">
+                  Every brand we carry is hand-picked for quality, reliability, and proven performance in Indian agricultural conditions.
+                </p>
+              </div>
+              <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-brand-green/8 border border-brand-green/20 self-start md:self-auto">
+                <Award size={14} className="text-brand-green" />
+                <span className="text-[11px] font-heading font-bold text-brand-green uppercase tracking-widest">Authorized Dealer</span>
+              </div>
+            </div>
           </SectionReveal>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 gap-5">
+          {/* Brand cards grid */}
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5">
             {brands.map((brand, i) => {
               const logoUrl = brand.logo
                 ? urlForImage(brand.logo, 150, 60)
                 : `${CLD}/v1780557453/walk-behind_tiller_i0y4xz.png`;
 
               return (
-                <SectionReveal key={brand._id} delay={i * 0.08}>
-                  <div className="flex h-full flex-col justify-between rounded-[22px] border border-slate-200/60 bg-white p-5 shadow-[0_14px_30px_rgba(15,23,42,0.06)] transition-all duration-300 hover:-translate-y-1 hover:border-brand-green/80 hover:shadow-[0_22px_50px_rgba(15,23,42,0.12)]">
-                    <div className="space-y-4 text-center">
-                      <div className="relative mx-auto h-14 w-full max-w-[150px]">
+                <SectionReveal key={brand._id} delay={i * 0.06}>
+                  <Link
+                    href={`/brands/${brand.slug.current}`}
+                    className="group relative flex h-full flex-col rounded-2xl border border-slate-200/70 bg-white overflow-hidden shadow-[0_4px_20px_rgba(15,23,42,0.06)] transition-all duration-300 hover:-translate-y-1.5 hover:border-brand-green/60 hover:shadow-[0_20px_48px_rgba(15,23,42,0.13)]"
+                  >
+                    {/* Top accent bar */}
+                    <div className="h-1 w-full bg-gradient-to-r from-brand-green/40 via-brand-green to-brand-green/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+                    <div className="flex flex-col flex-1 p-5">
+                      {/* Logo area */}
+                      <div className="relative mx-auto h-14 w-full max-w-[140px] mb-4">
                         <Image
                           src={logoUrl}
                           alt={brand.name}
                           fill
-                          className="object-contain"
-                          sizes="150px"
+                          className="object-contain transition-transform duration-300 group-hover:scale-105"
+                          sizes="140px"
                         />
                       </div>
-                      <div>
-                        <h3 className="font-heading text-sm font-semibold uppercase tracking-[0.24em] text-slate-900">
+
+                      {/* Name + description */}
+                      <div className="text-center flex-1">
+                        {/* Premium brand name: refined small-caps style instead of heavy uppercase block */}
+                        <h3 className="font-heading text-[15px] font-bold text-slate-900 leading-snug tracking-tight [font-variant-caps:all-small-caps] group-hover:text-brand-green transition-colors duration-300">
                           {brand.name}
                         </h3>
-                        <p className="mx-auto mt-2 max-w-[220px] text-[12px] leading-5 text-slate-600 line-clamp-3">
-                          {brand.description || "Explore our selection of products from this brand."}
+                        <div className="mx-auto mt-1.5 h-[2px] w-6 rounded-full bg-brand-green/30 group-hover:w-10 group-hover:bg-brand-green transition-all duration-300" />
+                        <p className="mx-auto mt-2.5 max-w-[200px] text-[11px] leading-[1.6] text-slate-500 line-clamp-2">
+                          {brand.description || "Reliable machinery trusted by farmers across India."}
                         </p>
                       </div>
+
+                      {/* Footer */}
+                      <div className="mt-4 pt-4 border-t border-gray-100 flex items-center justify-between gap-2">
+                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-brand-green/10 text-[10px] font-bold text-brand-green uppercase tracking-wider whitespace-nowrap">
+                          {brand.productCount || 0}+ items
+                        </span>
+                        <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-brand-green group-hover:gap-2 transition-all duration-200">
+                          View <ArrowUpRight size={13} strokeWidth={2.5} />
+                        </span>
+                      </div>
                     </div>
-                    <div className="mt-5 flex flex-col items-center gap-3">
-                      <p className="text-[11px] font-semibold uppercase tracking-[0.25em] text-brand-green whitespace-nowrap">
-                        {brand.productCount || 0}+ Products
-                      </p>
-                      <Link
-                        href={`/brands/${brand.slug.current}`}
-                        className="inline-flex w-full items-center justify-center rounded-full border border-brand-green bg-brand-green text-white px-4 py-3 text-[12px] font-semibold shadow-sm transition hover:bg-white hover:text-brand-green"
-                      >
-                        View Products →
-                      </Link>
-                    </div>
-                  </div>
+                  </Link>
                 </SectionReveal>
               );
             })}
@@ -168,9 +196,11 @@ export default async function BrandsPage() {
                         sizes="180px"
                       />
                     </div>
-                    <p className="mt-3 flex min-h-[34px] items-end justify-center font-heading text-[15px] font-black leading-[1.05] text-brand-text transition-colors group-hover:text-brand-green">
+
+                    <h3 className="font-heading text-[15px] font-bold text-slate-900 leading-snug tracking-tight [font-variant-caps:all-small-caps] group-hover:text-brand-green transition-colors duration-300">
                       {cat.name}
-                    </p>
+                    </h3>
+
                     <p className="mt-2 text-xs font-medium text-gray-500">
                       <span className="font-bold text-brand-green">{cat.productCount || 0}</span>{" "}
                       Products
@@ -226,7 +256,7 @@ export default async function BrandsPage() {
         </div>
       </section>
 
-      <FeaturedBrandProducts products={featuredProducts} />
+      <FeaturedBrandProducts products={featuredProducts} brands={brands} />
 
       {/* ── Partnership CTA ── */}
       <section className="bg-brand-green py-12 px-4">
@@ -243,7 +273,7 @@ export default async function BrandsPage() {
             <Link href="/products" className="btn bg-white text-brand-green px-5 py-3 text-sm hover:bg-brand-gold hover:text-white">
               Explore All Products →
             </Link>
-            <a 
+            <a
               href={buildWhatsAppUrl(SITE_CONFIG.whatsapp, "Hi! I want to know more about your brand partnerships.")}
               target="_blank"
               rel="noopener noreferrer"

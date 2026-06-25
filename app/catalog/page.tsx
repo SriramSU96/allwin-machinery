@@ -128,9 +128,10 @@ export default async function CatalogPage() {
       <section className="bg-brand-light-gray py-14">
         <div className="max-w-container mx-auto px-4 md:px-6">
           <SectionReveal className="mb-8">
-            <p className="inline-flex bg-black/15 px-1.5 py-0.5 font-heading text-[11px] font-black uppercase tracking-[4px] text-brand-text">
+            <p className="font-heading font-bold text-[11px] text-brand-green uppercase tracking-[3px]">
               Browse By Category
             </p>
+
           </SectionReveal>
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4 lg:gap-5">
             {categories.map((cat, i) => {
@@ -157,9 +158,9 @@ export default async function CatalogPage() {
                         sizes="180px"
                       />
                     </div>
-                    <p className="mt-3 flex min-h-[34px] items-end justify-center font-heading text-[15px] font-black leading-[1.05] text-brand-text transition-colors group-hover:text-brand-green">
+                    <h3 className="mt-3 font-heading text-[15px] font-bold text-slate-900 leading-snug tracking-tight [font-variant-caps:all-small-caps] transition-colors group-hover:text-brand-green">
                       {cat.name}
-                    </p>
+                    </h3>
                     <p className="mt-2 text-xs font-medium text-gray-500">
                       <span className="font-bold text-brand-green">{cat.productCount || 0}</span>{" "}
                       Catalogs
@@ -199,6 +200,10 @@ export default async function CatalogPage() {
                         sizes="200px"
                       />
                     </div>
+
+                    <h3 className="font-heading text-[13px] font-bold text-slate-900 leading-snug tracking-tight [font-variant-caps:all-small-caps] mb-2 group-hover:text-brand-green transition-colors duration-300">
+                      {brand.name}
+                    </h3>
 
                     <p className="text-xs text-gray-500 mb-4 leading-snug">
                       {brand.description || `${brand.name} product catalog`}
