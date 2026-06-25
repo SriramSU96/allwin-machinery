@@ -46,12 +46,12 @@ export function Navbar({ categories }: NavbarProps) {
     <>
       {/* Top announcement bar */}
       <div className="bg-brand-green text-white text-xs py-2 px-4 hidden md:block">
-        <div className="w-full flex justify-between items-center px-4 md:px-6 lg:px-16">
-          <span>🌾 High Performance Agriculture Machinery — Trusted by 5000+ Farmers</span>
-          <div className="flex gap-6">
-            <span>📦 Nationwide Delivery</span>
-            <span>💳 Easy EMI Options</span>
-            <span>🛠 Expert Support</span>
+        <div className="w-full flex justify-between items-center px-4 md:px-6 lg:px-8 xl:px-16">
+          <span className="whitespace-nowrap">🌾 High Performance Agriculture Machinery — Trusted by 5000+ Farmers</span>
+          <div className="flex gap-4 xl:gap-6">
+            <span className="whitespace-nowrap">📦 Nationwide Delivery</span>
+            <span className="whitespace-nowrap">💳 Easy EMI Options</span>
+            <span className="whitespace-nowrap">🛠 Expert Support</span>
           </div>
         </div>
       </div>
@@ -63,24 +63,25 @@ export function Navbar({ categories }: NavbarProps) {
           scrolled ? "navbar-scrolled bg-brand-dark" : "bg-brand-dark"
         )}
       >
-        <div className="w-full px-4 md:px-6 lg:px-16 h-[72px] flex items-center justify-between gap-6">
+        <div className="w-full px-4 md:px-6 lg:px-8 xl:px-16 h-[72px] flex items-center justify-between gap-2 lg:gap-4">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 flex-shrink-0 mr-auto">
-            <div className="w-10 h-10 bg-brand-green rounded-lg flex items-center justify-center font-heading font-black text-white text-lg">
+          <Link href="/" className="flex items-center gap-2 flex-shrink-0">
+            <div className="w-9 h-9 lg:w-10 lg:h-10 bg-brand-green rounded-lg flex items-center justify-center font-heading font-black text-white text-base lg:text-lg">
               AW
             </div>
             <div>
-              <span className="font-heading font-black text-white text-lg leading-none block">
+              <span className="font-heading font-black text-white text-base lg:text-lg leading-none block">
                 ALLWIN
               </span>
-              <span className="text-brand-gold text-[10px] font-heading font-bold tracking-widest uppercase">
+              <span className="text-brand-gold text-[9px] lg:text-[10px] font-heading font-bold tracking-widest uppercase">
                 Machinery
               </span>
             </div>
           </Link>
 
           {/* Desktop nav */}
-          <nav className="hidden lg:flex items-center gap-1" ref={dropdownRef}>
+          {/* Desktop nav — ml-auto pushes it right, mr-3 gives breathing room before CTA */}
+          <nav className="hidden lg:flex items-center gap-0 ml-auto mr-3" ref={dropdownRef}>
             {NAV_ITEMS.map((item) => {
               const isProducts = item.label === "Products";
               const dropdownItems: { label: string; href: string }[] = isProducts
@@ -101,11 +102,11 @@ export function Navbar({ categories }: NavbarProps) {
                           activeDropdown === item.label ? null : item.label
                         )
                       }
-                      className="flex items-center gap-1 px-3 py-2 text-sm text-white/80 hover:text-brand-gold font-heading font-semibold transition-colors"
+                      className="flex items-center gap-0.5 px-1.5 xl:px-2 py-2 text-[12px] xl:text-[13px] text-white/80 hover:text-brand-gold font-heading font-semibold transition-colors whitespace-nowrap"
                     >
                       {item.label}
                       <ChevronDown
-                        size={14}
+                        size={13}
                         className={cn(
                           "transition-transform",
                           activeDropdown === item.label && "rotate-180"
@@ -115,7 +116,7 @@ export function Navbar({ categories }: NavbarProps) {
                   ) : (
                     <Link
                       href={item.href}
-                      className="px-3 py-2 text-sm text-white/80 hover:text-brand-gold font-heading font-semibold transition-colors block"
+                      className="px-1.5 xl:px-2 py-2 text-[12px] xl:text-[13px] text-white/80 hover:text-brand-gold font-heading font-semibold transition-colors block whitespace-nowrap"
                     >
                       {item.label}
                     </Link>
@@ -142,34 +143,34 @@ export function Navbar({ categories }: NavbarProps) {
           </nav>
 
           {/* CTA area */}
-          <div className="hidden md:flex items-center gap-3 flex-shrink-0">
+          <div className="hidden lg:flex items-center gap-2 flex-shrink-0">
             <Link
               href="/wishlist"
-              className="relative flex items-center justify-center w-9 h-9 text-white/80 hover:text-brand-gold transition-colors"
+              className="relative flex items-center justify-center w-8 h-8 text-white/80 hover:text-brand-gold transition-colors"
               aria-label="Wishlist"
             >
-              <Heart size={20} fill={wishlistCount > 0 ? "currentColor" : "none"} />
+              <Heart size={18} fill={wishlistCount > 0 ? "currentColor" : "none"} />
               {wishlistCount > 0 && (
                 <span className="absolute -top-1 -right-1 w-4 h-4 bg-brand-gold text-white text-[10px] font-bold rounded-full flex items-center justify-center">
                   {wishlistCount > 9 ? "9+" : wishlistCount}
                 </span>
               )}
             </Link>
-            <a 
+            <a
               href={`tel:${SITE_CONFIG.phone}`}
               className="flex items-center gap-1.5 text-white/80 hover:text-brand-gold transition-colors"
             >
-              <Phone size={16} />
+              <Phone size={14} />
               <div className="text-left">
-                <div className="text-xs font-heading font-bold leading-none">
+                <div className="text-[11px] font-heading font-bold leading-none whitespace-nowrap">
                   {SITE_CONFIG.phone}
                 </div>
-                <div className="text-[10px] text-white/50">Call Us Anytime</div>
+                <div className="text-[9px] text-white/50 whitespace-nowrap">Call Us Anytime</div>
               </div>
             </a>
             <Link
               href="/contact"
-              className="btn bg-brand-gold text-white px-4 py-2 text-sm hover:bg-brand-green flex items-center gap-1.5"
+              className="btn bg-brand-gold text-white px-3 py-2 text-[12px] hover:bg-brand-green flex items-center gap-1 whitespace-nowrap"
             >
               Get a Quote →
             </Link>
