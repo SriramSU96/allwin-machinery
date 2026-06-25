@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import { Product } from "@/types";
@@ -25,9 +27,10 @@ export function ProductCard({ product, className }: ProductCardProps) {
   const whatsappMsg = `Hi! I'm interested in the ${product.name}. Can you share more details?`;
 
   return (
-    <div
+    <Link
+      href={`/products/${product.slug.current}`}
       className={cn(
-        "product-card group bg-white rounded-xl border border-gray-200 overflow-hidden hover:border-brand-green flex flex-col h-full",
+        "product-card group bg-white rounded-xl border border-gray-200 overflow-hidden hover:border-brand-green flex flex-col h-full cursor-pointer",
         className
       )}
     >
@@ -51,8 +54,10 @@ export function ProductCard({ product, className }: ProductCardProps) {
             {product.badge}
           </span>
         )}
-        {/* Wishlist */}
-        <WishlistButton productId={product._id} />
+        {/* Wishlist — stop propagation so it doesn't navigate */}
+        <span onClick={(e) => e.preventDefault()}>
+          <WishlistButton productId={product._id} />
+        </span>
       </div>
 
       {/* Content */}
@@ -86,19 +91,17 @@ export function ProductCard({ product, className }: ProductCardProps) {
 
           {/* Actions */}
           <div className="flex items-center justify-between gap-2">
-            <Link
-              href={`/products/${product.slug.current}`}
-              className="flex items-center gap-1 text-brand-green font-heading font-bold text-xs hover:text-brand-gold transition-colors"
-            >
+            <span className="flex items-center gap-1 text-brand-green font-heading font-bold text-xs group-hover:text-brand-gold transition-colors">
               View Details →
-            </Link>
-            <a 
+            </span>
+            <a
               href={buildWhatsAppUrl(
                 product.whatsappNumber || SITE_CONFIG.whatsapp,
                 whatsappMsg
               )}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
               className="w-8 h-8 bg-[#25D366] rounded-lg flex items-center justify-center hover:opacity-90 transition-opacity"
               aria-label="WhatsApp inquiry"
             >
@@ -109,6 +112,6 @@ export function ProductCard({ product, className }: ProductCardProps) {
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
