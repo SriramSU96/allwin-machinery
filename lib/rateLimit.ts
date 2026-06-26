@@ -3,8 +3,8 @@
  *
  * Dual-mode rate limiter:
  *   - Production (Vercel): uses Upstash Redis — durable across cold starts,
- *     instances, and deployments. Requires UPSTASH_REDIS_REST_URL and
- *     UPSTASH_REDIS_REST_TOKEN env vars (set once in Vercel dashboard).
+ *     instances, and deployments. Requires UPSTASH_REDIS_KV_REST_API_URL and
+ *     UPSTASH_REDIS_KV_REST_API_TOKEN env vars (set once in Vercel dashboard).
  *   - Development / CI (no env vars): falls back to an in-memory Map —
  *     identical behaviour to the old code, zero config needed locally.
  *
@@ -41,8 +41,8 @@ async function redisRateLimit(
 ): Promise<RateLimitResult> {
   const { Redis } = await import("@upstash/redis");
   const redis = new Redis({
-    url: process.env.UPSTASH_REDIS_REST_URL!,
-    token: process.env.UPSTASH_REDIS_REST_TOKEN!,
+    url: process.env.UPSTASH_REDIS_KV_REST_API_URL!,
+    token: process.env.UPSTASH_REDIS_KV_REST_API_TOKEN!,
   });
 
   const redisKey = `rl:${key}`;
@@ -69,8 +69,8 @@ export async function isRateLimited(
 ): Promise<boolean> {
   const key = `${action}:${ip}`;
   const useRedis =
-    !!process.env.UPSTASH_REDIS_REST_URL &&
-    !!process.env.UPSTASH_REDIS_REST_TOKEN;
+    !!process.env.UPSTASH_REDIS_KV_REST_API_URL &&
+    !!process.env.UPSTASH_REDIS_KV_REST_API_TOKEN;
 
   try {
     const result = useRedis
