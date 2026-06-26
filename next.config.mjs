@@ -32,7 +32,7 @@ const nextConfig = {
               "font-src 'self' https://fonts.gstatic.com",
               "img-src 'self' data: blob: https://cdn.sanity.io https://res.cloudinary.com https://images.unsplash.com",
               "connect-src 'self' https://*.sanity.io https://formspree.io https://www.google-analytics.com",
-              "frame-src 'self' https://www.google.com",
+              "frame-src 'self' https://www.google.com https://maps.google.com",
             ].join("; "),
           },
         ],

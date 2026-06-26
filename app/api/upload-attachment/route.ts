@@ -1,17 +1,15 @@
 // app/api/upload-attachment/route.ts
 //
-// Accepts a single file from a form (Dealer or Contact page), uploads it
-// to Sanity's asset store, and returns a public URL. This keeps file
-// uploads completely free — no paid Formspree plan needed — since the
-// file lives in Sanity (which we already pay for/use) instead.
-//
-// The calling form then sends that URL as a normal text field to
-// Formspree, so the inquiry email includes a working download link.
+// Accepts a single file, uploads it to Sanity's asset store, and returns
+// a public URL. The calling form sends that URL as a plain text field to
+// Formspree so the inquiry email includes a working download link — no
+// paid Formspree plan needed.
 
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "next-sanity";
+import { isRateLimited } from "@/lib/rateLimit";
 
-const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10 MB — generous for PDFs/images, keeps abuse in check
+const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10 MB
 const ALLOWED_TYPES = [
   "application/pdf",
   "image/jpeg",
@@ -21,35 +19,22 @@ const ALLOWED_TYPES = [
   "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
 ];
 
-// Basic in-memory rate limiting — same pattern as /api/submit-review.
-const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000;
-const RATE_LIMIT_MAX_REQUESTS = 8;
-const requestLog = new Map<string, number[]>();
-
-function isRateLimited(ip: string): boolean {
-  const now = Date.now();
-  const timestamps = (requestLog.get(ip) || []).filter(
-    (t) => now - t < RATE_LIMIT_WINDOW_MS
-  );
-  timestamps.push(now);
-  requestLog.set(ip, timestamps);
-  return timestamps.length > RATE_LIMIT_MAX_REQUESTS;
-}
-
 export async function POST(req: NextRequest) {
   try {
+    // ── Rate limit (8 uploads per 10 min per IP) ───────────────────────
     const ip =
       req.headers.get("x-forwarded-for")?.split(",")[0].trim() ||
       req.headers.get("x-real-ip") ||
       "unknown";
 
-    if (isRateLimited(ip)) {
+    if (await isRateLimited(ip, "upload-attachment", 8, 10 * 60)) {
       return NextResponse.json(
         { error: "Too many uploads. Please try again later." },
         { status: 429 }
       );
     }
 
+    // ── Env check ──────────────────────────────────────────────────────
     const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
     const token = process.env.SANITY_API_TOKEN;
     if (!projectId || !token) {
@@ -60,20 +45,19 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    // ── File validation ────────────────────────────────────────────────
     const formData = await req.formData();
     const file = formData.get("file");
 
     if (!file || !(file instanceof File)) {
       return NextResponse.json({ error: "No file provided" }, { status: 400 });
     }
-
     if (file.size > MAX_FILE_SIZE) {
       return NextResponse.json(
         { error: "File is too large. Maximum size is 10 MB." },
         { status: 400 }
       );
     }
-
     if (!ALLOWED_TYPES.includes(file.type)) {
       return NextResponse.json(
         { error: "Unsupported file type. Please upload a PDF, Word document, or image." },
@@ -81,6 +65,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    // ── Upload to Sanity ───────────────────────────────────────────────
     const client = createClient({
       projectId,
       dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || "production",
@@ -90,7 +75,6 @@ export async function POST(req: NextRequest) {
     });
 
     const buffer = Buffer.from(await file.arrayBuffer());
-
     const asset = await client.assets.upload("file", buffer, {
       filename: file.name,
       contentType: file.type,
