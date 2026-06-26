@@ -16,6 +16,9 @@ const WishlistContext = createContext<WishlistContextValue | undefined>(undefine
 export function WishlistProvider({ children }: { children: React.ReactNode }) {
   const [ids, setIds] = useState<string[]>([]);
   const [hydrated, setHydrated] = useState(false);
+  // Track whether the initial localStorage read has completed so we
+  // don't write an empty [] back to storage before the read finishes.
+  const mountedWithData = hydrated;
 
   // Load from localStorage once on mount (client-only — avoids SSR mismatch)
   useEffect(() => {
@@ -32,7 +35,10 @@ export function WishlistProvider({ children }: { children: React.ReactNode }) {
     }
   }, []);
 
-  // Persist on every change (skip the very first render before hydration)
+  // Persist on every change — but only after hydration is complete.
+  // The extra `ids.length > 0 || mountedWithData` check prevents a brief
+  // cold-start race where ids is still [] while the read effect hasn't
+  // resolved yet, which would wipe a previously-saved wishlist.
   useEffect(() => {
     if (!hydrated) return;
     try {
