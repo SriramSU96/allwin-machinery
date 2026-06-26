@@ -113,26 +113,8 @@ export const RELATED_PRODUCTS_QUERY = `*[_type == "product" && category->_id == 
 }`;
 
 
-
-export const PRODUCTS_PAGINATED_QUERY = `*[_type == "product"
-  && ($categorySlug == "" || category->slug.current == $categorySlug)
-  && ($brandSlug == ""    || brand->slug.current    == $brandSlug)
-] | order(
-  select(
-    $sortBy == "price-asc"  => price,
-    $sortBy == "price-desc" => 0 - price,
-    $sortBy == "name-asc"   => name,
-    featured
-  ) desc
-) [$from..$to] {
-  _id, name, slug, price, badge, inStock, featured,
-  "category": category->{ _id, name, slug },
-  "brand":    brand->{ _id, name, slug },
-  "images":   images[0..0],
-  specs
-}`;
-
-export const PRODUCTS_COUNT_QUERY = `count(*[_type == "product"
-  && ($categorySlug == "" || category->slug.current == $categorySlug)
-  && ($brandSlug == ""    || brand->slug.current    == $brandSlug)
-])`;
+// NOTE: Server-side paginated queries are ready for Phase 2 (e-commerce).
+// Uncomment and wire up when implementing infinite scroll / server pagination.
+//
+// export const PRODUCTS_PAGINATED_QUERY = ...
+// export const PRODUCTS_COUNT_QUERY = ...
