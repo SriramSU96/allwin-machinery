@@ -100,11 +100,11 @@ export function Footer() {
             {/* Social */}
             <div className="flex gap-3">
               {[
-                { icon: Facebook, href: "#", label: "Facebook" },
-                { icon: Instagram, href: "#", label: "Instagram" },
-                { icon: Youtube, href: "#", label: "YouTube" },
-                { icon: Linkedin, href: "#", label: "LinkedIn" },
-              ].map(({ icon: Icon, href, label }) => (
+                { icon: Facebook,   href: SITE_CONFIG.social.facebook,  label: "Facebook" },
+                { icon: Instagram,  href: SITE_CONFIG.social.instagram, label: "Instagram" },
+                { icon: Youtube,    href: SITE_CONFIG.social.youtube,   label: "YouTube" },
+                { icon: Linkedin,   href: SITE_CONFIG.social.linkedin,  label: "LinkedIn" },
+              ].filter((s) => s.href).map(({ icon: Icon, href, label }) => (
                 <a
                   key={label}
                   href={href}
@@ -195,7 +195,7 @@ export function Footer() {
       {/* Bottom bar */}
       <div className="border-t border-white/10">
         <div className="max-w-container mx-auto px-4 py-5 flex flex-col md:flex-row items-center justify-between gap-3 text-sm text-white/40">
-          <span>© {new Date().getFullYear()} all. All Rights Reserved.</span>
+          <span>© {new Date().getFullYear()} Allwin Machinery. All Rights Reserved.</span>
           <div className="flex gap-5">
             <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
             <Link href="/terms" className="hover:text-white transition-colors">Terms & Conditions</Link>
