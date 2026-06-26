@@ -4,7 +4,7 @@ import imageUrlBuilder from "@sanity/image-url";
 import type { SanityImage } from "@/types";
 
 export const sanityConfig = {
-  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!,
+  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "placeholder",
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || "production",
   apiVersion: process.env.NEXT_PUBLIC_SANITY_API_VERSION || "2024-01-01",
   // useCdn is false so Next.js's own cache (controlled via tags below)

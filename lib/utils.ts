@@ -67,8 +67,14 @@ name: "Allwin Machinery",
   phone: process.env.NEXT_PUBLIC_PHONE_NUMBER || "+91 96003 64685",
   whatsapp: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "9600364685",
   email: "info@allwinmachinery.com",
-  address: "tvs toll gate , Trichy, Tamil Nadu - 620001",
+  address: "TVS Toll Gate, Trichy, Tamil Nadu - 620001",
   workingHours: "Mon – Sat: 9:00 AM – 6:00 PM",
+  social: {
+    facebook:  process.env.NEXT_PUBLIC_FACEBOOK_URL  || "https://www.facebook.com/allwinmachinery",
+    instagram: process.env.NEXT_PUBLIC_INSTAGRAM_URL || "https://www.instagram.com/allwinmachinery",
+    youtube:   process.env.NEXT_PUBLIC_YOUTUBE_URL   || "https://www.youtube.com/@allwinmachinery",
+    linkedin:  process.env.NEXT_PUBLIC_LINKEDIN_URL  || "",
+  },
 };
 
 export const NAV_ITEMS = [

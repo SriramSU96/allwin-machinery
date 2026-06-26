@@ -190,6 +190,29 @@ const siteSettings = defineType({
   preview: { select: { title: "siteName" } },
 });
 
+// ─── DEALER ───────────────────────────────────────────
+export const dealer = defineType({
+  name: "dealer",
+  title: "Dealer",
+  type: "document",
+  fields: [
+    defineField({ name: "name", title: "Dealer / Store Name", type: "string", validation: (R) => R.required() }),
+    defineField({ name: "location", title: "Location / Address", type: "text", validation: (R) => R.required() }),
+    defineField({ name: "state", title: "State", type: "string" }),
+    defineField({ name: "phone", title: "Phone Number", type: "string" }),
+    defineField({
+      name: "coordinates",
+      title: "Map Coordinates",
+      type: "object",
+      fields: [
+        defineField({ name: "lat", title: "Latitude", type: "number" }),
+        defineField({ name: "lng", title: "Longitude", type: "number" }),
+      ],
+    }),
+  ],
+  preview: { select: { title: "name", subtitle: "state" } },
+});
+
 // ─── EXPORT ALL ───────────────────────────────────────
 export const schemaTypes = [
   product,
@@ -199,5 +222,6 @@ export const schemaTypes = [
   author,
   blogPost,
   faq,
+  dealer,
   siteSettings,
 ];
