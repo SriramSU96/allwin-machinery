@@ -1,17 +1,8 @@
 import { MetadataRoute } from "next";
-import { sanityClient } from "@/lib/sanity";
 import { SITE_CONFIG } from "@/lib/utils";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const base = SITE_CONFIG.url;
-
-  // Fetch dynamic routes from Sanity
-  const [products, categories, brands, posts] = await Promise.all([
-    sanityClient.fetch(`*[_type == "product"]{ "slug": slug.current, _updatedAt }`),
-    sanityClient.fetch(`*[_type == "category"]{ "slug": slug.current, _updatedAt }`),
-    sanityClient.fetch(`*[_type == "brand"]{ "slug": slug.current, _updatedAt }`),
-    sanityClient.fetch(`*[_type == "blogPost"]{ "slug": slug.current, _updatedAt }`),
-  ]).catch(() => [[], [], [], []]);
 
   const staticRoutes: MetadataRoute.Sitemap = [
     { url: base, changeFrequency: "daily", priority: 1 },
@@ -26,47 +17,66 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${base}/dealer`, changeFrequency: "monthly", priority: 0.6 },
   ];
 
-  const productRoutes = products.map(
-    (p: { slug: string; _updatedAt: string }) => ({
-      url: `${base}/products/${p.slug}`,
-      lastModified: p._updatedAt,
-      changeFrequency: "weekly" as const,
-      priority: 0.8,
-    })
-  );
+  // Guard: skip dynamic Sanity routes if project ID is missing
+  // (happens during `next build` in CI/offline without env vars)
+  if (!process.env.NEXT_PUBLIC_SANITY_PROJECT_ID) {
+    return staticRoutes;
+  }
 
-  const categoryRoutes = categories.map(
-    (c: { slug: string; _updatedAt: string }) => ({
-      url: `${base}/categories/${c.slug}`,
-      lastModified: c._updatedAt,
-      changeFrequency: "weekly" as const,
-      priority: 0.7,
-    })
-  );
+  try {
+    const { sanityClient } = await import("@/lib/sanity");
+    const [products, categories, brands, posts] = await Promise.all([
+      sanityClient.fetch(`*[_type == "product"]{ "slug": slug.current, _updatedAt }`),
+      sanityClient.fetch(`*[_type == "category"]{ "slug": slug.current, _updatedAt }`),
+      sanityClient.fetch(`*[_type == "brand"]{ "slug": slug.current, _updatedAt }`),
+      sanityClient.fetch(`*[_type == "blogPost"]{ "slug": slug.current, _updatedAt }`),
+    ]);
 
-  const brandRoutes = brands.map(
-    (b: { slug: string; _updatedAt: string }) => ({
-      url: `${base}/brands/${b.slug}`,
-      lastModified: b._updatedAt,
-      changeFrequency: "weekly" as const,
-      priority: 0.6,
-    })
-  );
+    const productRoutes = products.map(
+      (p: { slug: string; _updatedAt: string }) => ({
+        url: `${base}/products/${p.slug}`,
+        lastModified: p._updatedAt,
+        changeFrequency: "weekly" as const,
+        priority: 0.8,
+      })
+    );
 
-  const postRoutes = posts.map(
-    (p: { slug: string; _updatedAt: string }) => ({
-      url: `${base}/blog/${p.slug}`,
-      lastModified: p._updatedAt,
-      changeFrequency: "monthly" as const,
-      priority: 0.6,
-    })
-  );
+    const categoryRoutes = categories.map(
+      (c: { slug: string; _updatedAt: string }) => ({
+        url: `${base}/categories/${c.slug}`,
+        lastModified: c._updatedAt,
+        changeFrequency: "weekly" as const,
+        priority: 0.7,
+      })
+    );
 
-  return [
-    ...staticRoutes,
-    ...productRoutes,
-    ...categoryRoutes,
-    ...brandRoutes,
-    ...postRoutes,
-  ];
+    const brandRoutes = brands.map(
+      (b: { slug: string; _updatedAt: string }) => ({
+        url: `${base}/brands/${b.slug}`,
+        lastModified: b._updatedAt,
+        changeFrequency: "weekly" as const,
+        priority: 0.6,
+      })
+    );
+
+    const postRoutes = posts.map(
+      (p: { slug: string; _updatedAt: string }) => ({
+        url: `${base}/blog/${p.slug}`,
+        lastModified: p._updatedAt,
+        changeFrequency: "monthly" as const,
+        priority: 0.6,
+      })
+    );
+
+    return [
+      ...staticRoutes,
+      ...productRoutes,
+      ...categoryRoutes,
+      ...brandRoutes,
+      ...postRoutes,
+    ];
+  } catch {
+    // Sanity unreachable (CI/offline) — return static routes only
+    return staticRoutes;
+  }
 }
