@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Heart, Trash2 } from "lucide-react";
-import { sanityClient } from "@/lib/sanity";
+import { sanityFetch } from "@/lib/sanity";
 import { PRODUCTS_BY_IDS_QUERY } from "@/lib/queries";
 import { useWishlist } from "@/components/providers/WishlistProvider";
 import { ProductCard } from "@/components/cards/ProductCard";
@@ -26,8 +26,7 @@ export default function WishlistPage() {
     setLoading(true);
     setError(false);
 
-    sanityClient
-      .fetch<Product[]>(PRODUCTS_BY_IDS_QUERY, { ids })
+    sanityFetch<Product[]>(PRODUCTS_BY_IDS_QUERY, { ids }, ["products"])
       .then((data) => {
         if (!cancelled) setProducts(data);
       })

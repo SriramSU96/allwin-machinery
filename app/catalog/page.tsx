@@ -5,7 +5,7 @@ import { PageHero } from "@/components/ui/PageHero";
 import { SectionReveal } from "@/components/animations/SectionReveal";
 import { CTABanner } from "@/components/sections/CTABanner";
 import { CountUpStat } from "@/components/ui/CountUpStat";
-import { sanityClient, urlForImage } from "@/lib/sanity";
+import { sanityFetch, urlForImage } from "@/lib/sanity";
 import { CATEGORIES_QUERY, BRANDS_QUERY } from "@/lib/queries";
 import type { Category, Brand } from "@/types";
 import { ArrowUpRight, Download, CheckCircle2 } from "lucide-react";
@@ -108,8 +108,8 @@ export const revalidate = 3600; // ISR: revalidate every hour
 
 export default async function CatalogPage() {
   const [categories, brands]: [Category[], Brand[]] = await Promise.all([
-    sanityClient.fetch(CATEGORIES_QUERY),
-    sanityClient.fetch(BRANDS_QUERY),
+    sanityFetch<Category[]>(CATEGORIES_QUERY, {}, ["categories"]),
+    sanityFetch<Brand[]>(BRANDS_QUERY, {}, ["brands"]),
   ]);
 
   return (

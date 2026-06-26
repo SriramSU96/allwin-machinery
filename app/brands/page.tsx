@@ -7,7 +7,7 @@ import { CTABanner } from "@/components/sections/CTABanner";
 import { CountUpStat } from "@/components/ui/CountUpStat";
 import { FeaturedBrandProducts } from "@/components/sections/FeaturedBrandProducts";
 import { SITE_CONFIG, buildWhatsAppUrl } from "@/lib/utils";
-import { sanityClient, urlForImage } from "@/lib/sanity";
+import { sanityFetch, urlForImage } from "@/lib/sanity";
 import { BRANDS_QUERY, CATEGORIES_QUERY, FEATURED_PRODUCTS_QUERY } from "@/lib/queries";
 import type { Brand, Category, Product } from "@/types";
 import { Shield, Award, Wrench, CheckCircle2, Phone, MessageCircle, ArrowUpRight } from "lucide-react";
@@ -46,9 +46,9 @@ const FAQS = [
 
 export default async function BrandsPage() {
   const [brands, categories, featuredProducts]: [Brand[], Category[], Product[]] = await Promise.all([
-    sanityClient.fetch(BRANDS_QUERY),
-    sanityClient.fetch(CATEGORIES_QUERY),
-    sanityClient.fetch(FEATURED_PRODUCTS_QUERY),
+    sanityFetch<Brand[]>(BRANDS_QUERY, {}, ["brands"]),
+    sanityFetch<Category[]>(CATEGORIES_QUERY, {}, ["categories"]),
+    sanityFetch<Product[]>(FEATURED_PRODUCTS_QUERY, {}, ["products"]),
   ]);
 
   return (
@@ -256,7 +256,7 @@ export default async function BrandsPage() {
         </div>
       </section>
 
-      <FeaturedBrandProducts products={featuredProducts} brands={brands} />
+      <FeaturedBrandProducts products={featuredProducts} />
 
       {/* ── Partnership CTA ── */}
       <section className="bg-brand-green py-12 px-4">
