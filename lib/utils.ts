@@ -90,8 +90,8 @@ export const NAV_ITEMS = [
 ];
 
 export const STATS = [
-  { value: 5000, suffix: "+", label: "Happy Customers" },
-  { value: 1500, suffix: "+", label: "Products" },
-  { value: 20, suffix: "+", label: "Top Brands" },
-  { value: 24, suffix: "/7", label: "Support" },
+  { value: 500,  suffix: "+", label: "Happy Customers" },
+  { value: 30,   suffix: "+", label: "Products" },
+  { value: 10,   suffix: "+", label: "Top Brands" },
+  { value: 24,   suffix: "/7", label: "Support" },
 ];
