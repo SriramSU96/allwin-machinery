@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "next-sanity";
 import { z } from "zod";
 import { isRateLimited } from "@/lib/rateLimit";
+import { sendReviewNotification } from "@/lib/email";
 
 // ── Validation ─────────────────────────────────────────────────────────────
 const reviewSchema = z.object({
@@ -75,6 +76,10 @@ export async function POST(req: NextRequest) {
       _id: `drafts.review-${Date.now()}`,
     });
 
+    // Send email notification (non-blocking — don't fail the request if email fails)
+    sendReviewNotification({ name, role, location, product, rating, message, phone: parsed.data.phone })
+      .catch((err) => console.error("Review email notification failed:", err));
+
     return NextResponse.json({ success: true, id: doc._id }, { status: 200 });
   } catch (error: unknown) {
     console.error("Review submission error:", error);
@@ -84,3 +89,4 @@ export async function POST(req: NextRequest) {
     );
   }
 }
+// Note: sendReviewNotification is called after Sanity save (see below)
