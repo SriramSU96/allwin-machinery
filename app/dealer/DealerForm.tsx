@@ -123,7 +123,8 @@ export function DealerForm() {
           {errors.city && <p className="text-red-400 text-xs mt-1">{errors.city.message}</p>}
         </div>
         <div>
-          <select {...register("yearsInBusiness")} className={`${inputClasses} appearance-none`}>
+          <label htmlFor="yearsInBusiness" className="sr-only">Years in Business</label>
+          <select id="yearsInBusiness" {...register("yearsInBusiness")} className={`${inputClasses} appearance-none`}>
             <option value="" className="text-brand-text">Years in Business *</option>
             <option value="new" className="text-brand-text">New Business</option>
             <option value="1-2" className="text-brand-text">1-2 Years</option>
@@ -136,7 +137,8 @@ export function DealerForm() {
 
       {/* Products */}
       <div>
-        <select {...register("interestedProducts")} className={`${inputClasses} appearance-none`}>
+        <label htmlFor="interestedProducts" className="sr-only">Interested in Products</label>
+        <select id="interestedProducts" {...register("interestedProducts")} className={`${inputClasses} appearance-none`}>
           <option value="" className="text-brand-text">Interested in Products *</option>
           {PRODUCT_OPTIONS.map((opt) => (
             <option key={opt} value={opt} className="text-brand-text">{opt}</option>

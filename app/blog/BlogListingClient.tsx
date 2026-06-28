@@ -211,16 +211,17 @@ export function BlogListingClient({ posts, featuredPost, categories }: BlogListi
               <h3 className="font-heading font-bold text-sm text-brand-text mb-4">Categories</h3>
               <ul className="space-y-2">
                 {categories.slice(1).map((cat) => (
-                  <button
-                    key={cat}
-                    onClick={() => setActiveCategory(cat)}
-                    className="w-full flex items-center justify-between text-sm text-gray-600 hover:text-brand-green py-1"
-                  >
-                    <span>{cat}</span>
-                    <span className="text-xs bg-brand-light-gray px-2 py-0.5 rounded-full">
-                      {posts?.filter((p) => p.category === cat).length || 0}
-                    </span>
-                  </button>
+                  <li key={cat}>
+                    <button
+                      onClick={() => setActiveCategory(cat)}
+                      className="w-full flex items-center justify-between text-sm text-gray-600 hover:text-brand-green py-1"
+                    >
+                      <span>{cat}</span>
+                      <span className="text-xs bg-brand-light-gray px-2 py-0.5 rounded-full">
+                        {posts?.filter((p) => p.category === cat).length || 0}
+                      </span>
+                    </button>
+                  </li>
                 ))}
               </ul>
             </div>
