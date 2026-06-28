@@ -130,8 +130,8 @@ export default function DealerPage() {
                         <benefit.icon size={18} className="text-brand-green group-hover:text-white transition-colors" />
                       </div>
                       <div>
-                        <h4 className="font-heading font-bold text-sm text-brand-text mb-1">{benefit.title}</h4>
-                        <p className="text-xs text-gray-500 leading-relaxed">{benefit.desc}</p>
+                        <h3 className="font-heading font-bold text-sm text-brand-text mb-1">{benefit.title}</h3>
+                        <p className="text-xs text-gray-600 leading-relaxed">{benefit.desc}</p>
                       </div>
                     </div>
                   </SectionReveal>
@@ -183,7 +183,7 @@ export default function DealerPage() {
                   <span className="text-2xl flex-shrink-0">{req.icon}</span>
                   <div>
                     <p className="font-heading font-bold text-sm text-brand-text">{req.title}</p>
-                    <p className="text-[11px] text-gray-500 mt-0.5">{req.desc}</p>
+                    <p className="text-[11px] text-gray-600 mt-0.5">{req.desc}</p>
                   </div>
                 </div>
               </SectionReveal>
@@ -216,7 +216,7 @@ export default function DealerPage() {
                   </div>
                   <div>
                     <p className="font-heading font-bold text-sm text-brand-text">{step.title}</p>
-                    <p className="text-xs text-gray-500 leading-relaxed">{step.desc}</p>
+                    <p className="text-xs text-gray-600 leading-relaxed">{step.desc}</p>
                   </div>
                 </div>
               </SectionReveal>
@@ -296,11 +296,11 @@ export default function DealerPage() {
             {FAQS.map((faq, i) => (
               <SectionReveal key={i} delay={i * 0.05}>
                 <div className="border border-gray-200 rounded-xl p-5 hover:border-brand-green transition-colors">
-                  <h4 className="font-heading font-bold text-sm text-brand-text mb-2 flex items-start gap-2">
+                  <h3 className="font-heading font-bold text-sm text-brand-text mb-2 flex items-start gap-2">
                     <CheckCircle2 size={15} className="text-brand-green flex-shrink-0 mt-0.5" />
                     {faq.q}
-                  </h4>
-                  <p className="text-xs text-gray-500 leading-relaxed pl-5">{faq.a}</p>
+                  </h3>
+                  <p className="text-xs text-gray-600 leading-relaxed pl-5">{faq.a}</p>
                 </div>
               </SectionReveal>
             ))}

@@ -111,9 +111,9 @@ export default function AboutPage() {
                 ].map((item) => (
                   <div key={item.title} className="text-center p-4 rounded-xl bg-brand-light-gray">
                     <item.icon size={22} className="text-brand-green mx-auto mb-2" />
-                    <h4 className="font-heading font-bold text-xs text-brand-text mb-1">
+                    <h3 className="font-heading font-bold text-xs text-brand-text mb-1">
                       {item.title}
-                    </h4>
+                    </h3>
                     <p className="text-[11px] text-gray-500 leading-relaxed">{item.desc}</p>
                   </div>
                 ))}

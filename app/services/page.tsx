@@ -83,7 +83,7 @@ export default function ServicesPage() {
                 <div className="bg-[#F5F5F5] rounded-xl p-5 text-center hover:shadow-soft transition-shadow">
                   <span className="text-4xl block mb-3">{item.icon}</span>
                   <h3 className="font-heading font-bold text-sm text-brand-text mb-1">{item.title}</h3>
-                  <p className="text-xs text-gray-500 leading-relaxed">{item.desc}</p>
+                  <p className="text-xs text-gray-600 leading-relaxed">{item.desc}</p>
                 </div>
               </SectionReveal>
             ))}
@@ -117,7 +117,7 @@ export default function ServicesPage() {
                   </div>
                   <div>
                     <p className="font-heading font-bold text-sm text-brand-text mb-1">{step.title}</p>
-                    <p className="text-xs text-gray-500 leading-relaxed">{step.desc}</p>
+                    <p className="text-xs text-gray-600 leading-relaxed">{step.desc}</p>
                   </div>
                 </div>
               </SectionReveal>
@@ -189,11 +189,11 @@ export default function ServicesPage() {
             {FAQS.map((faq, i) => (
               <SectionReveal key={i} delay={i * 0.06}>
                 <div className="border border-gray-200 rounded-xl p-5 hover:border-brand-green transition-colors">
-                  <h4 className="font-heading font-bold text-sm text-brand-text mb-2 flex items-start gap-2">
+                  <h3 className="font-heading font-bold text-sm text-brand-text mb-2 flex items-start gap-2">
                     <CheckCircle2 size={15} className="text-brand-green flex-shrink-0 mt-0.5" />
                     {faq.q}
-                  </h4>
-                  <p className="text-xs text-gray-500 leading-relaxed pl-5">{faq.a}</p>
+                  </h3>
+                  <p className="text-xs text-gray-600 leading-relaxed pl-5">{faq.a}</p>
                 </div>
               </SectionReveal>
             ))}

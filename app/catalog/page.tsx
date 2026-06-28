@@ -161,7 +161,7 @@ export default async function CatalogPage() {
                     <h3 className="mt-3 font-heading text-[15px] font-bold text-slate-900 leading-snug tracking-tight [font-variant-caps:all-small-caps] transition-colors group-hover:text-brand-green">
                       {cat.name}
                     </h3>
-                    <p className="mt-2 text-xs font-medium text-gray-500">
+                    <p className="mt-2 text-xs font-medium text-gray-600">
                       <span className="font-bold text-brand-green">{cat.productCount || 0}</span>{" "}
                       Catalogs
                     </p>
@@ -205,7 +205,7 @@ export default async function CatalogPage() {
                       {brand.name}
                     </h3>
 
-                    <p className="text-xs text-gray-500 mb-4 leading-snug">
+                    <p className="text-xs text-gray-600 mb-4 leading-snug">
                       {brand.description || `${brand.name} product catalog`}
                     </p>
 
@@ -247,11 +247,11 @@ export default async function CatalogPage() {
             {FAQS.map((faq, i) => (
               <SectionReveal key={i} delay={i * 0.06}>
                 <div className="border border-gray-200 rounded-xl p-5 hover:border-brand-green transition-colors">
-                  <h4 className="font-heading font-bold text-sm text-brand-text mb-2 flex items-start gap-2">
+                  <h3 className="font-heading font-bold text-sm text-brand-text mb-2 flex items-start gap-2">
                     <CheckCircle2 size={15} className="text-brand-green flex-shrink-0 mt-0.5" />
                     {faq.q}
-                  </h4>
-                  <p className="text-xs text-gray-500 leading-relaxed pl-5">{faq.a}</p>
+                  </h3>
+                  <p className="text-xs text-gray-600 leading-relaxed pl-5">{faq.a}</p>
                 </div>
               </SectionReveal>
             ))}
