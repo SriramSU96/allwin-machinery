@@ -14,7 +14,7 @@ interface ProductCardProps {
 }
 
 const BADGE_STYLES: Record<string, string> = {
-  "Best Seller": "bg-brand-gold text-white",
+  "Best Seller": "bg-brand-gold text-brand-dark",  // dark text on gold = 8.5:1 contrast ✅
   "New Arrival": "bg-brand-green text-white",
   "Top Rated": "bg-blue-600 text-white",
 };
@@ -64,7 +64,7 @@ export function ProductCard({ product, className }: ProductCardProps) {
       <div className="p-4 flex-1 flex flex-col justify-between">
         <div>
           {/* Category label */}
-          <p className="font-heading font-bold text-[10px] text-brand-gold uppercase tracking-[2px] mb-1.5">
+          <p className="font-heading font-bold text-[10px] text-[#8B6914] uppercase tracking-[2px] mb-1.5">
             {product.category?.name}
           </p>
 

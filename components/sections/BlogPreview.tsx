@@ -60,10 +60,10 @@ export function BlogPreview({ featuredPost, recentPosts }: BlogPreviewProps) {
                   <h3 className="font-heading font-bold text-lg text-brand-text mb-2 group-hover:text-brand-green transition-colors line-clamp-2">
                     {featuredPost.title}
                   </h3>
-                  <p className="text-gray-500 text-sm leading-relaxed mb-4 line-clamp-2">
+                  <p className="text-gray-600 text-sm leading-relaxed mb-4 line-clamp-2">
                     {featuredPost.excerpt}
                   </p>
-                  <div className="flex items-center justify-between text-xs text-gray-400">
+                  <div className="flex items-center justify-between text-xs text-gray-600">
                     <span>{featuredPost.publishedAt && formatDate(featuredPost.publishedAt)}</span>
                     {featuredPost.readTime && (
                       <span className="flex items-center gap-1">
@@ -96,7 +96,7 @@ export function BlogPreview({ featuredPost, recentPosts }: BlogPreviewProps) {
                     )}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <span className="font-heading font-bold text-[9px] uppercase tracking-widest text-brand-gold">
+                    <span className="font-heading font-bold text-[9px] uppercase tracking-widest text-[#8B6914]">
                       {post.category}
                     </span>
                     <h4 className="font-heading font-bold text-sm text-brand-text group-hover:text-brand-green transition-colors line-clamp-2 mt-0.5 mb-1">

@@ -86,6 +86,11 @@ export default async function RootLayout({
       lang="en"
       className="font-body"
     >
+      <head>
+        {/* Preconnect to Google Fonts — reduces render-blocking delay */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+      </head>
       <body className="bg-brand-white text-brand-text antialiased">
         <script
           type="application/ld+json"

@@ -130,7 +130,9 @@ export function ProductsClient({ initialProducts, categories, brands }: Products
           />
 
           {/* Sort */}
+          <label htmlFor="sortBy" className="sr-only">Sort products</label>
           <select
+            id="sortBy"
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value as SortOption)}
             className="px-3 py-2 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-brand-green bg-white text-gray-600"
