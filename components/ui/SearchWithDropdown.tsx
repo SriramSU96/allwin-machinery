@@ -113,7 +113,7 @@ export function SearchWithDropdown({
               <Search size={12} className="text-gray-400 shrink-0" />
               <span className="text-sm text-brand-text truncate">{s.label}</span>
               {s.sublabel && (
-                <span className="text-xs text-gray-400 ml-auto shrink-0">{s.sublabel}</span>
+                <span className="text-xs text-gray-600 ml-auto shrink-0">{s.sublabel}</span>
               )}
             </li>
           ))}

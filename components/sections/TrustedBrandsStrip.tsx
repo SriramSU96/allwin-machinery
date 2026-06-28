@@ -38,10 +38,10 @@ export function TrustedBrandsStrip({ brands }: TrustedBrandsStripProps) {
               ? displayBrands.map((brand, i) => (
                   <div
                     key={`${brand._id}-${i}`}
-                    className="flex items-center justify-center h-10 px-4 grayscale hover:grayscale-0 opacity-60 hover:opacity-100 transition-all cursor-pointer"
+                    className="flex items-center justify-center h-10 px-4 transition-all cursor-pointer"
                   >
                     {brand.logo ? (
-                      <div className="relative h-10 w-28">
+                      <div className="relative h-10 w-28 grayscale hover:grayscale-0 opacity-60 hover:opacity-100 transition-all">
                         <Image
                           src={urlForImage(brand.logo, 160, 80)}
                           alt={brand.name}
@@ -51,7 +51,7 @@ export function TrustedBrandsStrip({ brands }: TrustedBrandsStripProps) {
                         />
                       </div>
                     ) : (
-                      <span className="font-heading font-black text-brand-text text-lg uppercase tracking-wide">
+                      <span className="font-heading font-black text-brand-dark text-lg uppercase tracking-wide opacity-70 hover:opacity-100 transition-opacity">
                         {brand.name}
                       </span>
                     )}
@@ -60,9 +60,9 @@ export function TrustedBrandsStrip({ brands }: TrustedBrandsStripProps) {
               : [...FALLBACK_BRAND_NAMES, ...FALLBACK_BRAND_NAMES].map((name, i) => (
                   <div
                     key={i}
-                    className="flex items-center justify-center h-10 px-4 grayscale hover:grayscale-0 opacity-60 hover:opacity-100 transition-all cursor-pointer"
+                    className="flex items-center justify-center h-10 px-4 cursor-pointer"
                   >
-                    <span className="font-heading font-black text-brand-text text-lg uppercase tracking-wide">
+                    <span className="font-heading font-black text-brand-dark text-lg uppercase tracking-wide opacity-70 hover:opacity-100 transition-opacity">
                       {name}
                     </span>
                   </div>

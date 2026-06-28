@@ -43,6 +43,7 @@ export function CountUpStat({ value, suffix = "", className = "" }: CountUpStatP
   return (
     <span
       ref={ref}
+      suppressHydrationWarning
       className={`font-heading font-black text-white text-2xl md:text-3xl ${className}`}
     >
       {count.toLocaleString("en-IN")}

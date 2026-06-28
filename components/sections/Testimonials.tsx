@@ -120,7 +120,7 @@ export function Testimonials({ testimonials }: TestimonialsProps) {
                     </div>
                     <div>
                       <p className="font-heading font-bold text-sm text-brand-text">{t.name}</p>
-                      <p className="text-xs text-gray-500">
+                      <p className="text-xs text-gray-600">
                         {t.role} · {t.location}
                       </p>
                     </div>
