@@ -83,7 +83,7 @@ export default function ContactPage() {
               <h2 className="font-heading font-bold text-2xl text-brand-text mb-2">
                 We&apos;d Love to Hear From You!
               </h2>
-              <p className="text-gray-500 text-sm mb-8">
+              <p className="text-gray-600 text-sm mb-8">
                 Whether you have a question about our products, need a quote, or require after-sales support, our team is ready to assist you.
               </p>
 
@@ -95,7 +95,7 @@ export default function ContactPage() {
                       <h3 className="font-heading font-bold text-sm text-brand-text">{card.title}</h3>
                     </div>
                     {card.lines.map((line, i) => (
-                      <p key={i} className="text-xs text-gray-500 leading-relaxed">{line}</p>
+                      <p key={i} className="text-xs text-gray-600 leading-relaxed">{line}</p>
                     ))}
                     {card.action && (
                       <a
@@ -185,7 +185,7 @@ export default function ContactPage() {
                   <item.icon size={22} className="text-brand-green group-hover:text-white transition-colors duration-300" />
                 </div>
                 <h3 className="font-heading font-bold text-sm text-brand-text mb-1 group-hover:text-brand-green transition-colors duration-300">{item.title}</h3>
-                <p className="text-xs text-gray-500 leading-relaxed">{item.desc}</p>
+                <p className="text-xs text-gray-600 leading-relaxed">{item.desc}</p>
               </div>
             ))}
           </div>

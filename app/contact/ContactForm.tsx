@@ -139,7 +139,9 @@ export function ContactForm() {
       </div>
 
       <div>
+        <label htmlFor="productInterest" className="sr-only">Product Interest</label>
         <select
+          id="productInterest"
           {...register("productInterest")}
           className={`${inputClasses} appearance-none`}
         >
