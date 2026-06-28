@@ -119,9 +119,9 @@ export function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h4 className="font-heading font-bold text-sm uppercase tracking-widest text-brand-gold mb-5">
+            <h3 className="font-heading font-bold text-sm uppercase tracking-widest text-brand-gold mb-5">
               Quick Links
-            </h4>
+            </h3>
             <ul className="space-y-2.5">
               {FOOTER_LINKS.quickLinks.map((link) => (
                 <li key={link.href}>
@@ -138,9 +138,9 @@ export function Footer() {
 
           {/* Products */}
           <div>
-            <h4 className="font-heading font-bold text-sm uppercase tracking-widest text-brand-gold mb-5">
+            <h3 className="font-heading font-bold text-sm uppercase tracking-widest text-brand-gold mb-5">
               Our Products
-            </h4>
+            </h3>
             <ul className="space-y-2.5">
               {FOOTER_LINKS.products.map((link) => (
                 <li key={link.href}>
@@ -157,9 +157,9 @@ export function Footer() {
 
           {/* Contact Info */}
           <div>
-            <h4 className="font-heading font-bold text-sm uppercase tracking-widest text-brand-gold mb-5">
+            <h3 className="font-heading font-bold text-sm uppercase tracking-widest text-brand-gold mb-5">
               Contact Info
-            </h4>
+            </h3>
             <ul className="space-y-4">
               <li className="flex gap-3 text-sm text-white/60">
                 <MapPin size={16} className="text-brand-gold flex-shrink-0 mt-0.5" />
@@ -194,11 +194,11 @@ export function Footer() {
 
       {/* Bottom bar */}
       <div className="border-t border-white/10">
-        <div className="max-w-container mx-auto px-4 py-5 flex flex-col md:flex-row items-center justify-between gap-3 text-sm text-white/40">
-          <span>© {new Date().getFullYear()} Allwin Machinery. All Rights Reserved.</span>
+        <div className="max-w-container mx-auto px-4 py-5 flex flex-col md:flex-row items-center justify-between gap-3 text-sm text-white/60">
+          <span suppressHydrationWarning>© {new Date().getFullYear()} Allwin Machinery. All Rights Reserved.</span>
           <div className="flex gap-5">
-            <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
-            <Link href="/terms" className="hover:text-white transition-colors">Terms & Conditions</Link>
+            <Link href="/privacy" className="text-white/60 hover:text-white transition-colors">Privacy Policy</Link>
+            <Link href="/terms" className="text-white/60 hover:text-white transition-colors">Terms & Conditions</Link>
           </div>
         </div>
       </div>

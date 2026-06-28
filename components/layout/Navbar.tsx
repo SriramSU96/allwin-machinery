@@ -170,7 +170,7 @@ export function Navbar({ categories }: NavbarProps) {
             </a>
             <Link
               href="/contact"
-              className="btn bg-brand-gold text-white px-3 py-2 text-[12px] hover:bg-brand-green flex items-center gap-1 whitespace-nowrap"
+              className="btn bg-brand-gold text-brand-dark px-3 py-2 text-[12px] hover:bg-brand-green hover:text-white flex items-center gap-1 whitespace-nowrap"
             >
               Get a Quote →
             </Link>
@@ -254,7 +254,7 @@ export function Navbar({ categories }: NavbarProps) {
               <Link
                 href="/contact"
                 onClick={() => setMobileOpen(false)}
-                className="btn bg-brand-gold text-white py-3 text-center"
+                className="btn bg-brand-gold text-brand-dark py-3 text-center font-semibold"
               >
                 Get a Quote →
               </Link>

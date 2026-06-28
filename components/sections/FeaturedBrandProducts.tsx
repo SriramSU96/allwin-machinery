@@ -87,7 +87,7 @@ export function FeaturedBrandProducts({ products }: FeaturedBrandProductsProps) 
                     <div className="flex h-full items-center justify-center text-3xl text-gray-300">📦</div>
                   )}
                 </div>
-                <p className="text-[9px] text-brand-gold font-heading font-bold uppercase tracking-wide mb-1">
+                <p className="text-[9px] text-[#8B6914] font-heading font-bold uppercase tracking-wide mb-1">
                   {product.brand?.name || "Brand"}
                 </p>
                 <h3 className="font-heading font-bold text-xs text-brand-text group-hover:text-brand-green transition-colors mb-2 line-clamp-2">

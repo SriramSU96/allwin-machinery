@@ -124,6 +124,7 @@ export function FilterableProductGrid({
           <select
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value as SortOption)}
+            aria-label="Sort products"
             className="px-3 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-brand-green bg-white text-gray-600"
           >
             <option value="latest">Sort: Latest</option>

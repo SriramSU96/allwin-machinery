@@ -1,6 +1,7 @@
 "use client";
 
 import { useWishlist } from "@/components/providers/WishlistProvider";
+import { useEffect, useState } from "react";
 
 interface WishlistButtonProps {
   productId: string;
@@ -8,7 +9,12 @@ interface WishlistButtonProps {
 
 export function WishlistButton({ productId }: WishlistButtonProps) {
   const { isWishlisted, toggleWishlist } = useWishlist();
-  const active = isWishlisted(productId);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => setMounted(true), []);
+
+ 
+  const active = mounted && isWishlisted(productId);
 
   return (
     <button
