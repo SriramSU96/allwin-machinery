@@ -101,7 +101,7 @@ const FAQS = [
   { q: "Are the product specifications updated?", a: "Yes, we update our catalogs regularly. All catalogs are for the current 2024-25 model year." },
   { q: "Can I get printed brochures?", a: "Yes, printed brochures are available at our showroom. You can also request them by WhatsApp." },
   { q: "How can I request dealer pricing?", a: "Contact us via WhatsApp or phone for dealer pricing and bulk order details." },
-  { q: "Who can I contact for more information?", a: "Call us at +91 98765 43210 or WhatsApp us anytime. Our team will assist you." },
+  { q: "Who can I contact for more information?", a: "Call us at +91 96003 64685 or WhatsApp us anytime. Our team will assist you." },
 ];
 
 export const revalidate = 3600; // ISR: revalidate every hour

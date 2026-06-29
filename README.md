@@ -193,8 +193,8 @@ npm run dev
 ## 📞 Support
 
 all · Trichy, Tamil Nadu  
-📞 +91 98765 43210 · 📧 info@allwinmachinery.com
+📞 +91 96003 64685 · 📧 info@allwinmachinery.com
 
 ---
 
-*Built with ❤️ for all*
+*Built with  for allwin*

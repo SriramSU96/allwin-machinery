@@ -196,7 +196,7 @@ export function ReviewForm() {
           <input
             {...register("phone")}
             type="tel"
-            placeholder="e.g. +91 98765 43210"
+            placeholder="e.g. +91 96003 64685"
             className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-brand-green"
           />
         </div>
