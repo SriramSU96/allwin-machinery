@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { Product } from "@/types";
 import { urlForImage } from "@/lib/sanity";
@@ -19,16 +19,46 @@ const BADGE_STYLES: Record<string, string> = {
   "Top Rated": "bg-blue-600 text-white",
 };
 
+/**
+ * NOTE: This card intentionally does NOT wrap everything in a single
+ * <Link>/<a>. Nesting interactive elements (buttons, anchors) inside an
+ * <a> tag is invalid HTML — the browser auto-corrects the DOM at parse
+ * time, which doesn't match what React rendered, causing hydration
+ * errors #418/#422. Instead, the whole card is keyboard/clickable via
+ * onClick + role="link", with the WishlistButton and WhatsApp link as
+ * proper sibling interactive elements.
+ */
 export function ProductCard({ product, className }: ProductCardProps) {
+  const router = useRouter();
+  const href = `/products/${product.slug.current}`;
+
   const imageUrl = product.images?.[0]
     ? urlForImage(product.images[0], 400, 300)
-    : "https://images.unsplash.com/photo-1581093196277-9f608bb3b511?w=400&h=300&q=80";
+    : "/placeholder-category.png";
 
   const whatsappMsg = `Hi! I'm interested in the ${product.name}. Can you share more details?`;
 
+  const handleCardClick = (e: React.MouseEvent) => {
+    // Let real clicks on nested interactive elements do their own thing
+    const target = e.target as HTMLElement;
+    if (target.closest("button") || target.closest("a")) return;
+    router.push(href);
+  };
+
+  const handleCardKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      router.push(href);
+    }
+  };
+
   return (
-    <Link
-      href={`/products/${product.slug.current}`}
+    <div
+      role="link"
+      tabIndex={0}
+      onClick={handleCardClick}
+      onKeyDown={handleCardKeyDown}
+      aria-label={product.name}
       className={cn(
         "product-card group bg-white rounded-xl border border-gray-200 overflow-hidden hover:border-brand-green flex flex-col h-full cursor-pointer",
         className
@@ -54,10 +84,8 @@ export function ProductCard({ product, className }: ProductCardProps) {
             {product.badge}
           </span>
         )}
-        {/* Wishlist — stop propagation so it doesn't navigate */}
-        <span onClick={(e) => e.preventDefault()}>
-          <WishlistButton productId={product._id} />
-        </span>
+        {/* Wishlist — sibling button, not nested inside an anchor */}
+        <WishlistButton productId={product._id} />
       </div>
 
       {/* Content */}
@@ -102,7 +130,7 @@ export function ProductCard({ product, className }: ProductCardProps) {
               target="_blank"
               rel="noopener noreferrer"
               onClick={(e) => e.stopPropagation()}
-              className="w-8 h-8 bg-[#25D366] rounded-lg flex items-center justify-center hover:opacity-90 transition-opacity"
+              className="w-8 h-8 bg-[#0d7a3a] rounded-lg flex items-center justify-center hover:opacity-90 transition-opacity"
               aria-label="WhatsApp inquiry"
             >
               <svg viewBox="0 0 24 24" fill="white" className="w-4 h-4">
@@ -112,6 +140,6 @@ export function ProductCard({ product, className }: ProductCardProps) {
           </div>
         </div>
       </div>
-    </Link>
+    </div>
   );
 }

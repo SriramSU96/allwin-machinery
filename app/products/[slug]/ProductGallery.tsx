@@ -22,7 +22,7 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
   const activeImage = safeImages[activeIndex];
   const mainSrc = activeImage
     ? urlForImage(activeImage as SanityImage, 700, 560)
-    : "https://images.unsplash.com/photo-1581093196277-9f608bb3b511?w=700&h=560&q=80";
+    : "/placeholder-category.png";
 
   const prev = () => setActiveIndex((i) => (i === 0 ? safeImages.length - 1 : i - 1));
   const next = () => setActiveIndex((i) => (i === safeImages.length - 1 ? 0 : i + 1));
@@ -76,7 +76,7 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
           {safeImages.map((img, i) => {
             const thumbSrc = img
               ? urlForImage(img as SanityImage, 120, 96)
-              : "https://images.unsplash.com/photo-1581093196277-9f608bb3b511?w=120&h=96&q=80";
+              : "/placeholder-category.png";
             return (
               <button
                 key={i}

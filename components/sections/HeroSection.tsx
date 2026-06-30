@@ -3,7 +3,6 @@
 import Link from "next/link";
 import Image from "next/image";
 import { buildWhatsAppUrl, SITE_CONFIG, STATS } from "@/lib/utils";
-import { useEffect, useRef } from "react";
 import { CountUpStat } from "@/components/ui/CountUpStat";
 
 // ─── Shape of dynamic hero content coming from Sanity ──────
@@ -45,34 +44,13 @@ export function HeroSection({ hero }: HeroSectionProps) {
   // Merge Sanity data over defaults — any missing field falls back automatically
   const content: HeroContent = { ...DEFAULT_HERO, ...(hero || {}) };
 
-  const headingRef = useRef<HTMLHeadingElement>(null);
-  const badgeRef = useRef<HTMLParagraphElement>(null);
-  const subRef = useRef<HTMLParagraphElement>(null);
-  const ctaRef = useRef<HTMLDivElement>(null);
-  const statsRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const els: [React.RefObject<HTMLElement | null>, number][] = [
-      [badgeRef, 0],
-      [headingRef, 120],
-      [subRef, 260],
-      [ctaRef, 380],
-      [statsRef, 500],
-    ];
-
-    els.forEach(([ref, delay]) => {
-      const el = ref.current;
-      if (!el) return;
-      el.style.opacity = "0";
-      el.style.transform = "translateY(28px)";
-      const timer = setTimeout(() => {
-        el.style.transition = "opacity 0.75s ease-out, transform 0.75s ease-out";
-        el.style.opacity = "1";
-        el.style.transform = "translateY(0)";
-      }, delay);
-      return () => clearTimeout(timer);
-    });
-  }, []);
+  // Animation note: entrance animations are pure CSS (see globals.css
+  // .hero-fade-in-1..5 classes + @keyframes hero-fade-up). Previously this
+  // used a useEffect that wrote el.style.opacity/transform directly via
+  // refs on a setTimeout loop — that forced 5 separate synchronous style
+  // recalculations (Lighthouse "forced reflow" warning). CSS animations
+  // with animation-delay run entirely on the compositor thread, so there's
+  // no JS-triggered layout work at all.
 
   return (
     <section className="relative flex flex-col overflow-hidden bg-[#0a0f0a]" style={{ minHeight: "clamp(400px, 45vh, 600px)" }}>
@@ -128,8 +106,7 @@ export function HeroSection({ hero }: HeroSectionProps) {
 
             {/* Badge — pill style with subtle glow */}
             <p
-              ref={badgeRef}
-              className="inline-flex items-center gap-2.5 mb-5 sm:mb-7"
+              className="hero-fade-in-1 inline-flex items-center gap-2.5 mb-5 sm:mb-7"
               style={{
                 background: "rgba(212,160,23,0.12)",
                 border: "1px solid rgba(212,160,23,0.35)",
@@ -163,8 +140,7 @@ export function HeroSection({ hero }: HeroSectionProps) {
                 removed nowrap + fixed clamp lower bound so it scales
                 down gracefully on narrow screens instead of overflowing */}
             <h1
-              ref={headingRef}
-              className="font-heading font-black text-white mb-4 break-words"
+              className="hero-fade-in-2 font-heading font-black text-white mb-4 break-words"
               style={{
                 fontSize: "clamp(1.75rem, 5vw, 2.7rem)",
                 lineHeight: 1.1,
@@ -190,7 +166,7 @@ export function HeroSection({ hero }: HeroSectionProps) {
 
             {/* Sub-heading — with golden left accent */}
             <div
-              ref={subRef}
+              className="hero-fade-in-3"
               style={{
                 borderLeft: "3px solid rgba(212,160,23,0.55)",
                 paddingLeft: "14px",
@@ -213,7 +189,7 @@ export function HeroSection({ hero }: HeroSectionProps) {
             </div>
 
             {/* CTA Buttons — ✅ MOBILE FIXED: full width on small screens */}
-            <div ref={ctaRef} className="flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center gap-3 mb-6">
+            <div className="hero-fade-in-4 flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center gap-3 mb-6">
               <Link
                 href={content.primaryButtonLink!}
                 className="btn flex items-center justify-center gap-2 text-sm text-white shadow-large"
@@ -264,8 +240,7 @@ export function HeroSection({ hero }: HeroSectionProps) {
 
         {/* ── Stats Strip — ✅ MOBILE FIXED: 2-column grid on phones, row on larger screens ── */}
         <div
-          ref={statsRef}
-          className="pb-6 sm:pb-5 grid grid-cols-2 gap-y-5 gap-x-4 sm:flex sm:flex-wrap sm:gap-x-10 sm:gap-y-3"
+          className="hero-fade-in-5 pb-6 sm:pb-5 grid grid-cols-2 gap-y-5 gap-x-4 sm:flex sm:flex-wrap sm:gap-x-10 sm:gap-y-3"
         >
           {STATS.map((stat, i) => (
             <div key={stat.label} className="flex items-center gap-3">
