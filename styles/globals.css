@@ -141,3 +141,38 @@ h1, h2, h3, h4, h5, h6,
   outline: 2px solid var(--color-gold);
   outline-offset: 2px;
 }
+
+/* ─── Hero entrance animations — pure CSS, GPU composited ──────────
+   Replaces the old JS-based useEffect/setTimeout approach that wrote
+   el.style.opacity/transform directly via refs, which forced 5
+   synchronous layout recalculations (Lighthouse "forced reflow"
+   warning). CSS animation-delay runs entirely off the main thread. */
+@keyframes hero-fade-up {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.hero-fade-in-1,
+.hero-fade-in-2,
+.hero-fade-in-3,
+.hero-fade-in-4,
+.hero-fade-in-5 {
+  opacity: 0;
+  animation: hero-fade-up 0.75s ease-out forwards;
+}
+.hero-fade-in-1 { animation-delay: 0s; }
+.hero-fade-in-2 { animation-delay: 0.12s; }
+.hero-fade-in-3 { animation-delay: 0.26s; }
+.hero-fade-in-4 { animation-delay: 0.38s; }
+.hero-fade-in-5 { animation-delay: 0.5s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-fade-in-1,
+  .hero-fade-in-2,
+  .hero-fade-in-3,
+  .hero-fade-in-4,
+  .hero-fade-in-5 {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
