@@ -128,9 +128,9 @@ export default async function CatalogPage() {
       <section className="bg-brand-light-gray py-14">
         <div className="max-w-container mx-auto px-4 md:px-6">
           <SectionReveal className="mb-8">
-            <p className="font-heading font-bold text-[11px] text-brand-green uppercase tracking-[3px]">
+            <h2 className="font-heading font-bold text-[11px] text-brand-green uppercase tracking-[3px]">
               Browse By Category
-            </p>
+            </h2>
 
           </SectionReveal>
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4 lg:gap-5">
@@ -177,16 +177,16 @@ export default async function CatalogPage() {
       <section className="bg-white py-14">
         <div className="max-w-container mx-auto px-4 md:px-6">
           <SectionReveal className="mb-8">
-            <p className="font-heading font-bold text-[11px] text-brand-green uppercase tracking-[3px]">
+            <h2 className="font-heading font-bold text-[11px] text-brand-green uppercase tracking-[3px]">
               Brand Catalogs
-            </p>
+            </h2>
           </SectionReveal>
 
           <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
             {brands.map((brand, i) => {
               const logoUrl = brand.logo
                 ? urlForImage(brand.logo, 160, 80)
-                : "https://images.unsplash.com/photo-1581093196277-9f608bb3b511?w=400&h=300&q=80";
+                : "/placeholder-category.png";
 
               return (
                 <SectionReveal key={brand._id} delay={i * 0.08}>
@@ -239,9 +239,9 @@ export default async function CatalogPage() {
       <section className="bg-white py-16 px-4">
         <div className="max-w-container mx-auto">
           <SectionReveal className="mb-8">
-            <p className="font-heading font-bold text-[11px] text-brand-green uppercase tracking-[3px] mb-2">
+            <h2 className="font-heading font-bold text-[11px] text-brand-green uppercase tracking-[3px] mb-2">
               Frequently Asked Questions
-            </p>
+            </h2>
           </SectionReveal>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {FAQS.map((faq, i) => (

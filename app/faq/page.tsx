@@ -88,7 +88,7 @@ export default async function FAQPage() {
                     href={`https://wa.me/${SITE_CONFIG.whatsapp}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="btn w-full bg-[#25D366] text-white py-2.5 text-xs text-center flex items-center justify-center gap-1.5"
+                    className="btn w-full bg-[#0d7a3a] text-white py-2.5 text-xs text-center flex items-center justify-center gap-1.5"
                   >
                     <MessageCircle size={14} /> WhatsApp Support
                   </a>

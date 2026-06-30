@@ -111,7 +111,7 @@ export default function ServicesPage() {
                     <div className="w-14 h-14 rounded-full bg-brand-green flex items-center justify-center text-2xl">
                       {step.icon}
                     </div>
-                    <span className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-brand-gold text-white text-[10px] font-heading font-black flex items-center justify-center">
+                    <span className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-brand-gold text-brand-dark text-[10px] font-heading font-black flex items-center justify-center">
                       {i + 1}
                     </span>
                   </div>
@@ -169,7 +169,7 @@ export default function ServicesPage() {
               href={buildWhatsAppUrl(SITE_CONFIG.whatsapp, "Hi! I need service support for my machine.")}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn bg-[#25D366] text-white px-6 py-3 text-sm flex items-center gap-2"
+              className="btn bg-[#0d7a3a] text-white px-6 py-3 text-sm flex items-center gap-2"
             >
               <MessageCircle size={16} /> WhatsApp Support
             </a>

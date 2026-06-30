@@ -277,7 +277,7 @@ export default async function BrandsPage() {
               href={buildWhatsAppUrl(SITE_CONFIG.whatsapp, "Hi! I want to know more about your brand partnerships.")}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn bg-[#25D366] text-white px-5 py-3 text-sm flex items-center gap-2"
+              className="btn bg-[#0d7a3a] text-white px-5 py-3 text-sm flex items-center gap-2"
             >
               <MessageCircle size={15} /> WhatsApp Inquiry
             </a>

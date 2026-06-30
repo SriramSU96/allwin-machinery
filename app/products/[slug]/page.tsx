@@ -130,7 +130,7 @@ export default async function ProductDetailPage({ params }: Props) {
           <div>
             {/* Category badge */}
             {product.category && (
-              <p className="font-heading font-bold text-[10px] text-brand-gold uppercase tracking-[2px] mb-2">
+              <p className="font-heading font-bold text-[10px] text-[#8B6914] uppercase tracking-[2px] mb-2">
                 {product.category.name}
               </p>
             )}
@@ -143,7 +143,7 @@ export default async function ProductDetailPage({ params }: Props) {
             {/* Badge + Stock */}
             <div className="flex items-center gap-3 mb-4">
               {product.badge && (
-                <span className="font-heading font-bold text-xs bg-brand-gold text-white px-3 py-1 rounded-full uppercase tracking-wide">
+                <span className="font-heading font-bold text-xs bg-brand-gold text-brand-dark px-3 py-1 rounded-full uppercase tracking-wide">
                   {product.badge}
                 </span>
               )}
@@ -195,7 +195,7 @@ export default async function ProductDetailPage({ params }: Props) {
                   href={buildWhatsAppUrl(product.whatsappNumber || SITE_CONFIG.whatsapp, whatsappMsg)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn flex-1 bg-[#25D366] text-white py-3.5 text-sm text-center flex items-center justify-center gap-2"
+                  className="btn flex-1 bg-[#0d7a3a] text-white py-3.5 text-sm text-center flex items-center justify-center gap-2"
                 >
                   <MessageCircle size={16} />
                   WhatsApp Inquiry
@@ -270,7 +270,7 @@ export default async function ProductDetailPage({ params }: Props) {
         </a>
         <Link
           href="/contact"
-          className="btn flex-1 bg-brand-gold text-white py-3 text-sm text-center"
+          className="btn flex-1 bg-brand-gold text-brand-dark py-3 text-sm text-center"
         >
           Get Quote
         </Link>

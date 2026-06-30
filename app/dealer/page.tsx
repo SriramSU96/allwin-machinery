@@ -210,7 +210,7 @@ export default function DealerPage() {
                 <div className="flex flex-col items-center text-center gap-3">
                   <div className="w-14 h-14 rounded-full bg-brand-green text-white flex items-center justify-center text-2xl relative ring-4 ring-white">
                     {step.icon}
-                    <span className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-brand-gold text-white text-[9px] font-black flex items-center justify-center ring-2 ring-white">
+                    <span className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-brand-gold text-brand-dark text-[9px] font-black flex items-center justify-center ring-2 ring-white">
                       {i + 1}
                     </span>
                   </div>
@@ -252,7 +252,7 @@ export default function DealerPage() {
                   <span className="text-8xl">🗺️</span>
                   <p className="font-heading font-bold text-white mt-4 text-lg">Pan India Coverage</p>
                   <p className="text-white/50 text-sm mt-1">50+ Active Dealer Locations</p>
-                  <Link href="/contact" className="btn bg-brand-gold text-white px-5 py-2.5 text-sm mt-4 inline-flex">
+                  <Link href="/contact" className="btn bg-brand-gold text-brand-dark px-5 py-2.5 text-sm mt-4 inline-flex">
                     View Dealer Locations →
                   </Link>
                 </div>

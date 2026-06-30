@@ -154,7 +154,7 @@ export default async function BlogDetailPage({ params }: Props) {
         {/* Header */}
         <div className="max-w-3xl mx-auto px-4 md:px-6 pt-10 pb-6">
           {post.category && (
-            <span className="inline-block font-heading font-bold text-[10px] uppercase tracking-widest bg-brand-gold text-white px-2.5 py-1 rounded-md mb-4">
+            <span className="inline-block font-heading font-bold text-[10px] uppercase tracking-widest bg-brand-gold text-brand-dark px-2.5 py-1 rounded-md mb-4">
               {post.category}
             </span>
           )}
@@ -250,7 +250,7 @@ export default async function BlogDetailPage({ params }: Props) {
                   <a 
                     href={buildWhatsAppUrl(SITE_CONFIG.whatsapp, `Hi! I read your article "${post.title}" and have a question.`)}
                     target="_blank" rel="noopener noreferrer"
-                    className="btn bg-[#25D366] text-white px-4 py-2.5 text-sm flex items-center gap-1.5"
+                    className="btn bg-[#0d7a3a] text-white px-4 py-2.5 text-sm flex items-center gap-1.5"
                   >
                     <MessageCircle size={14} /> WhatsApp
                   </a>
@@ -266,7 +266,7 @@ export default async function BlogDetailPage({ params }: Props) {
                   <a 
                     href={`https://wa.me/?text=${encodeURIComponent(post.title + " " + shareUrl)}`}
                     target="_blank" rel="noopener noreferrer"
-                    className="w-9 h-9 rounded-lg bg-[#25D366] text-white flex items-center justify-center hover:opacity-85"
+                    className="w-9 h-9 rounded-lg bg-[#0d7a3a] text-white flex items-center justify-center hover:opacity-85"
                   >
                     <MessageCircle size={16} />
                   </a>
@@ -310,7 +310,7 @@ export default async function BlogDetailPage({ params }: Props) {
                         <Image src={urlForImage(p.coverImage, 400, 240)} alt={p.title} fill className="object-cover group-hover:scale-105 transition-transform duration-300" />
                       )}
                       {p.category && (
-                        <span className="absolute top-3 left-3 font-heading font-bold text-[9px] uppercase tracking-wider bg-brand-gold text-white px-2 py-1 rounded-md">
+                        <span className="absolute top-3 left-3 font-heading font-bold text-[9px] uppercase tracking-wider bg-brand-gold text-brand-dark px-2 py-1 rounded-md">
                           {p.category}
                         </span>
                       )}
