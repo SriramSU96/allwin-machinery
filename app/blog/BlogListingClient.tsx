@@ -100,7 +100,7 @@ export function BlogListingClient({ posts, featuredPost, categories }: BlogListi
                         className="object-cover group-hover:scale-105 transition-transform duration-500"
                       />
                     )}
-                    <span className="absolute top-4 left-4 font-heading font-bold text-[10px] uppercase tracking-widest bg-brand-gold text-white px-2.5 py-1 rounded-md">
+                    <span className="absolute top-4 left-4 font-heading font-bold text-[10px] uppercase tracking-widest bg-brand-gold text-brand-dark px-2.5 py-1 rounded-md">
                       {featuredPost.category}
                     </span>
                   </div>
@@ -160,7 +160,7 @@ export function BlogListingClient({ posts, featuredPost, categories }: BlogListi
                           />
                         )}
                         {post.category && (
-                          <span className="absolute top-3 left-3 font-heading font-bold text-[9px] uppercase tracking-wider bg-brand-gold text-white px-2 py-1 rounded-md">
+                          <span className="absolute top-3 left-3 font-heading font-bold text-[9px] uppercase tracking-wider bg-brand-gold text-brand-dark px-2 py-1 rounded-md">
                             {post.category}
                           </span>
                         )}
@@ -244,7 +244,7 @@ export function BlogListingClient({ posts, featuredPost, categories }: BlogListi
                 href={`https://wa.me/${SITE_CONFIG.whatsapp}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn w-full bg-[#25D366] text-white py-2.5 text-sm text-center block"
+                className="btn w-full bg-[#0d7a3a] text-white py-2.5 text-sm text-center block"
               >
                 💬 WhatsApp Us
               </a>

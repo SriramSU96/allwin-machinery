@@ -55,9 +55,9 @@ export function CatalogSearch({ catalogs }: CatalogSearchProps) {
       <section className="bg-white py-12 md:py-16">
         <div className="max-w-container mx-auto px-4 md:px-6">
           <SectionReveal className="mb-10">
-            <p className="font-heading font-black text-[11px] text-brand-green uppercase tracking-[4px]">
+            <h2 className="font-heading font-black text-[11px] text-brand-green uppercase tracking-[4px]">
               {query.trim() ? `${filtered.length} result${filtered.length === 1 ? "" : "s"}` : "Featured Catalogs"}
-            </p>
+            </h2>
           </SectionReveal>
 
           {filtered.length === 0 ? (

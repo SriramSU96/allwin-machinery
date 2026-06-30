@@ -90,7 +90,7 @@ export default function NotFound() {
                   href={buildWhatsAppUrl(SITE_CONFIG.whatsapp, "Hi! I need help finding a product.")}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn bg-[#25D366] text-white px-6 py-3 text-sm flex items-center gap-2"
+                  className="btn bg-[#0d7a3a] text-white px-6 py-3 text-sm flex items-center gap-2"
                 >
                   <MessageCircle size={16} />
                   Chat on WhatsApp

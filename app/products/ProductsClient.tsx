@@ -135,6 +135,7 @@ export function ProductsClient({ initialProducts, categories, brands }: Products
             id="sortBy"
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value as SortOption)}
+            aria-label="Sort products"
             className="px-3 py-2 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-brand-green bg-white text-gray-600"
           >
             <option value="latest">Sort: Latest</option>
@@ -181,14 +182,14 @@ export function ProductsClient({ initialProducts, categories, brands }: Products
 
           {/* Categories */}
           <div>
-            <h3 className="font-heading font-bold text-sm text-brand-text mb-3 flex items-center justify-between">
+            <h2 className="font-heading font-bold text-sm text-brand-text mb-3 flex items-center justify-between">
               Categories
               {selectedCategory && (
                 <button onClick={() => setSelectedCategory(null)} className="text-xs text-brand-green">
                   Clear
                 </button>
               )}
-            </h3>
+            </h2>
             <ul className="space-y-1">
               {categories.map((cat) => (
                 <li key={cat._id}>
@@ -220,14 +221,14 @@ export function ProductsClient({ initialProducts, categories, brands }: Products
 
           {/* Brands */}
           <div>
-            <h3 className="font-heading font-bold text-sm text-brand-text mb-3 flex items-center justify-between">
+            <h2 className="font-heading font-bold text-sm text-brand-text mb-3 flex items-center justify-between">
               Brands
               {selectedBrands.length > 0 && (
                 <button onClick={() => setSelectedBrands([])} className="text-xs text-brand-green">
                   Clear
                 </button>
               )}
-            </h3>
+            </h2>
             <ul className="space-y-1">
               {brands.slice(0, 8).map((brand) => (
                 <li key={brand._id}>
@@ -239,7 +240,7 @@ export function ProductsClient({ initialProducts, categories, brands }: Products
                       className="w-4 h-4 rounded accent-brand-green"
                     />
                     <span className="text-sm text-brand-text">{brand.name}</span>
-                    <span className="text-xs text-gray-400 ml-auto">
+                    <span className="text-xs text-gray-500 ml-auto">
                       {brand.productCount || 0}
                     </span>
                   </label>
