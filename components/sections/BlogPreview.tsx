@@ -52,7 +52,7 @@ export function BlogPreview({ featuredPost, recentPosts }: BlogPreviewProps) {
                       className="object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                   )}
-                  <span className="absolute top-4 left-4 font-heading font-bold text-[10px] uppercase tracking-widest bg-brand-gold text-white px-2.5 py-1 rounded-md">
+                  <span className="absolute top-4 left-4 font-heading font-bold text-[10px] uppercase tracking-widest bg-brand-gold text-brand-dark px-2.5 py-1 rounded-md">
                     {featuredPost.category}
                   </span>
                 </div>

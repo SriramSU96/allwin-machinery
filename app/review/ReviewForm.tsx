@@ -87,7 +87,7 @@ export function ReviewForm() {
         <p className="text-gray-500 text-sm mb-2">
           Your review has been submitted successfully.
         </p>
-        <p className="text-gray-400 text-xs mb-6">
+        <p className="text-gray-500 text-xs mb-6">
           It will appear on our website after a quick review by our team.
         </p>
         <div className="flex gap-3 justify-center">
@@ -101,7 +101,7 @@ export function ReviewForm() {
             href={buildWhatsAppUrl(SITE_CONFIG.whatsapp, "Hi! I just submitted a review on your website.")}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn bg-[#25D366] text-white px-6 py-3 text-sm flex items-center gap-2"
+            className="btn bg-[#0d7a3a] text-white px-6 py-3 text-sm flex items-center gap-2"
           >
             <MessageCircle size={15} /> WhatsApp Us
           </a>
@@ -126,6 +126,8 @@ export function ReviewForm() {
               onClick={() => setValue("rating", star)}
               onMouseEnter={() => setHoveredStar(star)}
               onMouseLeave={() => setHoveredStar(0)}
+              aria-label={`Rate ${star} out of 5 stars`}
+              aria-pressed={star <= rating}
               className="transition-transform hover:scale-110"
             >
               <Star
@@ -204,10 +206,11 @@ export function ReviewForm() {
 
       {/* Product */}
       <div>
-        <label className="block text-xs font-heading font-semibold text-gray-600 mb-1">
+        <label htmlFor="review-product" className="block text-xs font-heading font-semibold text-gray-600 mb-1">
           Product You Purchased *
         </label>
         <select
+          id="review-product"
           {...register("product")}
           className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-brand-green bg-white text-gray-600"
         >
@@ -231,7 +234,7 @@ export function ReviewForm() {
           className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-brand-green resize-none"
         />
         {errors.message && <p className="text-red-500 text-xs mt-1">{errors.message.message}</p>}
-        <p className="text-xs text-gray-400 mt-1">Minimum 20 characters</p>
+        <p className="text-xs text-gray-500 mt-1">Minimum 20 characters</p>
       </div>
 
       {error && (
@@ -251,7 +254,7 @@ export function ReviewForm() {
         )}
       </button>
 
-      <p className="text-xs text-gray-400 text-center">
+      <p className="text-xs text-gray-500 text-center">
         Reviews are moderated and appear on our website within 24 hours.
       </p>
     </form>

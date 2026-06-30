@@ -78,7 +78,7 @@ export function DealerForm() {
           href={buildWhatsAppUrl(SITE_CONFIG.whatsapp, "Hi! I just submitted a dealer application on your website.")}
           target="_blank"
           rel="noopener noreferrer"
-          className="btn bg-[#25D366] text-white px-6 py-3 text-sm inline-flex items-center gap-2"
+          className="btn bg-[#0d7a3a] text-white px-6 py-3 text-sm inline-flex items-center gap-2"
         >
           <MessageCircle size={16} /> Also chat on WhatsApp
         </a>
@@ -193,7 +193,7 @@ export function DealerForm() {
         <a 
           href={buildWhatsAppUrl(SITE_CONFIG.whatsapp, `Hi! I want to become an Allwin Machinery dealer in ${getValues("city") || "my area"}.`)}
           target="_blank" rel="noopener noreferrer"
-          className="btn bg-[#25D366] text-white px-4 py-3 text-sm flex items-center gap-1.5">
+          className="btn bg-[#0d7a3a] text-white px-4 py-3 text-sm flex items-center gap-1.5">
           <MessageCircle size={15} /> WhatsApp
         </a>
       </div>

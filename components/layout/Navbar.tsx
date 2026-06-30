@@ -151,7 +151,7 @@ export function Navbar({ categories }: NavbarProps) {
             >
               <Heart size={18} fill={wishlistCount > 0 ? "currentColor" : "none"} />
               {wishlistCount > 0 && (
-                <span className="absolute -top-1 -right-1 w-4 h-4 bg-brand-gold text-white text-[10px] font-bold rounded-full flex items-center justify-center">
+                <span className="absolute -top-1 -right-1 w-4 h-4 bg-brand-gold text-brand-dark text-[10px] font-bold rounded-full flex items-center justify-center">
                   {wishlistCount > 9 ? "9+" : wishlistCount}
                 </span>
               )}
@@ -246,7 +246,7 @@ export function Navbar({ categories }: NavbarProps) {
                 href={buildWhatsAppUrl(SITE_CONFIG.whatsapp, "Hi, I need help with a product.")}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn bg-[#25D366] text-white py-3 text-center flex items-center justify-center gap-2"
+                className="btn bg-[#0d7a3a] text-white py-3 text-center flex items-center justify-center gap-2"
               >
                 <MessageCircle size={18} />
                 Chat on WhatsApp
