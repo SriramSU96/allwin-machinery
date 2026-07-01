@@ -30,35 +30,35 @@ export function FeaturedProducts({ products }: FeaturedProductsProps) {
   return (
     <section className="bg-brand-light-gray pt-[60px] pb-[30px] md:pt-[80px] md:pb-[40px] lg:pt-[120px] lg:pb-[60px]">
       <div className="max-w-container mx-auto px-4 md:px-6">
-        {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
-          <SectionReveal>
-            <p className="font-heading font-bold text-xs text-brand-green uppercase tracking-[3px] mb-2">
+        {/* Header — ✅ MOBILE FIXED: heading shrinks, controls wrap to fit row */}
+        <div className="flex flex-row items-start sm:items-end justify-between gap-3 mb-8 md:mb-10">
+          <SectionReveal className="min-w-0 flex-1">
+            <p className="font-heading font-bold text-[10px] sm:text-xs text-brand-green uppercase tracking-[2px] sm:tracking-[3px] mb-1.5 sm:mb-2">
               Featured Products
             </p>
-            <h2 className="font-heading font-bold text-[26px] md:text-[30px] lg:text-[40px] text-brand-text">
+            <h2 className="font-heading font-bold text-[19px] sm:text-[26px] md:text-[30px] lg:text-[40px] text-brand-text leading-tight">
               Our Best Machines
             </h2>
           </SectionReveal>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-1.5 sm:gap-3 flex-shrink-0">
             {/* Nav arrows */}
             <button
               onClick={scrollPrev}
-              className="w-10 h-10 rounded-xl bg-white border border-gray-200 hover:border-brand-green hover:bg-brand-green hover:text-white flex items-center justify-center transition-colors"
+              className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-white border border-gray-200 hover:border-brand-green hover:bg-brand-green hover:text-white active:bg-brand-green active:text-white flex items-center justify-center transition-colors flex-shrink-0"
               aria-label="Previous"
             >
-              <ChevronLeft size={18} />
+              <ChevronLeft size={16} />
             </button>
             <button
               onClick={scrollNext}
-              className="w-10 h-10 rounded-xl bg-white border border-gray-200 hover:border-brand-green hover:bg-brand-green hover:text-white flex items-center justify-center transition-colors"
+              className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-white border border-gray-200 hover:border-brand-green hover:bg-brand-green hover:text-white active:bg-brand-green active:text-white flex items-center justify-center transition-colors flex-shrink-0"
               aria-label="Next"
             >
-              <ChevronRight size={18} />
+              <ChevronRight size={16} />
             </button>
             <Link
               href="/products"
-              className="btn border-2 border-brand-green text-brand-green px-5 py-2.5 text-sm hover:bg-brand-green hover:text-white ml-2"
+              className="btn border-2 border-brand-green text-brand-green px-3 sm:px-5 py-2 sm:py-2.5 text-[11px] sm:text-sm hover:bg-brand-green hover:text-white active:bg-brand-green active:text-white ml-1 sm:ml-2 whitespace-nowrap flex-shrink-0"
             >
               View All →
             </Link>

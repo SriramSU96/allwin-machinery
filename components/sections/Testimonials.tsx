@@ -60,30 +60,30 @@ export function Testimonials({ testimonials }: TestimonialsProps) {
   return (
     <section className="bg-brand-white py-[60px] md:py-[80px] lg:py-[120px]">
       <div className="max-w-container mx-auto px-4 md:px-6">
-        {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
-          <SectionReveal>
-            <p className="font-heading font-bold text-xs text-brand-green uppercase tracking-[3px] mb-2">
+        {/* Header — ✅ MOBILE FIXED: heading shrinks, arrows stay on same row */}
+        <div className="flex flex-row items-start sm:items-end justify-between gap-3 mb-8 md:mb-10">
+          <SectionReveal className="min-w-0 flex-1">
+            <p className="font-heading font-bold text-[10px] sm:text-xs text-brand-green uppercase tracking-[2px] sm:tracking-[3px] mb-1.5 sm:mb-2">
               Customer Testimonials
             </p>
-            <h2 className="font-heading font-bold text-[26px] md:text-[30px] lg:text-[40px] text-brand-text">
+            <h2 className="font-heading font-bold text-[19px] sm:text-[26px] md:text-[30px] lg:text-[40px] text-brand-text leading-tight">
               What Our Farmers Say
             </h2>
           </SectionReveal>
-          <div className="flex gap-3">
+          <div className="flex gap-1.5 sm:gap-3 flex-shrink-0">
             <button
               onClick={scrollPrev}
-              className="w-10 h-10 rounded-xl bg-brand-light-gray hover:bg-brand-green hover:text-white flex items-center justify-center transition-colors"
+              className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-brand-light-gray hover:bg-brand-green hover:text-white active:bg-brand-green active:text-white flex items-center justify-center transition-colors flex-shrink-0"
               aria-label="Previous"
             >
-              <ChevronLeft size={18} />
+              <ChevronLeft size={16} />
             </button>
             <button
               onClick={scrollNext}
-              className="w-10 h-10 rounded-xl bg-brand-light-gray hover:bg-brand-green hover:text-white flex items-center justify-center transition-colors"
+              className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-brand-light-gray hover:bg-brand-green hover:text-white active:bg-brand-green active:text-white flex items-center justify-center transition-colors flex-shrink-0"
               aria-label="Next"
             >
-              <ChevronRight size={18} />
+              <ChevronRight size={16} />
             </button>
           </div>
         </div>

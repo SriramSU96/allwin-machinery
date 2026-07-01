@@ -47,7 +47,7 @@ export function FeaturedBrandProducts({ products }: FeaturedBrandProductsProps) 
           </p>
         </SectionReveal>
 
-        <div className="flex gap-2 overflow-x-auto pb-2 mb-6">
+        <div className="flex gap-2 overflow-x-auto scrollbar-thin pb-2 mb-6">
           {brandNames.map((brandName, i) => (
             <button
               key={brandName}
