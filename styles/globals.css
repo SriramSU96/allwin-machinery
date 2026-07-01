@@ -176,3 +176,146 @@ h1, h2, h3, h4, h5, h6,
     transform: none;
   }
 }
+
+/* ═══════════════════════════════════════════════════════════════════
+   MOBILE UI FIXES — v8
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ─── Thin custom scrollbars (horizontal scroll rows) ──────────────── */
+.scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(31,77,58,0.3) transparent;
+}
+.scrollbar-thin::-webkit-scrollbar {
+  height: 4px;
+  width: 4px;
+}
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: rgba(31,77,58,0.3);
+  border-radius: 999px;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background: rgba(31,77,58,0.5);
+}
+
+/* ─── Hover → tap-friendly on touch devices ─────────────────────────
+   Desktop keeps :hover. Touch devices get :active instead, so cards/
+   buttons respond immediately on tap instead of requiring a "ghost
+   hover" that touchscreens don't reliably trigger. */
+@media (hover: none) and (pointer: coarse) {
+  .hover-lift:hover { transform: none !important; }
+  .hover-lift:active { transform: scale(0.97); }
+
+  .hover-fade:hover { opacity: inherit !important; }
+  .hover-fade:active { opacity: 0.7; }
+
+  .hover-border:hover { border-color: inherit !important; }
+  .hover-border:active { border-color: var(--color-green); }
+
+  /* Generic: any element relying on group-hover for color/opacity
+     reveals should also respond to :active on touch */
+  .group:active .group-hover\:opacity-100 { opacity: 1; }
+  .group:active .group-hover\:text-brand-green { color: var(--color-green); }
+}
+
+/* ─── Mobile button rows — force horizontal instead of stacked ─────── */
+.btn-row-mobile {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 8px;
+}
+.btn-row-mobile > * {
+  flex: 1 1 0;
+  min-width: 0;
+  font-size: 12px;
+  padding: 10px 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+@media (max-width: 380px) {
+  .btn-row-mobile > * {
+    font-size: 11px;
+    padding: 9px 8px;
+  }
+}
+
+/* ─── Section header + action button on same row (mobile) ──────────── */
+.header-action-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: nowrap;
+}
+.header-action-row h2,
+.header-action-row h3 {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+@media (max-width: 480px) {
+  .header-action-row h2 { font-size: 18px !important; line-height: 1.25; }
+  .header-action-row h3 { font-size: 16px !important; line-height: 1.25; }
+  .header-action-row .btn-compact {
+    flex-shrink: 0;
+    font-size: 11px !important;
+    padding: 7px 10px !important;
+    white-space: nowrap;
+  }
+}
+
+/* ─── FAQ accordion ──────────────────────────────────────────────────
+   Default state: only the active item's answer is visible. JS toggles
+   the `data-open` attribute / max-height; this CSS handles the smooth
+   collapse/expand transition without layout jump. */
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, opacity 0.2s ease, margin-top 0.2s ease;
+  opacity: 0;
+}
+.faq-item[data-open="true"] .faq-answer {
+  max-height: 500px;
+  opacity: 1;
+  margin-top: 8px;
+}
+.faq-item .faq-chevron {
+  transition: transform 0.25s ease;
+}
+.faq-item[data-open="true"] .faq-chevron {
+  transform: rotate(180deg);
+}
+
+/* ─── Stats grid: heading full-width, numbers wrap to next row ─────── */
+.stats-grid-with-heading {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+.stats-grid-with-heading .stats-heading {
+  grid-column: 1 / -1;
+}
+.stats-grid-with-heading .stats-numbers {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px 12px;
+}
+@media (min-width: 768px) {
+  .stats-grid-with-heading {
+    grid-template-columns: auto 1fr;
+    align-items: center;
+  }
+}
+
+/* ─── Tap-outside-to-close (used with JS overlay click handler) ────── */
+.filter-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  background: rgba(0,0,0,0.4);
+}
