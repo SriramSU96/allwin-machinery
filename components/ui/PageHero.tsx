@@ -34,14 +34,13 @@ export function PageHero({
         className
       )}
     >
-      {/* ── Right side background image ── */}
+      {/* ── Right side background image — ✅ MOBILE FIXED: hidden below md,
+          since at narrow widths the fixed 56% image column was squeezing
+          the text into too little space and hiding/clipping content. On
+          mobile the dark background alone provides enough contrast. ── */}
       {backgroundImage && (
         <>
-          {/* Image on right 56% of screen — Next/Image gives us
-              automatic responsive sizing, modern format (WebP/AVIF),
-              and `priority` preloads it immediately instead of waiting
-              for the browser to discover a CSS background-image. */}
-          <div className="absolute right-0 top-0 bottom-0 w-[56%]">
+          <div className="hidden md:block absolute right-0 top-0 bottom-0 w-[56%]">
             <Image
               src={optimizeCloudinaryUrl(backgroundImage)}
               alt=""
@@ -55,24 +54,36 @@ export function PageHero({
 
           {/* Smooth gradient to seamlessly blend the solid left side with the right image */}
           <div
-            className="absolute inset-0 pointer-events-none"
+            className="hidden md:block absolute inset-0 pointer-events-none"
             style={{
               background:
                 "linear-gradient(90deg, #121212 0%, #121212 54%, rgba(18,18,18,0.85) 60%, rgba(18,18,18,0.2) 70%, transparent 80%)",
             }}
             aria-hidden="true"
           />
+
+          {/* Subtle mobile-only background tint so the section doesn't look flat */}
+          <div
+            className="md:hidden absolute inset-0 pointer-events-none opacity-30"
+            style={{
+              backgroundImage: `url(${optimizeCloudinaryUrl(backgroundImage)})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center 60%",
+            }}
+            aria-hidden="true"
+          />
+          <div className="md:hidden absolute inset-0 bg-brand-dark/85 pointer-events-none" aria-hidden="true" />
         </>
       )}
 
       {/* ── Content — left aligned ── */}
-      <div className="relative z-10 max-w-container mx-auto px-4 md:px-1 py-14 w-full">
-        <div className="max-w-[760px] md:max-w-[900px]">
+      <div className="relative z-10 max-w-container mx-auto px-4 md:px-1 py-10 md:py-14 w-full">
+        <div className="w-full md:max-w-[760px] lg:max-w-[900px]">
 
           {/* Breadcrumbs */}
           {breadcrumbs && (
             <nav
-              className="flex items-center gap-1.5 text-white/50 text-xs mb-4"
+              className="flex items-center flex-wrap gap-1.5 text-white/50 text-[11px] sm:text-xs mb-3 sm:mb-4"
               aria-label="Breadcrumb"
             >
               {breadcrumbs.map((crumb, i) => (
@@ -95,15 +106,15 @@ export function PageHero({
 
           {/* Label */}
           {label && (
-            <p className="font-heading font-bold text-[11px] text-brand-gold uppercase tracking-[4px] mb-3">
+            <p className="font-heading font-bold text-[10px] sm:text-[11px] text-brand-gold uppercase tracking-[2px] sm:tracking-[4px] mb-2 sm:mb-3">
               {label}
             </p>
           )}
 
-          {/* Title */}
+          {/* Title — ✅ MOBILE FIXED: lower clamp bound so it never overflows */}
           <h1
-            className="font-heading font-black text-white leading-tight mb-4"
-            style={{ fontSize: "clamp(28px, 4vw, 52px)" }}
+            className="font-heading font-black text-white leading-tight mb-3 sm:mb-4"
+            style={{ fontSize: "clamp(24px, 6vw, 52px)" }}
           >
             <span className="block">{title}</span>
             {titleHighlight && (
@@ -113,7 +124,7 @@ export function PageHero({
 
           {/* Description */}
           {description && (
-            <p className="text-white/65 text-sm md:text-base leading-relaxed max-w-md">
+            <p className="text-white/65 text-[13px] sm:text-sm md:text-base leading-relaxed max-w-md">
               {description}
             </p>
           )}
