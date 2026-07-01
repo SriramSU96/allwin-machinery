@@ -58,28 +58,28 @@ export function FAQAccordion({ faqs, categories }: FAQAccordionProps) {
   return (
     <div>
       {/* Search */}
-      <div className="relative mb-6">
+      <div className="relative mb-4 sm:mb-6">
         <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
         <input
           type="search"
           placeholder="Search your questions..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="w-full pl-11 pr-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-brand-green"
+          className="w-full pl-11 pr-4 py-2.5 sm:py-3 rounded-xl border border-gray-200 text-[13px] sm:text-sm focus:outline-none focus:border-brand-green"
         />
       </div>
 
       {/* Category tabs */}
-      <div className="flex gap-2 overflow-x-auto pb-2 mb-8">
+      <div className="flex gap-2 overflow-x-auto scrollbar-thin pb-2 mb-6 sm:mb-8">
         {categories.map((cat) => (
           <button
             key={cat}
             onClick={() => setActiveCategory(cat)}
             className={cn(
-              "flex-shrink-0 px-4 py-2 rounded-xl text-sm font-heading font-semibold transition-colors",
+              "flex-shrink-0 px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl text-[12px] sm:text-sm font-heading font-semibold transition-colors",
               activeCategory === cat
                 ? "bg-brand-green text-white"
-                : "bg-brand-light-gray text-brand-text hover:bg-gray-200"
+                : "bg-brand-light-gray text-brand-text hover:bg-gray-200 active:bg-gray-200"
             )}
           >
             {cat}
@@ -95,8 +95,8 @@ export function FAQAccordion({ faqs, categories }: FAQAccordionProps) {
         </div>
       ) : (
         Object.entries(grouped).map(([category, items]) => (
-          <div key={category} className="mb-8">
-            <h3 className="font-heading font-bold text-base text-brand-text mb-4 flex items-center gap-2">
+          <div key={category} className="mb-6 sm:mb-8">
+            <h3 className="font-heading font-bold text-[14px] sm:text-base text-brand-text mb-3 sm:mb-4 flex items-center gap-2">
               <span className="text-brand-green">📂</span>
               {category}
             </h3>
@@ -108,10 +108,10 @@ export function FAQAccordion({ faqs, categories }: FAQAccordionProps) {
                 >
                   <button
                     onClick={() => setOpenId(openId === faq._id ? null : faq._id)}
-                    className="w-full flex items-center justify-between px-5 py-4 text-left hover:bg-brand-light-gray transition-colors"
+                    className="w-full flex items-center justify-between px-4 sm:px-5 py-3 sm:py-4 text-left hover:bg-brand-light-gray active:bg-brand-light-gray transition-colors"
                     aria-expanded={openId === faq._id}
                   >
-                    <span className="font-heading font-semibold text-sm text-brand-text pr-4">
+                    <span className="font-heading font-semibold text-[13px] sm:text-sm text-brand-text pr-4">
                       {faq.question}
                     </span>
                     {openId === faq._id ? (
@@ -121,7 +121,7 @@ export function FAQAccordion({ faqs, categories }: FAQAccordionProps) {
                     )}
                   </button>
                   {openId === faq._id && (
-                    <div className="px-5 pb-4 text-sm text-gray-600 leading-relaxed border-t border-gray-100 pt-3">
+                    <div className="px-4 sm:px-5 pb-3 sm:pb-4 text-[12px] sm:text-sm text-gray-600 leading-relaxed border-t border-gray-100 pt-3">
                       {faq.answer}
                     </div>
                   )}

@@ -77,13 +77,20 @@ export default function ServicesPage() {
               Why Choose Our Services?
             </p>
           </SectionReveal>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-4 sm:gap-5">
             {WHY_CHOOSE.map((item, i) => (
-              <SectionReveal key={item.title} delay={i * 0.08}>
-                <div className="bg-[#F5F5F5] rounded-xl p-5 text-center hover:shadow-soft transition-shadow">
-                  <span className="text-4xl block mb-3">{item.icon}</span>
-                  <h3 className="font-heading font-bold text-sm text-brand-text mb-1">{item.title}</h3>
-                  <p className="text-xs text-gray-600 leading-relaxed">{item.desc}</p>
+              <SectionReveal key={item.title} delay={i * 0.08}
+                className={
+                  /* ✅ MOBILE FIXED: last card centers when grid has odd count */
+                  i === WHY_CHOOSE.length - 1 && WHY_CHOOSE.length % 2 !== 0
+                    ? "col-span-2 md:col-span-1"
+                    : ""
+                }
+              >
+                <div className="bg-[#F5F5F5] rounded-xl p-4 sm:p-5 text-center hover:shadow-soft active:shadow-soft transition-shadow h-full">
+                  <span className="text-3xl sm:text-4xl block mb-2 sm:mb-3">{item.icon}</span>
+                  <h3 className="font-heading font-bold text-[12px] sm:text-sm text-brand-text mb-1">{item.title}</h3>
+                  <p className="text-[11px] sm:text-xs text-gray-600 leading-relaxed">{item.desc}</p>
                 </div>
               </SectionReveal>
             ))}
@@ -134,12 +141,12 @@ export default function ServicesPage() {
               Our Service Center
             </p>
           </SectionReveal>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
             {SERVICE_GALLERY.map((item, i) => (
               <SectionReveal key={item.label} delay={i * 0.08}>
-                <div className="aspect-video bg-brand-dark rounded-xl flex flex-col items-center justify-center gap-2 hover:shadow-medium transition-shadow">
-                  <span className="text-5xl">{item.emoji}</span>
-                  <span className="font-heading font-bold text-sm text-white">{item.label}</span>
+                <div className="aspect-square sm:aspect-video bg-brand-dark rounded-xl flex flex-col items-center justify-center gap-1.5 sm:gap-2 hover:shadow-medium active:shadow-medium transition-shadow p-2">
+                  <span className="text-3xl sm:text-5xl">{item.emoji}</span>
+                  <span className="font-heading font-bold text-[10px] sm:text-sm text-white text-center leading-tight">{item.label}</span>
                 </div>
               </SectionReveal>
             ))}

@@ -46,27 +46,27 @@ export function BlogListingClient({ posts, featuredPost, categories }: BlogListi
   }, [posts, activeCategory, search]);
 
   return (
-    <section className="py-10 bg-brand-white">
+    <section className="py-8 sm:py-10 bg-brand-white">
       <div className="max-w-container mx-auto px-4 md:px-6">
-        {/* Search + filter bar */}
-        <div className="flex flex-col md:flex-row gap-4 items-start md:items-center mb-8">
-          <div className="relative flex-1">
-            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+        {/* ✅ MOBILE FIXED: search bar full-width, categories scroll below */}
+        <div className="mb-6 sm:mb-8">
+          <div className="relative mb-3">
+            <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
             <input
               type="search"
-              placeholder="Search articles, topics or keywords..."
+              placeholder="Search articles..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full pl-9 pr-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-brand-green"
+              className="w-full pl-9 pr-4 py-2.5 rounded-xl border border-gray-200 text-[13px] sm:text-sm focus:outline-none focus:border-brand-green"
             />
           </div>
-          <div className="flex gap-2 overflow-x-auto pb-1">
+          <div className="flex gap-2 overflow-x-auto scrollbar-thin pb-1">
             {categories.map((cat) => (
               <button
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
                 className={cn(
-                  "flex-shrink-0 px-4 py-2 rounded-xl text-sm font-heading font-semibold transition-colors",
+                  "flex-shrink-0 px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl text-[11px] sm:text-sm font-heading font-semibold transition-colors",
                   activeCategory === cat
                     ? "bg-brand-green text-white"
                     : "bg-brand-light-gray text-brand-text hover:bg-gray-200"
@@ -78,9 +78,9 @@ export function BlogListingClient({ posts, featuredPost, categories }: BlogListi
           </div>
         </div>
 
-        <div className="flex gap-8">
+        <div className="lg:flex lg:gap-8">
           {/* Main content */}
-          <div className="flex-1 min-w-0">
+          <div className="flex-1 min-w-0 overflow-hidden">
             {/* Featured article */}
             {featuredPost && activeCategory === "All Articles" && !search && (
               <div className="mb-8">
@@ -104,11 +104,11 @@ export function BlogListingClient({ posts, featuredPost, categories }: BlogListi
                       {featuredPost.category}
                     </span>
                   </div>
-                  <div className="p-6 flex flex-col justify-center">
-                    <h2 className="font-heading font-black text-xl text-brand-text mb-3 group-hover:text-brand-green transition-colors line-clamp-2">
+                  <div className="p-4 sm:p-6 flex flex-col justify-center">
+                    <h2 className="font-heading font-black text-[17px] sm:text-xl text-brand-text mb-2 sm:mb-3 group-hover:text-brand-green transition-colors line-clamp-2">
                       {featuredPost.title}
                     </h2>
-                    <p className="text-gray-500 text-sm leading-relaxed mb-4 line-clamp-3">
+                    <p className="text-gray-500 text-[12px] sm:text-sm leading-relaxed mb-3 sm:mb-4 line-clamp-2 sm:line-clamp-3">
                       {featuredPost.excerpt}
                     </p>
                     <div className="flex items-center justify-between text-xs text-gray-400">
@@ -143,7 +143,7 @@ export function BlogListingClient({ posts, featuredPost, categories }: BlogListi
                 <p className="text-gray-500">No articles found. Try a different search or category.</p>
               </div>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+              <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5">
                 {filteredPosts.map((post, i) => (
                   <SectionReveal key={post._id} delay={i * 0.05}>
                     <Link
