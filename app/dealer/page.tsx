@@ -5,6 +5,7 @@ import { SectionReveal } from "@/components/animations/SectionReveal";
 import { CTABanner } from "@/components/sections/CTABanner";
 import { CountUpStat } from "@/components/ui/CountUpStat";
 import { DealerForm } from "./DealerForm";
+import { FaqAccordion } from "@/components/sections/FaqAccordion";
 import {
   TrendingUp, Tag, Megaphone, Package, GraduationCap, Truck,
   CheckCircle2, Users, Award, ShoppingBag, Building2, MapPin, ArrowRight
@@ -176,14 +177,14 @@ export default function DealerPage() {
               Dealer Requirements
             </p>
           </SectionReveal>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
             {REQUIREMENTS.map((req, i) => (
               <SectionReveal key={req.title} delay={i * 0.08}>
-                <div className="bg-white rounded-xl p-5 flex items-start gap-3 border border-gray-200 hover:border-brand-green transition-colors">
-                  <span className="text-2xl flex-shrink-0">{req.icon}</span>
-                  <div>
-                    <p className="font-heading font-bold text-sm text-brand-text">{req.title}</p>
-                    <p className="text-[11px] text-gray-600 mt-0.5">{req.desc}</p>
+                <div className="h-full bg-white rounded-xl p-3 sm:p-5 flex items-start gap-2 sm:gap-3 border border-gray-200 hover:border-brand-green active:border-brand-green transition-colors">
+                  <span className="text-xl sm:text-2xl flex-shrink-0 mt-0.5">{req.icon}</span>
+                  <div className="min-w-0">
+                    <p className="font-heading font-bold text-[12px] sm:text-sm text-brand-text leading-snug">{req.title}</p>
+                    <p className="text-[10px] sm:text-[11px] text-gray-600 mt-0.5 leading-relaxed">{req.desc}</p>
                   </div>
                 </div>
               </SectionReveal>
@@ -201,22 +202,28 @@ export default function DealerPage() {
             </p>
           </SectionReveal>
 
-          <div className="relative flex flex-col md:flex-row items-start gap-8 md:gap-4">
-            {/* Connecting line (desktop only) */}
-            <div className="hidden md:block absolute top-7 left-[10%] right-[10%] h-[2px] bg-gradient-to-r from-brand-green/15 via-brand-green/40 to-brand-green/15" />
+          {/* ✅ MOBILE FIXED: steps stack vertically with a center connecting
+              line on mobile, horizontal with top line on desktop */}
+          <div className="relative flex flex-col md:flex-row items-center md:items-start gap-0 md:gap-4">
+
+            {/* Vertical connecting line — mobile */}
+            <div className="md:hidden absolute left-1/2 top-8 bottom-8 w-[2px] bg-gradient-to-b from-brand-green/20 via-brand-green/50 to-brand-green/20 -translate-x-1/2" aria-hidden="true" />
+
+            {/* Horizontal connecting line — desktop */}
+            <div className="hidden md:block absolute top-7 left-[10%] right-[10%] h-[2px] bg-gradient-to-r from-brand-green/15 via-brand-green/40 to-brand-green/15" aria-hidden="true" />
 
             {PROCESS_STEPS.map((step, i) => (
-              <SectionReveal key={step.title} delay={i * 0.1} className="relative flex-1">
-                <div className="flex flex-col items-center text-center gap-3">
-                  <div className="w-14 h-14 rounded-full bg-brand-green text-white flex items-center justify-center text-2xl relative ring-4 ring-white">
+              <SectionReveal key={step.title} delay={i * 0.1} className="relative flex-1 w-full">
+                <div className="flex flex-col items-center text-center gap-2 sm:gap-3 py-4 sm:py-0">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-brand-green text-white flex items-center justify-center text-xl sm:text-2xl relative ring-4 ring-white z-10">
                     {step.icon}
                     <span className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-brand-gold text-brand-dark text-[9px] font-black flex items-center justify-center ring-2 ring-white">
                       {i + 1}
                     </span>
                   </div>
                   <div>
-                    <p className="font-heading font-bold text-sm text-brand-text">{step.title}</p>
-                    <p className="text-xs text-gray-600 leading-relaxed">{step.desc}</p>
+                    <p className="font-heading font-bold text-[13px] sm:text-sm text-brand-text">{step.title}</p>
+                    <p className="text-[11px] sm:text-xs text-gray-600 leading-relaxed max-w-[160px] mx-auto">{step.desc}</p>
                   </div>
                 </div>
               </SectionReveal>
@@ -263,21 +270,22 @@ export default function DealerPage() {
       </section>
 
       {/* ── Bottom CTA ── */}
-      <section className="bg-brand-green py-12 px-4">
-        <div className="max-w-container mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-          <div>
-            <h2 className="font-heading font-bold text-xl text-white mb-1">
+      <section className="bg-brand-green py-10 sm:py-12 px-4">
+        <div className="max-w-container mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 sm:gap-6">
+          <div className="flex-1">
+            <h2 className="font-heading font-bold text-[18px] sm:text-xl text-white mb-1 leading-tight">
               Grow Your Agricultural Business With Us
             </h2>
-            <p className="text-white/70 text-sm">
+            <p className="text-white/70 text-[12px] sm:text-sm">
               Join hands with Allwin Machinery and build a successful partnership for a better future.
             </p>
           </div>
-          <div className="flex gap-3 flex-shrink-0">
-            <a href="#dealer-form" className="btn bg-white text-brand-green px-5 py-3 text-sm hover:bg-brand-gold hover:text-white">
+          {/* ✅ MOBILE FIXED: buttons in same row, never stacked */}
+          <div className="btn-row-mobile sm:flex sm:gap-3 sm:flex-shrink-0">
+            <a href="#dealer-form" className="btn bg-white text-brand-green hover:bg-brand-gold hover:text-white active:bg-brand-gold active:text-white flex items-center justify-center gap-1">
               📋 Apply Now
             </a>
-            <Link href="/contact" className="btn bg-brand-dark/40 text-white border border-white/20 px-5 py-3 text-sm hover:bg-brand-dark">
+            <Link href="/contact" className="btn bg-brand-dark/40 text-white border border-white/20 hover:bg-brand-dark active:bg-brand-dark flex items-center justify-center gap-1">
               📞 Contact Our Team
             </Link>
           </div>
@@ -285,26 +293,14 @@ export default function DealerPage() {
       </section>
 
       {/* ── FAQ ── */}
-      <section className="bg-brand-white py-16 px-4">
+      <section className="bg-brand-white py-12 sm:py-16 px-4">
         <div className="max-w-container mx-auto">
-          <SectionReveal className="mb-8">
+          <SectionReveal className="mb-6 sm:mb-8">
             <p className="font-heading font-bold text-[11px] text-brand-green uppercase tracking-[3px] mb-2">
               Frequently Asked Questions
             </p>
           </SectionReveal>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {FAQS.map((faq, i) => (
-              <SectionReveal key={i} delay={i * 0.05}>
-                <div className="border border-gray-200 rounded-xl p-5 hover:border-brand-green transition-colors">
-                  <h3 className="font-heading font-bold text-sm text-brand-text mb-2 flex items-start gap-2">
-                    <CheckCircle2 size={15} className="text-brand-green flex-shrink-0 mt-0.5" />
-                    {faq.q}
-                  </h3>
-                  <p className="text-xs text-gray-600 leading-relaxed pl-5">{faq.a}</p>
-                </div>
-              </SectionReveal>
-            ))}
-          </div>
+          <FaqAccordion faqs={FAQS} />
         </div>
       </section>
     </>

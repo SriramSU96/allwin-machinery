@@ -62,45 +62,49 @@ export default async function BrandsPage() {
         breadcrumbs={[{ label: "Home", href: "/" }, { label: "Brands" }]}
       />
 
-      {/* ── Trust badges ── */}
+      {/* ── Trust badges — ✅ MOBILE FIXED: 2×2 grid on mobile, row on desktop ── */}
       <div className="bg-brand-white border-b border-gray-200 py-4">
-        <div className="max-w-container mx-auto px-4 md:px-6 flex flex-wrap justify-center gap-8">
-          {[
-            { icon: Shield, label: "Genuine Products" },
-            { icon: Award, label: "Authorized Dealer" },
-            { icon: Wrench, label: "After Sales Support" },
-            { icon: CheckCircle2, label: "Warranty Assurance" },
-          ].map((item) => (
-            <div key={item.label} className="flex items-center gap-2 text-sm text-brand-text">
-              <item.icon size={16} className="text-brand-green" />
-              <span className="font-heading font-semibold">{item.label}</span>
-            </div>
-          ))}
+        <div className="max-w-container mx-auto px-4 md:px-6">
+          <div className="grid grid-cols-2 sm:flex sm:flex-wrap sm:justify-center gap-4 sm:gap-8">
+            {[
+              { icon: Shield, label: "Genuine Products" },
+              { icon: Award, label: "Authorized Dealer" },
+              { icon: Wrench, label: "After Sales Support" },
+              { icon: CheckCircle2, label: "Warranty Assurance" },
+            ].map((item) => (
+              <div key={item.label} className="flex items-center gap-2 text-[12px] sm:text-sm text-brand-text">
+                <item.icon size={15} className="text-brand-green flex-shrink-0" />
+                <span className="font-heading font-semibold">{item.label}</span>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
       {/* ── Featured Brands ── */}
-      <section className="bg-brand-white py-20">
+      <section className="bg-brand-white py-10 sm:py-16 md:py-20">
         <div className="max-w-container mx-auto px-4 md:px-6">
 
-          {/* Section header */}
-          <SectionReveal className="mb-12">
-            <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
-              <div>
-                <p className="font-heading font-bold text-[11px] text-brand-green uppercase tracking-[4px] mb-3">
+          {/* Section header — ✅ MOBILE FIXED: heading smaller, badge on same row */}
+          <SectionReveal className="mb-8 sm:mb-12">
+            <div className="flex flex-row items-start justify-between gap-3 flex-wrap">
+              <div className="flex-1 min-w-0">
+                <p className="font-heading font-bold text-[10px] sm:text-[11px] text-brand-green uppercase tracking-[3px] sm:tracking-[4px] mb-2 sm:mb-3">
                   Our Brand Portfolio
                 </p>
-                <h2 className="font-heading font-black text-[28px] md:text-[36px] leading-[1.1] text-brand-text">
+                {/* ✅ MOBILE FIXED: nowrap so "10+ Trusted Partner Brands" stays on one line */}
+                <h2 className="font-heading font-black text-[20px] sm:text-[28px] md:text-[36px] leading-tight text-brand-text">
                   {brands.length}+ Trusted{" "}
                   <span className="text-brand-green">Partner Brands</span>
                 </h2>
-                <p className="mt-3 text-sm text-gray-500 max-w-md leading-relaxed">
+                <p className="mt-2 sm:mt-3 text-[12px] sm:text-sm text-gray-500 max-w-md leading-relaxed">
                   Every brand we carry is hand-picked for quality, reliability, and proven performance in Indian agricultural conditions.
                 </p>
               </div>
-              <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-brand-green/8 border border-brand-green/20 self-start md:self-auto">
-                <Award size={14} className="text-brand-green" />
-                <span className="text-[11px] font-heading font-bold text-brand-green uppercase tracking-widest">Authorized Dealer</span>
+              {/* ✅ MOBILE FIXED: badge stays inline with heading, no wrapping to new row */}
+              <div className="flex-shrink-0 flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-brand-green/8 border border-brand-green/20 self-start">
+                <Award size={13} className="text-brand-green" />
+                <span className="text-[9px] sm:text-[11px] font-heading font-bold text-brand-green uppercase tracking-widest whitespace-nowrap">Authorized Dealer</span>
               </div>
             </div>
           </SectionReveal>

@@ -10,6 +10,7 @@ import { CATEGORIES_QUERY, BRANDS_QUERY } from "@/lib/queries";
 import type { Category, Brand } from "@/types";
 import { ArrowUpRight, Download, CheckCircle2 } from "lucide-react";
 import { CatalogSearch } from "./CatalogSearch";
+import { FaqAccordion } from "@/components/sections/FaqAccordion";
 
 export const metadata: Metadata = {
   title: "Product Catalogs & Brochures | Allwin Machinery",
@@ -236,26 +237,14 @@ export default async function CatalogPage() {
       </div>
 
       {/* ── FAQ ── */}
-      <section className="bg-white py-16 px-4">
+      <section className="bg-white py-12 sm:py-16 px-4">
         <div className="max-w-container mx-auto">
-          <SectionReveal className="mb-8">
+          <SectionReveal className="mb-6 sm:mb-8">
             <h2 className="font-heading font-bold text-[11px] text-brand-green uppercase tracking-[3px] mb-2">
               Frequently Asked Questions
             </h2>
           </SectionReveal>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {FAQS.map((faq, i) => (
-              <SectionReveal key={i} delay={i * 0.06}>
-                <div className="border border-gray-200 rounded-xl p-5 hover:border-brand-green transition-colors">
-                  <h3 className="font-heading font-bold text-sm text-brand-text mb-2 flex items-start gap-2">
-                    <CheckCircle2 size={15} className="text-brand-green flex-shrink-0 mt-0.5" />
-                    {faq.q}
-                  </h3>
-                  <p className="text-xs text-gray-600 leading-relaxed pl-5">{faq.a}</p>
-                </div>
-              </SectionReveal>
-            ))}
-          </div>
+          <FaqAccordion faqs={FAQS} />
         </div>
       </section>
     </>

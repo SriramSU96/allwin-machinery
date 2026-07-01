@@ -135,18 +135,18 @@ export default function AboutPage() {
             </h2>
           </SectionReveal>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
             {WHY_CHOOSE.map((item, i) => (
               <SectionReveal key={item.title} delay={i * 0.08}>
-                <div className="bg-white rounded-xl p-5 flex gap-4 items-start hover:shadow-medium transition-shadow">
-                  <div className="w-11 h-11 rounded-xl bg-brand-green/10 flex items-center justify-center flex-shrink-0">
-                    <item.icon size={20} className="text-brand-green" />
+                <div className="bg-white rounded-xl p-4 sm:p-5 flex gap-3 sm:gap-4 items-start hover:shadow-medium active:shadow-medium transition-shadow">
+                  <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-brand-green/10 flex items-center justify-center flex-shrink-0">
+                    <item.icon size={18} className="text-brand-green" />
                   </div>
-                  <div>
-                    <h3 className="font-heading font-bold text-sm text-brand-text mb-1">
+                  <div className="min-w-0">
+                    <h3 className="font-heading font-bold text-[13px] sm:text-sm text-brand-text mb-1">
                       {item.title}
                     </h3>
-                    <p className="text-xs text-gray-500 leading-relaxed">{item.desc}</p>
+                    <p className="text-[11px] sm:text-xs text-gray-500 leading-relaxed">{item.desc}</p>
                   </div>
                 </div>
               </SectionReveal>
@@ -155,14 +155,20 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Stats */}
-      <section className="bg-brand-dark py-14">
+      {/* Stats — ✅ MOBILE FIXED: heading full width on its own row, numbers wrap 2-col below */}
+      <section className="bg-brand-dark py-10 sm:py-14">
         <div className="max-w-container mx-auto px-4 md:px-6">
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-6 text-center">
+          <div className="mb-6 text-center">
+            <h2 className="font-heading font-black text-[22px] sm:text-[28px] md:text-[32px] text-white leading-tight">
+              Your Trust Is <span className="text-brand-gold">Our Priority</span>
+            </h2>
+            <p className="text-white/50 text-xs sm:text-sm mt-1">Best quality machinery</p>
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 sm:gap-6 text-center">
             {STATS.map((stat, i) => (
               <SectionReveal key={stat.label} delay={i * 0.1}>
                 <CountUpStat value={stat.value} suffix={stat.suffix} />
-                <p className="text-white/50 text-xs font-heading font-semibold mt-1">{stat.label}</p>
+                <p className="text-white/50 text-[10px] sm:text-xs font-heading font-semibold mt-1">{stat.label}</p>
               </SectionReveal>
             ))}
           </div>
@@ -172,23 +178,22 @@ export default function AboutPage() {
       {/* Brands */}
       <section className="bg-gradient-to-b from-brand-white to-brand-light-gray/40 py-16 md:py-20">
         <div className="max-w-container mx-auto px-4 md:px-6">
-          <SectionReveal className="mb-10">
-            <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
-              <div>
-                <p className="font-heading font-bold text-[11px] text-brand-green uppercase tracking-[4px] mb-3">
+          <SectionReveal className="mb-8 sm:mb-10">
+            <div className="flex flex-row items-start justify-between gap-3">
+              <div className="flex-1 min-w-0">
+                <p className="font-heading font-bold text-[10px] sm:text-[11px] text-brand-green uppercase tracking-[3px] sm:tracking-[4px] mb-2 sm:mb-3">
                   Brands We Deal In
                 </p>
-
-                <h2 className="font-heading font-black text-[26px] md:text-[32px] leading-[1.1] text-brand-text">
+                <h2 className="font-heading font-black text-[20px] sm:text-[26px] md:text-[32px] leading-tight text-brand-text">
                   Powered By{" "}
                   <span className="text-brand-green">World-Class Brands</span>
                 </h2>
               </div>
               <Link
                 href="/brands"
-                className="hidden md:inline-flex items-center justify-center rounded-full border-2 border-brand-green bg-white px-6 py-3 text-[13px] font-heading font-bold text-brand-green transition-all duration-300 hover:bg-brand-green hover:text-white hover:shadow-[0_8px_24px_rgba(13,107,58,0.25)] flex-shrink-0"
+                className="flex-shrink-0 flex items-center justify-center rounded-full border-2 border-brand-green bg-white px-3 sm:px-6 py-2 sm:py-3 text-[11px] sm:text-[13px] font-heading font-bold text-brand-green transition-all duration-300 hover:bg-brand-green hover:text-white active:bg-brand-green active:text-white whitespace-nowrap self-start"
               >
-                View All Brands
+                View All
               </Link>
             </div>
           </SectionReveal>

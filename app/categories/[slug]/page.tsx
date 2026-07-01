@@ -72,9 +72,12 @@ export default async function CategoryPage({ params }: Props) {
         ]}
       />
 
-      <section className="max-w-container mx-auto px-4 md:px-6 py-12">
-        <div className="flex flex-col lg:flex-row gap-8 mb-10">
-          <div className="flex-1">
+      <section className="max-w-container mx-auto px-4 md:px-6 py-8 md:py-12">
+        <div className="flex flex-col lg:flex-row gap-8 mb-8 md:mb-10">
+          {/* ✅ MOBILE FIXED: this card duplicates what PageHero already
+              shows (image + title + description) — only needed as extra
+              detail on desktop where there's room for it. */}
+          <div className="hidden lg:block flex-1">
             <div className="rounded-3xl overflow-hidden border border-gray-200 bg-white shadow-sm">
               <div className="relative h-64 sm:h-80">
                 <Image
@@ -100,7 +103,7 @@ export default async function CategoryPage({ params }: Props) {
             </div>
           </div>
 
-          <div className="w-full lg:w-80 space-y-4">
+          <div className="hidden lg:block w-full lg:w-80 space-y-4">
             <div className="rounded-3xl border border-gray-200 bg-white p-6 shadow-sm">
               <h3 className="font-heading font-bold text-sm uppercase tracking-[2px] text-brand-green mb-3">
                 Category details
