@@ -62,17 +62,16 @@ export function PageHero({
             aria-hidden="true"
           />
 
-          {/* Subtle mobile-only background tint so the section doesn't look flat */}
+          {/* Mobile background — subtle tint on image so text is readable
+              ✅ MOBILE FIXED: removed the solid bg-dark/85 overlay that was
+              making the background completely black and hiding the image */}
           <div
-            className="md:hidden absolute inset-0 pointer-events-none opacity-30"
+            className="md:hidden absolute inset-0 pointer-events-none"
             style={{
-              backgroundImage: `url(${optimizeCloudinaryUrl(backgroundImage)})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center 60%",
+              background: "linear-gradient(135deg, rgba(18,18,18,0.75) 0%, rgba(18,18,18,0.50) 60%, rgba(18,18,18,0.30) 100%)",
             }}
             aria-hidden="true"
           />
-          <div className="md:hidden absolute inset-0 bg-brand-dark/85 pointer-events-none" aria-hidden="true" />
         </>
       )}
 

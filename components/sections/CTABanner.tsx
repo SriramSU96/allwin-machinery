@@ -15,15 +15,42 @@ export function CTABanner() {
           </p>
         </div>
 
-        {/* ✅ MOBILE FIXED: 3 buttons in one row, compact size on mobile */}
-        <div className="btn-row-mobile sm:flex sm:flex-row sm:gap-3 flex-shrink-0 w-full sm:w-auto">
+        {/* Desktop: full text, proper spacing. Mobile: compact 3 buttons in one row */}
+        <div className="hidden sm:flex sm:flex-row sm:gap-3 sm:flex-shrink-0">
+          {/* Desktop buttons — full text, no truncation */}
           <a
             href={`tel:${SITE_CONFIG.phone}`}
-            className="btn bg-white text-brand-green hover:bg-brand-gold hover:text-white active:bg-brand-gold active:text-white flex items-center justify-center gap-1.5"
+            className="btn bg-white text-brand-green hover:bg-brand-gold hover:text-white flex items-center gap-2 px-5 py-3 whitespace-nowrap"
+          >
+            <Phone size={15} className="flex-shrink-0" />
+            {SITE_CONFIG.phone}
+          </a>
+          <a
+            href={buildWhatsAppUrl(SITE_CONFIG.whatsapp, "Hi! I want to inquire about your machinery.")}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn bg-[#0d7a3a] text-white flex items-center gap-2 px-5 py-3 whitespace-nowrap"
+          >
+            <MessageCircle size={15} className="flex-shrink-0" />
+            WhatsApp Us
+          </a>
+          <Link
+            href="/catalog"
+            className="btn bg-brand-dark/50 text-white border border-white/20 hover:bg-brand-dark flex items-center gap-2 px-5 py-3 whitespace-nowrap"
+          >
+            <Download size={15} className="flex-shrink-0" />
+            Download Catalog
+          </Link>
+        </div>
+
+        {/* Mobile: 3 compact buttons in one row — PDF: "remove Catalog btn on mobile" → keep only Call + WhatsApp */}
+        <div className="sm:hidden btn-row-mobile w-full">
+          <a
+            href={`tel:${SITE_CONFIG.phone}`}
+            className="btn bg-white text-brand-green flex items-center justify-center gap-1.5 active:bg-brand-gold active:text-white"
           >
             <Phone size={14} className="flex-shrink-0" />
-            <span className="truncate sm:inline hidden">{SITE_CONFIG.phone}</span>
-            <span className="sm:hidden">Call Us</span>
+            Call Us
           </a>
           <a
             href={buildWhatsAppUrl(SITE_CONFIG.whatsapp, "Hi! I want to inquire about your machinery.")}
@@ -32,15 +59,8 @@ export function CTABanner() {
             className="btn bg-[#0d7a3a] text-white flex items-center justify-center gap-1.5"
           >
             <MessageCircle size={14} className="flex-shrink-0" />
-            <span>WhatsApp</span>
+            WhatsApp
           </a>
-          <Link
-            href="/catalog"
-            className="btn bg-brand-dark/50 text-white border border-white/20 hover:bg-brand-dark active:bg-brand-dark flex items-center justify-center gap-1.5"
-          >
-            <Download size={14} className="flex-shrink-0" />
-            <span>Catalog</span>
-          </Link>
         </div>
       </div>
     </section>
