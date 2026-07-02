@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { NAV_ITEMS, SITE_CONFIG, buildWhatsAppUrl } from "@/lib/utils";
 import { cn } from "@/lib/utils";
 import { Phone, ChevronDown, Menu, X, MessageCircle, Heart } from "lucide-react";
@@ -19,6 +20,7 @@ export function Navbar({ categories }: NavbarProps) {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const { count: wishlistCount } = useWishlist();
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 80);
@@ -102,7 +104,13 @@ export function Navbar({ categories }: NavbarProps) {
                           activeDropdown === item.label ? null : item.label
                         )
                       }
-                      className="flex items-center gap-0.5 px-1.5 xl:px-2 py-2 text-[12px] xl:text-[13px] text-white/80 hover:text-brand-gold font-heading font-semibold transition-colors whitespace-nowrap"
+                      className={cn(
+                        "flex items-center gap-0.5 px-1.5 xl:px-2 py-2 text-[12px] xl:text-[13px] font-heading font-semibold transition-colors whitespace-nowrap",
+                        // ✅ Active page highlight: gold if current path starts with item href
+                        pathname.startsWith(item.href) && item.href !== "/"
+                          ? "text-brand-gold"
+                          : "text-white/80 hover:text-brand-gold"
+                      )}
                     >
                       {item.label}
                       <ChevronDown
@@ -116,9 +124,19 @@ export function Navbar({ categories }: NavbarProps) {
                   ) : (
                     <Link
                       href={item.href}
-                      className="px-1.5 xl:px-2 py-2 text-[12px] xl:text-[13px] text-white/80 hover:text-brand-gold font-heading font-semibold transition-colors block whitespace-nowrap"
+                      className={cn(
+                        "px-1.5 xl:px-2 py-2 text-[12px] xl:text-[13px] font-heading font-semibold transition-colors block whitespace-nowrap relative",
+                        // ✅ Active page highlight in gold
+                        (item.href === "/" ? pathname === "/" : pathname.startsWith(item.href))
+                          ? "text-brand-gold"
+                          : "text-white/80 hover:text-brand-gold"
+                      )}
                     >
                       {item.label}
+                      {/* Underline indicator for active link */}
+                      {(item.href === "/" ? pathname === "/" : pathname.startsWith(item.href)) && (
+                        <span className="absolute bottom-0 left-1.5 right-1.5 h-[2px] bg-brand-gold rounded-full" />
+                      )}
                     </Link>
                   )}
 
@@ -205,7 +223,12 @@ export function Navbar({ categories }: NavbarProps) {
                   <Link
                     href={item.href}
                     onClick={() => setMobileOpen(false)}
-                    className="block py-3 text-white font-heading font-semibold border-b border-white/10"
+                    className={cn(
+                      "block py-3 font-heading font-semibold border-b border-white/10 transition-colors",
+                      (item.href === "/" ? pathname === "/" : pathname.startsWith(item.href))
+                        ? "text-brand-gold"
+                        : "text-white"
+                    )}
                   >
                     {item.label}
                   </Link>

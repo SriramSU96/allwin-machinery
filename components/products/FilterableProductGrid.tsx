@@ -12,12 +12,15 @@ interface FilterableProductGridProps {
   products: Product[];
   brands?: Brand[];
   emptyMessage?: string;
+  /** Number of columns on desktop. Default 2 (xl:4). Pass 4 for category pages. */
+  desktopCols?: 2 | 4;
 }
 
 export function FilterableProductGrid({
   products,
   brands,
   emptyMessage = "No products match your search.",
+  desktopCols = 2,
 }: FilterableProductGridProps) {
   const [search, setSearch] = useState("");
   const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
@@ -212,9 +215,9 @@ export function FilterableProductGrid({
         <div
           className={cn(
             "grid gap-3 sm:gap-6",
-            viewMode === "grid"
-              ? "grid-cols-2 sm:grid-cols-2 xl:grid-cols-4"
-              : "grid-cols-1"
+            desktopCols === 4
+              ? "grid-cols-2 sm:grid-cols-2 lg:grid-cols-4"
+              : "grid-cols-2 sm:grid-cols-2 xl:grid-cols-4"
           )}
         >
           {filtered.map((product) => (
