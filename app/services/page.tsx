@@ -77,16 +77,11 @@ export default function ServicesPage() {
               Why Choose Our Services?
             </p>
           </SectionReveal>
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-4 sm:gap-5">
+          {/* ✅ DESKTOP FIXED: center the grid so 4 cards are evenly spaced,
+              not left-aligned with an empty right cell */}
+          <div className="flex flex-wrap justify-center gap-4 sm:gap-5">
             {WHY_CHOOSE.map((item, i) => (
-              <SectionReveal key={item.title} delay={i * 0.08}
-                className={
-                  /* ✅ MOBILE FIXED: last card centers when grid has odd count */
-                  i === WHY_CHOOSE.length - 1 && WHY_CHOOSE.length % 2 !== 0
-                    ? "col-span-2 md:col-span-1"
-                    : ""
-                }
-              >
+              <SectionReveal key={item.title} delay={i * 0.08} className="w-[calc(50%-8px)] sm:w-[calc(25%-12px)] md:w-[180px]">
                 <div className="bg-[#F5F5F5] rounded-xl p-4 sm:p-5 text-center hover:shadow-soft active:shadow-soft transition-shadow h-full">
                   <span className="text-3xl sm:text-4xl block mb-2 sm:mb-3">{item.icon}</span>
                   <h3 className="font-heading font-bold text-[12px] sm:text-sm text-brand-text mb-1">{item.title}</h3>
@@ -110,25 +105,48 @@ export default function ServicesPage() {
             </h2>
           </SectionReveal>
 
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-6">
-            {PROCESS.map((step, i) => (
-              <SectionReveal key={step.title} delay={i * 0.1}>
-                <div className="flex flex-col items-center text-center gap-3">
-                  <div className="relative">
-                    <div className="w-14 h-14 rounded-full bg-brand-green flex items-center justify-center text-2xl">
-                      {step.icon}
+          {/* ✅ DESKTOP: connecting line between steps in brand green/gold colors
+              ✅ MOBILE: vertical line hidden (text overlapping issue fixed),
+              5th step centers in 2-col grid */}
+          <div className="relative">
+            {/* Desktop horizontal connecting line */}
+            <div
+              className="hidden md:block absolute top-7 left-[5%] right-[5%] h-[2px] pointer-events-none"
+              style={{
+                background: "linear-gradient(90deg, transparent 0%, #1F4D3A 15%, #D4A017 50%, #1F4D3A 85%, transparent 100%)",
+              }}
+              aria-hidden="true"
+            />
+
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-6">
+              {PROCESS.map((step, i) => (
+                <SectionReveal
+                  key={step.title}
+                  delay={i * 0.1}
+                  className={
+                    // Center 5th step on mobile (odd item in 2-col)
+                    i === PROCESS.length - 1 && PROCESS.length % 2 !== 0
+                      ? "col-span-2 md:col-span-1"
+                      : ""
+                  }
+                >
+                  <div className="flex flex-col items-center text-center gap-2 sm:gap-3">
+                    <div className="relative z-10">
+                      <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-brand-green flex items-center justify-center text-xl sm:text-2xl ring-4 ring-white">
+                        {step.icon}
+                      </div>
+                      <span className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-brand-gold text-brand-dark text-[10px] font-heading font-black flex items-center justify-center ring-2 ring-white">
+                        {i + 1}
+                      </span>
                     </div>
-                    <span className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-brand-gold text-brand-dark text-[10px] font-heading font-black flex items-center justify-center">
-                      {i + 1}
-                    </span>
+                    <div>
+                      <p className="font-heading font-bold text-[13px] sm:text-sm text-brand-text mb-1">{step.title}</p>
+                      <p className="text-[11px] sm:text-xs text-gray-600 leading-relaxed max-w-[140px] mx-auto">{step.desc}</p>
+                    </div>
                   </div>
-                  <div>
-                    <p className="font-heading font-bold text-sm text-brand-text mb-1">{step.title}</p>
-                    <p className="text-xs text-gray-600 leading-relaxed">{step.desc}</p>
-                  </div>
-                </div>
-              </SectionReveal>
-            ))}
+                </SectionReveal>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -155,30 +173,31 @@ export default function ServicesPage() {
       </section>
 
       {/* ── Help CTA ── */}
-      <section className="bg-brand-green py-14 px-4">
-        <div className="max-w-container mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
-          <div className="text-center md:text-left">
-            <h2 className="font-heading font-bold text-2xl text-white mb-2">
+      <section className="bg-brand-green py-10 sm:py-14 px-4">
+        <div className="max-w-container mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div className="text-center sm:text-left">
+            <h2 className="font-heading font-bold text-xl sm:text-2xl text-white mb-2">
               Need Help With Your Machine?
             </h2>
             <p className="text-white/70 text-sm">
               Our support team is always ready to assist you with the best service and solutions.
             </p>
           </div>
+          {/* ✅ FIXED: nowrap so text stays on one line, proper padding */}
           <div className="flex gap-3 flex-shrink-0">
             <a
               href={`tel:${SITE_CONFIG.phone}`}
-              className="btn bg-white text-brand-green px-6 py-3 text-sm hover:bg-brand-gold hover:text-white flex items-center gap-2"
+              className="btn bg-white text-brand-green px-5 py-3 text-sm hover:bg-brand-gold hover:text-white active:bg-brand-gold active:text-white flex items-center gap-2 whitespace-nowrap"
             >
-              <Phone size={16} /> Call Support
+              <Phone size={15} className="flex-shrink-0" /> Call Support
             </a>
             <a
               href={buildWhatsAppUrl(SITE_CONFIG.whatsapp, "Hi! I need service support for my machine.")}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn bg-[#0d7a3a] text-white px-6 py-3 text-sm flex items-center gap-2"
+              className="btn bg-[#0d7a3a] text-white px-5 py-3 text-sm flex items-center gap-2 whitespace-nowrap"
             >
-              <MessageCircle size={16} /> WhatsApp Support
+              <MessageCircle size={15} className="flex-shrink-0" /> WhatsApp Support
             </a>
           </div>
         </div>

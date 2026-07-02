@@ -189,9 +189,10 @@ export default function AboutPage() {
                   <span className="text-brand-green">World-Class Brands</span>
                 </h2>
               </div>
+              {/* ✅ MOBILE FIXED: "View All" hidden on mobile — PDF says remove it */}
               <Link
                 href="/brands"
-                className="flex-shrink-0 flex items-center justify-center rounded-full border-2 border-brand-green bg-white px-3 sm:px-6 py-2 sm:py-3 text-[11px] sm:text-[13px] font-heading font-bold text-brand-green transition-all duration-300 hover:bg-brand-green hover:text-white active:bg-brand-green active:text-white whitespace-nowrap self-start"
+                className="hidden sm:flex flex-shrink-0 items-center justify-center rounded-full border-2 border-brand-green bg-white px-6 py-3 text-[13px] font-heading font-bold text-brand-green transition-all duration-300 hover:bg-brand-green hover:text-white whitespace-nowrap self-start"
               >
                 View All
               </Link>
@@ -222,15 +223,7 @@ export default function AboutPage() {
             ))}
           </div>
 
-          {/* Mobile CTA */}
-          <div className="mt-8 flex justify-center md:hidden">
-            <Link
-              href="/brands"
-              className="inline-flex items-center justify-center rounded-full border-2 border-brand-green bg-white px-6 py-3 text-sm font-heading font-bold text-brand-green transition hover:bg-brand-green hover:text-white"
-            >
-              View All Brands
-            </Link>
-          </div>
+          {/* Mobile CTA removed per PDF — only desktop shows View All */}
         </div>
       </section>
 

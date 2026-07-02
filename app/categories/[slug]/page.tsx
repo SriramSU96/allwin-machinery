@@ -153,6 +153,7 @@ export default async function CategoryPage({ params }: Props) {
             products={products}
             brands={brands}
             emptyMessage="No products match your search in this category."
+            desktopCols={4}
           />
         )}
       </section>

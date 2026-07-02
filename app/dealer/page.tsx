@@ -206,10 +206,7 @@ export default function DealerPage() {
               line on mobile, horizontal with top line on desktop */}
           <div className="relative flex flex-col md:flex-row items-center md:items-start gap-0 md:gap-4">
 
-            {/* Vertical connecting line — mobile */}
-            <div className="md:hidden absolute left-1/2 top-8 bottom-8 w-[2px] bg-gradient-to-b from-brand-green/20 via-brand-green/50 to-brand-green/20 -translate-x-1/2" aria-hidden="true" />
-
-            {/* Horizontal connecting line — desktop */}
+            {/* Horizontal connecting line — desktop only (mobile line removed per PDF as it overlapped text) */}
             <div className="hidden md:block absolute top-7 left-[10%] right-[10%] h-[2px] bg-gradient-to-r from-brand-green/15 via-brand-green/40 to-brand-green/15" aria-hidden="true" />
 
             {PROCESS_STEPS.map((step, i) => (
@@ -280,13 +277,22 @@ export default function DealerPage() {
               Join hands with Allwin Machinery and build a successful partnership for a better future.
             </p>
           </div>
-          {/* ✅ MOBILE FIXED: buttons in same row, never stacked */}
-          <div className="btn-row-mobile sm:flex sm:gap-3 sm:flex-shrink-0">
-            <a href="#dealer-form" className="btn bg-white text-brand-green hover:bg-brand-gold hover:text-white active:bg-brand-gold active:text-white flex items-center justify-center gap-1">
+          {/* Desktop: full text with proper padding */}
+          <div className="hidden sm:flex gap-4 flex-shrink-0">
+            <a href="#dealer-form" className="btn bg-white text-brand-green hover:bg-brand-gold hover:text-white flex items-center gap-2 px-6 py-3 whitespace-nowrap">
               📋 Apply Now
             </a>
-            <Link href="/contact" className="btn bg-brand-dark/40 text-white border border-white/20 hover:bg-brand-dark active:bg-brand-dark flex items-center justify-center gap-1">
+            <Link href="/contact" className="btn bg-brand-dark/40 text-white border border-white/20 hover:bg-brand-dark flex items-center gap-2 px-6 py-3 whitespace-nowrap">
               📞 Contact Our Team
+            </Link>
+          </div>
+          {/* Mobile: compact row */}
+          <div className="sm:hidden btn-row-mobile w-full">
+            <a href="#dealer-form" className="btn bg-white text-brand-green active:bg-brand-gold active:text-white flex items-center justify-center gap-1 text-[12px]">
+              📋 Apply Now
+            </a>
+            <Link href="/contact" className="btn bg-brand-dark/40 text-white border border-white/20 active:bg-brand-dark flex items-center justify-center gap-1 text-[12px]">
+              📞 Contact Team
             </Link>
           </div>
         </div>
